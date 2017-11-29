@@ -6,4 +6,4 @@
 Νάνος Λεωνίδας			   3113152	nanomail4@gmail.com <br />
 Τζανίκος Μαρίνος		   3113147	mtzaniko@gmail.com <br />
 Κυτέας Απόστολος		   3113209	apostoloskyteas@gmail.com <br />
-Ντερβάκος Έντμοντ-Γρηγόρης 3113063	eddiedervakos@hotmail.com
+Ντερβάκος Έντμοντ-Γρηγόρης 3110063	eddiedervakos@hotmail.com
