@@ -1,0 +1,43 @@
+
+
+
+<div class="container-fluid bg">
+  
+  <div class="row">
+
+    <div class="col-md-4 col-sm-4 col-xs-12"></div>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+      <h1>Login</h1>
+      <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+      <!--enter form -->
+      <!--form class="form-container" method="post" action="first_page.html"-->
+      <form class="form" ng-submit="login()">
+ 
+          <div class="form-group">
+            <label for="exampleLastName1"><strong>Όνομα χρήστη</strong></label>
+            <!--input type="text" class="form-control" id="exampleLastName1" placeholder="Όνομα χρήστη"-->
+            <input type="text" class="form-control" name="username" ng-model="loginForm.username" required>
+
+          </div>
+          
+          <div class="form-group">
+            <label for="exampleInputPassword1"><strong>Κωδικός</strong></label>
+            <!--input type="password" class="form-control" id="exampleInputPassword1" placeholder="Κωδικός"-->
+            <input type="password" class="form-control" name="password" ng-model="loginForm.password" required>
+
+          </div>
+          
+          <!--button type="submit" class="btn btn-success btn-block">Submit</button-->
+          <button type="submit" class="btn btn-default" ng-disabled="disabled">Σύνδεση</button>
+
+      </form>
+
+      <!--end form-->
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12"></div>
+  </div>
+</div>
+
+<!--script type="text/javascript" src="signup.js"></script>
+</body>
+</html--!>
