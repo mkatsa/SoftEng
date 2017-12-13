@@ -32,7 +32,7 @@ angular.module('myApp').controller('loginController',
 
 
 //Controller paired with home page
-angular.module('myApp').controller('homeController',
+angular.module('myApp').controller('headerController',
   ['$scope', '$route', 'AuthService',
   function ($scope, $route, AuthService) {
 
@@ -89,7 +89,7 @@ angular.module('myApp').controller('registerController',
       AuthService.register($scope.registerForm.username, $scope.registerForm.password)
         // handle success
         .then(function () {
-          $location.path('/login');
+          $location.path('/');
           $scope.disabled = false;
           $scope.registerForm = {};
         })

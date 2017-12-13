@@ -7,7 +7,7 @@ myApp.config(function ($routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'partials/home.html',
-      controller: 'homeController',
+      //controller: 'homeController',
       access: {restricted: false}
     })
     .when('/login', {
@@ -28,7 +28,26 @@ myApp.config(function ($routeProvider) {
       template: '<h1>This is page two!</h1>',
       access: {restricted: false}
     })
-    
+    .when('/terms',{
+      templateUrl:'partials/terms.html',
+      access:{restricted:false}
+    })
+    .when('/about',{
+      templateUrl:'partials/about.html',
+      accss:{restricted:false}
+    })
+    .when('/contact',{
+      templateUrl:'partials/contact.html',
+      accss:{restricted:false}
+    })
+    .when('/faq',{
+      templateUrl:'partials/faq.html',
+      accss:{restricted:false}
+    })
+    .when('/donate',{
+      templateUrl:'partials/donate.html',
+      accss:{restricted:false}
+    })
     .otherwise({
       redirectTo: '/',
       access:{restricted:false}
@@ -42,6 +61,8 @@ myApp.config(function ($routeProvider) {
 myApp.run(function ($rootScope, $location, $route, AuthService) {
   $rootScope.$on('$routeChangeStart',
     function (event, next, current) {
+
+
       AuthService.getUserStatus()
       .then(function(){
         if (next.access != undefined && next.access.restricted && !AuthService.isLoggedIn()){
@@ -49,6 +70,7 @@ myApp.run(function ($rootScope, $location, $route, AuthService) {
           $route.reload();
         }
       });
+
   });
 });
 

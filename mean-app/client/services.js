@@ -1,3 +1,6 @@
+//Store current page here if next page is login (to redirect them)
+angular.module('myApp').value('redirectToUrlAfterLogin', { url: '/' });
+
 angular.module('myApp').factory('AuthService',
   ['$q', '$timeout', '$http',
   function ($q, $timeout, $http) {
@@ -22,8 +25,7 @@ angular.module('myApp').factory('AuthService',
     }
 
 
-    function logout() 
-    {
+  function logout() {
 
       // create a new instance of deferred
       var deferred = $q.defer();
@@ -46,8 +48,24 @@ angular.module('myApp').factory('AuthService',
 
     }
 
-    function login(username, password) 
-    {
+
+
+    //If next path is login, save current path to redirect them
+    function saveAttemptUrl(){
+      if($location.path().toLowerCase() != '/login') {
+        redirectToUrlAfterLogin.url = $location.path();
+      }
+      else {
+        redirectToUrlAfterLogin.url = '/';
+      }
+    }
+
+    //redirect to saved URL (after login)
+    function redirectToAttemptedUrl(){
+      $location.path(redirectToUrlAfterLogin.url);
+    }
+
+    function login(username, password) {
     // create a new instance of deferred
     var deferred = $q.defer();
 
@@ -113,20 +131,21 @@ angular.module('myApp').factory('AuthService',
       return username;
     }  
 
+    
     function getUserStatus() {
     var deferred = $q.defer();
 
-    console.log('SERVICE: getting userStatus')
+    //console.log('SERVICE: getting userStatus')
     $http.get('/user/status')
     // handle success
       .success(function (data) {
       if(data.status){
-        console.log('SERVICE: Success if')
+        //console.log('SERVICE: Success if')
         user = true;
         deferred.resolve();
 
       } else {
-        console.log('SERVICE: Success else')
+        //console.log('SERVICE: Success else')
         user = false;
         deferred.resolve();
 
@@ -134,7 +153,7 @@ angular.module('myApp').factory('AuthService',
     })
     // handle error
     .error(function (data) {
-      console.log('SERVICE: error')
+      //console.log('SERVICE: error')
       user = false;
      deferred.reject();
 
@@ -168,6 +187,8 @@ angular.module('myApp').factory('AuthService',
   return deferred.promise;
 }
 
+
+
 //username=getUserName();
 
 return ({
@@ -180,3 +201,4 @@ return ({
       register: register
     });
 }]);
+
