@@ -152,3 +152,71 @@ h3{
 #id {
   padding-top: 50%;
 }
+
+/*https://bootsnipp.com/snippets/featured/portfolio-gallery-with-filtering-category*/
+.filter-button
+{
+    font-size: 18px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 30px;
+
+}
+.filter-button:hover
+{
+    font-size: 18px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #000000;
+
+}
+.btn-default:active .filter-button:active
+{
+    background-color: #42B32F;
+    color: white;
+}
+
+.port-image
+{
+    width: 100%;
+}
+
+.gallery_product
+{
+  
+    margin-bottom: 30px;
+    position:relative;
+    text-align: center;
+    width:365px;
+    height: 365px;
+    max-width: 365px;
+    max-height: 365px;
+    min-width: 365px;
+    min-height: 365px;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+/**/
+.event-title-overlay {
+    text-align: center;
+    top:0%;
+    left:4%;
+    max-width: 92%;
+    background-color: rgba(200,200,200,0.6);
+    position: absolute;
+    overflow: hidden;
+}
+.event-age-overlay {
+    text-align: right;
+    bottom:8%;
+    right: 6.8%;
+    max-width: 20em;
+    background-color: rgba(30,200,200,0.6);
+    position: absolute;
+    overflow: hidden;
+}

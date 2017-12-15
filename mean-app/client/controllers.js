@@ -36,15 +36,9 @@ angular.module('myApp').controller('headerController',
   ['$scope', '$route', 'AuthService',
   function ($scope, $route, AuthService) {
 
-    $scope.dummyname = "eddie"
-    //getUserStatus refreshes logged in value so isLoggedIn() returns correct value
-    AuthService.getUserStatus()
-    .then(function(){
-    //AFTER user status has been refreshed, get it with isLoggedIn  
+    //Check if user is logged in
     $scope.isLoggedIn = AuthService.isLoggedIn();
-    })
-    .then(function(){
-    //AFTER isLoggedIn has got it's value, check if true
+    
     if($scope.isLoggedIn)
     {
     //If true, refresh service.username
@@ -53,9 +47,10 @@ angular.module('myApp').controller('headerController',
     //After service.username has been refreshed, get it and store it in the scope
     //to be called from html
     $scope.username = AuthService.getUserName();
-    })
-    }
     });
+    }
+    
+    //);
     
     //Function logout to be called from html
     $scope.logout = function () {
@@ -105,3 +100,34 @@ angular.module('myApp').controller('registerController',
 
 }]);
 
+
+angular.module('myApp').controller('eventsController',
+  ['$scope', '$route', 'AuthService',
+  function ($scope, $route, AuthService) {
+  $(document).ready(function(){
+
+      $(".filter-button").click(function(){
+          var value = $(this).attr('data-filter');
+          
+          if(value == "all")
+          {
+              //$('.filter').removeClass('hidden');
+              $('.filter').show('1000');
+          }
+          else
+          {
+  //            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+  //            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+              $(".filter").not('.'+value).hide('3000');
+              $('.filter').filter('.'+value).show('3000');
+              
+          }
+      });
+      
+      if ($(".filter-button").removeClass("active")) {
+  $(this).removeClass("active");
+  }
+  $(this).addClass("active");
+
+  });
+  }]);
