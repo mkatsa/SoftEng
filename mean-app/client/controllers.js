@@ -131,3 +131,30 @@ angular.module('myApp').controller('eventsController',
 
   });
   }]);
+
+//https://stackoverflow.com/questions/23185619/how-can-i-use-html5-geolocation-in-angularjs
+angular.module('myApp').controller('eventsLocationController',
+  ['$scope', '$route', 'AuthService', 'GeolocationService',
+  function ($scope, $route, AuthService,GeolocationService) {
+
+    var haveLoc=false;    
+    $scope.captureUserLocation = function() {
+        if (!haveLoc){
+          GeolocationService.getCurrentPosition()
+          .then(function(position){
+              haveLoc=true;
+              console.log("KOBLE");
+              showPosition(position);
+        });
+        }
+      }
+
+    function showPosition(position) {
+      latlon = position.coords.latitude + "," + position.coords.longitude;
+
+      //API key AIzaSyBpyJPBHwTbkAFdT8BBlc3p1i8OxMLR7pw
+
+      img_url = "https://www.google.com/maps/embed/v1/view?key=AIzaSyBEe0-lSLxmJnc_X48luijRr17_yWrBAtA&zoom=14&center="+latlon;
+      document.getElementById("mapholder").innerHTML = "<iframe src='"+img_url+"'></iframe>";
+}
+  }]);

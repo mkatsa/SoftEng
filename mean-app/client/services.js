@@ -1,31 +1,31 @@
+/////////////////////////////////////////////////////////////////////////////
 //Store current page here if next page is login (to redirect them)
 angular.module('myApp').value('redirectToUrlAfterLogin', { url: '/' });
 
+/////////////////////////////////////////////////////////////////////////////
+//Service handling authorization
 angular.module('myApp').factory('AuthService',
   ['$q', '$timeout', '$http',
   function ($q, $timeout, $http) {
-
     // create user variable
-    if(!isLoggedIn())
-    {
-    var user = null;
-    var username="anonymous";
+    if(!isLoggedIn()){
+      var user = null;
+      var username="anonymous";
     }
 
-    function isLoggedIn() 
-    {
-      if(user) 
-      {
+    //Returns true if user is logged in
+    function isLoggedIn(){
+      if(user) {
         return true;
       } 
-      else 
-      {
+      else {
         return false;
       }
     }
 
 
-  function logout() {
+    //Logs out the user
+    function logout() {
 
       // create a new instance of deferred
       var deferred = $q.defer();
@@ -65,40 +65,42 @@ angular.module('myApp').factory('AuthService',
       $location.path(redirectToUrlAfterLogin.url);
     }
 
+    
+    //Log in
     function login(username, password) {
-    // create a new instance of deferred
-    var deferred = $q.defer();
+      // create a new instance of deferred
+      var deferred = $q.defer();
 
-    // send a post request to the server
-    $http.post('/user/login',
-    {username: username, password: password})
-    // handle success
-    .success(function (data, status) {
-      if(status === 200 && data.status){
-        user = true;
-        
-        deferred.resolve();
-      } else {
+      // send a post request to the server
+      $http.post('/user/login',
+      {username: username, password: password})
+      // handle success
+      .success(function (data, status) {
+        if(status === 200 && data.status){
+          user = true;
+          
+          deferred.resolve();
+        } else {
+          user = false;
+          deferred.reject();
+        }
+      })
+      // handle error
+      .error(function (data) {
         user = false;
         deferred.reject();
-      }
-    })
-    // handle error
-    .error(function (data) {
-      user = false;
-      deferred.reject();
-    });
+      });
 
-  // return promise object
-  return deferred.promise;
+    // return promise object
+    return deferred.promise;
 
   }
 
 
+    //Gets the user's username from backend
+    //(Does not return)
     function refreshUserName(){
       
-      console.log('SERVICE: refreshing username');
-
       var deferred = $q.defer();
 
       // send a post request to the server
@@ -125,40 +127,43 @@ angular.module('myApp').factory('AuthService',
     // return promise object
     return deferred.promise;
   }
-      
+    
+
+    //Returns user's username  
     function getUserName(){
-      console.log('SERVICE: getting username')
       return username;
     }  
 
     
+    //Gets user's status from backend
+    //(does not return)
     function getUserStatus() {
-    var deferred = $q.defer();
+      var deferred = $q.defer();
 
-    //console.log('SERVICE: getting userStatus')
-    $http.get('/user/status')
-    // handle success
-      .success(function (data) {
-      if(data.status){
-        //console.log('SERVICE: Success if')
-        user = true;
-        deferred.resolve();
+      //console.log('SERVICE: getting userStatus')
+      $http.get('/user/status')
+      // handle success
+        .success(function (data) {
+        if(data.status){
+          //console.log('SERVICE: Success if')
+          user = true;
+          deferred.resolve();
 
-      } else {
-        //console.log('SERVICE: Success else')
+        } else {
+          //console.log('SERVICE: Success else')
+          user = false;
+          deferred.resolve();
+
+        }
+      })
+      // handle error
+      .error(function (data) {
+        //console.log('SERVICE: error')
         user = false;
-        deferred.resolve();
+       deferred.reject();
 
-      }
-    })
-    // handle error
-    .error(function (data) {
-      //console.log('SERVICE: error')
-      user = false;
-     deferred.reject();
-
-    });
-    return deferred.promise;
+      });
+      return deferred.promise;
     }
 
 
@@ -202,3 +207,34 @@ return ({
     });
 }]);
 
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//Service handling geolocation
+//https://stackoverflow.com/questions/23185619/how-can-i-use-html5-geolocation-in-angularjs
+
+angular.module('myApp').factory('GeolocationService', ['$q', '$window', function ($q, $window) {
+
+    'use strict';
+
+    function getCurrentPosition() {
+        var deferred = $q.defer();
+        if (!$window.navigator.geolocation) {
+            deferred.reject('Geolocation not supported.');
+        } else {
+            $window.navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    deferred.resolve(position);
+                },
+                function (err) {
+                    deferred.reject(err);
+                });
+        }
+
+        return deferred.promise;
+    }
+
+    return {
+        getCurrentPosition: getCurrentPosition
+    };
+}]);
