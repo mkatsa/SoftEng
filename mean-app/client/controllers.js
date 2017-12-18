@@ -31,7 +31,7 @@ angular.module('myApp').controller('loginController',
         // handle error
         .catch(function () {
           $scope.error = true;
-          $scope.errorMessage = "Invalid username and/or password";
+          $scope.errorMessage = "Λάθος όνομα χρήστη ή/και κωδικός";
           $scope.disabled = false;
           $scope.loginForm = {};
         });
