@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //Store current page here if next page is login (to redirect them)
-angular.module('myApp').value('redirectToUrlAfterLogin', { url: '/' });
+angular.module('myApp').value('RedirectToUrlAfterLogin', { url: '/' });
 
 /////////////////////////////////////////////////////////////////////////////
 //Service handling authorization
@@ -50,20 +50,6 @@ angular.module('myApp').factory('AuthService',
 
 
 
-    //If next path is login, save current path to redirect them
-    function saveAttemptUrl(){
-      if($location.path().toLowerCase() != '/login') {
-        redirectToUrlAfterLogin.url = $location.path();
-      }
-      else {
-        redirectToUrlAfterLogin.url = '/';
-      }
-    }
-
-    //redirect to saved URL (after login)
-    function redirectToAttemptedUrl(){
-      $location.path(redirectToUrlAfterLogin.url);
-    }
 
     
     //Log in

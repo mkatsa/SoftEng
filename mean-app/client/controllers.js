@@ -1,11 +1,21 @@
 //Controller paired with /login. Uses AuthService defined in services.js
 angular.module('myApp').controller('loginController',
-  ['$scope', '$location', 'AuthService',
-  function ($scope, $location, AuthService) {
+  ['$scope', '$location', 'AuthService','RedirectToUrlAfterLogin',
+  function ($scope, $location, AuthService,RedirectToUrlAfterLogin) {
 
+
+    //If user is already logged in, redirect them where the were
+    AuthService.getUserStatus().then(function(){
+      if (AuthService.isLoggedIn()){
+        console.log("you are already logged in, redirecting to:"+RedirectToUrlAfterLogin.url);
+        $location.path(RedirectToUrlAfterLogin.url);
+      }
+    })
+    
     //Define function login in the scope (to be called from html)
     $scope.login = function () {
 
+      
       // initial values (anything within $scope can be accessed from html)
       $scope.error = false;
       $scope.disabled = true;
@@ -14,7 +24,7 @@ angular.module('myApp').controller('loginController',
       AuthService.login($scope.loginForm.username, $scope.loginForm.password)
         // handle success, redirect to homepage
         .then(function () {
-          $location.path('/');
+          $location.path(RedirectToUrlAfterLogin.url);
           $scope.disabled = false;
           $scope.loginForm = {};
         })

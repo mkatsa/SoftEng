@@ -60,19 +60,30 @@ myApp.config(function ($routeProvider) {
 
 //When changing route, check if next page is restricted and if user is logged in
 //If not, redirect them to /login
-myApp.run(function ($rootScope, $location, $route, AuthService) {
+myApp.run(function ($rootScope, $location, $route, AuthService,RedirectToUrlAfterLogin) {
+  
+  //Where to redirect the user after they have logged in  
+  var loginRedirectURL;
+
+
   $rootScope.$on('$routeChangeStart',
     function (event, next, current) {
+      if (current&&next.originalPath=="/login"&&current.originalPath!="/login"){
+        //loginRedirectURL = current.originalPath;
+        RedirectToUrlAfterLogin.url= current.originalPath; 
+      }
+      else{
+        AuthService.getUserStatus()
+        .then(function(){
+          if (next.access != undefined && next.access.restricted && !AuthService.isLoggedIn()){
+
+            $location.path('/login');
+            $route.reload();
+          }
 
 
-      AuthService.getUserStatus()
-      .then(function(){
-        if (next.access != undefined && next.access.restricted && !AuthService.isLoggedIn()){
-          $location.path('/login');
-          $route.reload();
-        }
-      });
-
+        });
+      }
   });
 });
 
