@@ -22,6 +22,9 @@ var Admin = require('./models/admin.js');
 // provider schema/model
 var Provider = require('./models/provider.js');
 
+// event schema/model
+var Event = require('./models/event.js');
+
 // create instance of express
 var app = express();
 
