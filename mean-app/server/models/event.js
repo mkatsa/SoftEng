@@ -14,7 +14,8 @@ var Event = new Schema({
 	  coordinates:{
 		type:[Schema.Types.Double], 	//[<longitude>,<latitude>]
 		index: '2d'						//create the geospatial index
-	  },
+	  }
+	},
 	price: {type: Number, required: true, min: 0},
 	img: {data: Buffer, contentType: String, default: ''},		//not sure abbout that...
 	description: { type: String, default:''},
@@ -22,6 +23,7 @@ var Event = new Schema({
 	minage: {type: Number, default: '0'},
 	maxage: {type: Number, default: '18'},
 	time: { type: String}
+
 });
 
 Event.plugin(passportLocalMongoose);
