@@ -85,18 +85,22 @@ angular.module('myApp').controller('registerController',
 
     //Function to be called from html
     $scope.register = function () {
-
+      console.log("REGISTERING")
       // initial values
       $scope.error = false;
       $scope.disabled = true;
 
       // call register from service, with inputs from the html form
-      AuthService.register($scope.registerForm.username, $scope.registerForm.password)
+      AuthService.register($scope.registerForm.username, $scope.registerForm.password
+                          ,$scope.registerForm.firstname,$scope.registerForm.lastname
+                          ,$scope.registerForm.email)
         // handle success
         .then(function () {
-          $location.path('/');
           $scope.disabled = false;
           $scope.registerForm = {};
+          console.log("CHANGING PATH")
+          $location.path('/');
+
         })
         // handle error
         .catch(function () {

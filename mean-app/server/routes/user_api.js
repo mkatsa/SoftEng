@@ -12,8 +12,12 @@ var User = require('../models/user.js');
 //Handle user registration
 router.post('/register', function(req, res) {
   //passport-local-mongoose function register. Get input params from request
-  User.register(new User({ username: req.body.username }),
-    req.body.password, function(err, account) {
+  User.register(new User({ 
+    username: req.body.username,
+    email:req.body.email,
+    firstname:req.body.firstname,
+    lastname:req.body.lastname 
+  }), req.body.password, function(err, account) {
     //if error respond error  
     if (err) {
       return res.status(500).json({

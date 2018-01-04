@@ -9,16 +9,16 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 var User = new Schema({
   username: {type: String, required: true, unique: true },						//unique username for each parent
-  password: {type: String, required: true },									//password
+  password: {type: String },									//password
   firstname: {type: String, required: true },									//firstname of parent
   lastname: {type: String, required: true },									//lastname of parent
   email: {type: mongoose.SchemaTypes.Email, required: true, unique: true },		//unique email address for each parent
   mobile: {type: Number, default: ''},
   loc: {																		//info about location
-	  Street: {type: String, required: true},
-	  Num: {type: Number, required: true},
-	  Town: {type: String, required: true},
-	  ZipCode: {type: Number, required: true},
+	  Street: {type: String, required: false},
+	  Num: {type: Number, required: false},
+	  Town: {type: String, required: false},
+	  ZipCode: {type: Number, required: false},
 	  coordinates:{
 		type:[Schema.Types.Double], 	//[<longitude>,<latitude>]
 		index: '2d'						//create the geospatial index

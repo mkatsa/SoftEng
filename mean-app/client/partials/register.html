@@ -3,14 +3,14 @@
 </div>
 <div class="container-fluid bg">
   
-  <div class="row">
+  <div class="row" >
 
     <div class="col-md-4 col-sm-4 col-xs-12"></div>
     <div class="col-md-4 col-sm-4 col-xs-12">
 
         <h1>Εγγραφή</h1>
         <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
-        <form class="form" ng-submit="register()">
+        <form class="form" ng-submit="register()" style="margin-bottom: 35%;overflow: scroll;">
           <div class="form-group">
             <label>Όνομα</label>
             <input type="text" class="form-control" name="firstname" ng-model="registerForm.firstname" placeholder="Γιώργος" required>
@@ -43,9 +43,10 @@
 
           <div class="col-md-4 col-sm-4 col-xs-12"></div>
           <div class="col-md-4 col-sm-4 col-xs-12">
-          <div>
+          <!--div-->
             <button type="submit" class="btn btn-success" ng-disabled="disabled">Εγγραφή</button>
-          </div>
+            <!--button type="submit" class="btn btn-success"></button-->
+          <!--/div-->
           </div>
           </div>
         </form>

@@ -153,26 +153,27 @@ angular.module('myApp').factory('AuthService',
     }
 
 
-    function register(username, password) {
+    function register(username, password,firstname,lastname,email) {
 
-    // create a new instance of deferred
-    var deferred = $q.defer();
+      // create a new instance of deferred
+      var deferred = $q.defer();
 
-    // send a post request to the server
-    $http.post('/user/register',
-      {username: username, password: password})
-    // handle success
-    .success(function (data, status) {
-      if(status === 200 && data.status){
-        deferred.resolve();
-      } else {
+      // send a post request to the server
+      $http.post('/user/register',
+        {username: username, password: password,firstname:firstname,lastname:lastname,email:email})
+      // handle success
+      .success(function (data, status) {
+        if(status === 200 && data.status){
+          deferred.resolve();
+        } else {
+          deferred.reject();
+        }
+      })
+      // handle error
+      .error(function (data) {
+        console.log(data)
         deferred.reject();
-      }
-    })
-    // handle error
-    .error(function (data) {
-      deferred.reject();
-    });
+      });
 
   // return promise object
   return deferred.promise;
