@@ -268,6 +268,7 @@
 **Anonymous user:**<br />
 Ο ανώνυμος χρήστης απλά μπορεί να πατήσει το κουμπί, το μεγάλο κουμπί «Αναζήτηση Δραστηριότητας», προκειμένου να μπορέσει να αναζητήσει κάποια δραστηριότητα που τον ενδιαφέρει.
 <br />
+<br />
 **Anonymous Search**<br />
 
 ![alt text](https://github.com/nwlis/SoftEng/blob/master/wireframes_user/anonymous_search.PNG)
@@ -311,4 +312,36 @@
 δραστηριότητες για τις οποίες ενδιαφέρεται και στις
 δραστηριότητες που έχει κάνει κράτηση.
 
-![alt text](https://github.com/nwlis/SoftEng/blob/master/wireframes_user/history+interesting+tickets boughtevents.PNG)
+![alt text](https://github.com/nwlis/SoftEng/blob/master/wireframes_user/history+interesting+tickets+boughtevents.PNG)
+
+Επίσης, έχει πρόσβαση και στο προφίλ του όπου μπορεί να δει
+κάποιες πληροφορίες.
+
+<br />**Profile parent**<br />
+
+![alt text](https://github.com/nwlis/SoftEng/blob/master/wireframes_user/profile_parent.PNG)
+
+<br />**Admin**<br />
+Ο admin θα πρέπει να μπορεί να επιτελεί τις παρακάτω λειτουργίες.
+<br />1) Να διαγράφει έναν οποιονδήποτε χρήστη (εγγεγραμμένο γονέα ή πάροχο) και να μπορεί να κάνει reset το password.
+<br />2) Να μπορεί να κάνει view σαν γονέας ή πάροχος στην πλατφόρμα.
+
+
+
+<br />Συγκεκριμένα, όταν κάποιος συνδεθεί ως διαχειριστής, θα έχει πρόσβαση
+στη σελίδα διαχείρισης, μέσω της οποίας θα μπορεί να εκτελεί όλες τις
+λειτουργίες του.
+Η σελίδα θα περιλαμβάνει 3 tabs (ένα για γονείς, ένα για παρόχους και ένα
+για δραστηριότητες), καθώς και μια μπάρα αναζήτησης ώστε να μπορεί ο
+διαχειριστής εύκολα να παρακολουθεί και να διαχειρίζεται τα δεδομένα που
+θέλει.
+Η δομή της σελίδας διαχείρισης φαίνεται στα παρακάτω wireframes:
+
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/wireframes_user/admin_page.PNG)
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/wireframes_user/admin_parent_management.PNG)
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/wireframes_user/admin_event_management.PNG)
+
+<br />Στα wireframes δεν έχει συμπεριληφθεί η μπάρα του header η οποία είναι
+ίδια με προηγουμένως, με την προσθήκη ενός συνδέσμου στη σελίδα
+διαχείρισης καθώς και ενός διακόπτη για να διαλέγει ο διαχειριστής αν θέλει
+να περιηγείται ως γονέας ή ως πάροχος.
