@@ -1,6 +1,17 @@
 <div style="width:100%">
   <header-nav-directive></header-nav-directive>
 </div>
+<script type="text/javascript">
+$('#password, #confirm_password').on('keyup', function () {
+  if ($('#password').val() == $('#confirm_password').val()) {
+    $('#message').html('Ταιριάζει').css('color', 'green');
+    $('#sub_but').css('display', 'block')
+  } else {
+    $('#message').html('Δεν ταιριάζει').css('color', 'red');
+    $('#sub_but').css('display', 'none')
+  }
+});
+</script>
 <div class="container-fluid bg">
   
   <div class="row" >
@@ -10,7 +21,8 @@
 
         <h1>Εγγραφή</h1>
         <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
-        <form class="form" ng-submit="register()" style="margin-bottom: 35%;overflow: scroll;">
+        <!--<form class="form" ng-submit="register()" style="margin-bottom: 35%;overflow: scroll;">-->
+        <form class="form" ng-submit="register()" style="margin-bottom: 35%;">
           <div class="form-group">
             <label>Όνομα</label>
             <input type="text" class="form-control" name="firstname" ng-model="registerForm.firstname" placeholder="Γιώργος" required>
@@ -29,11 +41,11 @@
           </div>
           <div class="form-group">
             <label>Κωδικός</label>
-            <input type="password" class="form-control" name="password" ng-model="registerForm.password" required>
+            <input type="password" class="form-control" name="password" ng-model="registerForm.password" id ="password" required>
           </div>
           <div class="form-group">
             <label>Επανάληψη κωδικού</label>
-            <input type="password" class="form-control" name="password_repeat" ng-model="registerForm.password_repeat" required>
+            <input type="password" class="form-control" name="password_repeat" ng-model="registerForm.password_repeat" id="confirm_password" required><span id="message"></span>
           </div>
           <h4>Διαβάστε προσεκτικά τους όρους, όπως παρουσιάζονται στον παρακάτω σύνδεσμο. Σε περίπτωση που τους αποδέχεστε <strong>εγγραφείτε</strong></h4>
           <div>
@@ -44,7 +56,7 @@
           <div class="col-md-4 col-sm-4 col-xs-12"></div>
           <div class="col-md-4 col-sm-4 col-xs-12">
           <!--div-->
-            <button type="submit" class="btn btn-success" ng-disabled="disabled">Εγγραφή</button>
+            <button type="submit" class="btn btn-success" ng-disabled="disabled" id="sub_but">Εγγραφή</button>
             <!--button type="submit" class="btn btn-success"></button-->
           <!--/div-->
           </div>
