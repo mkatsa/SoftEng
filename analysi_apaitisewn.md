@@ -253,4 +253,4 @@
 
 
 
-![alt text](./wireframes_user/Capture.png)
+![alt text](https://github.com/nwlis/SoftEng/blob/master/wireframes_user/Capture.PNG)
