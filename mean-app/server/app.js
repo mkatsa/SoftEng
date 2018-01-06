@@ -30,6 +30,7 @@ var app = express();
 
 // require routes
 var user_routes = require('./routes/user_api.js');
+var admin_routes= require('./routes/admin_api.js');
 
 // define middleware
 app.use(express.static(path.join(__dirname, '../client')));
@@ -53,6 +54,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // routes
 app.use('/user/', user_routes);
+app.use('/admin/',admin_routes);
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));

@@ -225,3 +225,27 @@ angular.module('myApp').factory('GeolocationService', ['$q', '$window', function
         getCurrentPosition: getCurrentPosition
     };
 }]);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//Service handling ADMIN api requests
+angular.module('myApp').factory('AdminService',['$q','$http',
+  function($q,$http){
+    
+    function getAllUsers(){
+      console.log("GETTING USERS")
+      var deferred=$q.defer();
+      $http.get('/admin/all_users')
+      .success(function(data){
+        deferred.resolve(data);
+      })
+      .error(function(err){
+        deferred.reject(err)
+      });
+      return deferred.promise;
+    }
+
+    return{
+      getAllUsers:getAllUsers
+    };
+  }]);

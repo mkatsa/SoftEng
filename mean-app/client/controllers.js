@@ -46,20 +46,28 @@ angular.module('myApp').controller('headerController',
   ['$scope', '$route', 'AuthService',
   function ($scope, $route, AuthService) {
 
-    //Check if user is logged in
-    $scope.isLoggedIn = AuthService.isLoggedIn();
+    console.log("ROUTE IS:"+$route)
+    console.log($route.current.access)
     
-    if($scope.isLoggedIn)
-    {
-    //If true, refresh service.username
-    AuthService.refreshUserName()
-    .then(function () {
-    //After service.username has been refreshed, get it and store it in the scope
-    //to be called from html
-    $scope.username = AuthService.getUserName();
-    });
+    if ($route.current.access.admin){
+      $scope.isLoggedIn=true;
+      $scope.username="Admin";
     }
-    
+    else{
+      //Check if user is logged in
+      $scope.isLoggedIn = AuthService.isLoggedIn();
+      
+      if($scope.isLoggedIn)
+      {
+      //If true, refresh service.username
+      AuthService.refreshUserName()
+      .then(function () {
+      //After service.username has been refreshed, get it and store it in the scope
+      //to be called from html
+      $scope.username = AuthService.getUserName();
+      });
+      }
+    }
     //);
     
     //Function logout to be called from html
@@ -172,3 +180,23 @@ angular.module('myApp').controller('eventsLocationController',
       document.getElementById("mapholder").innerHTML = "<iframe src='"+img_url+"'></iframe>";
 }
   }]);
+
+angular.module('myApp').controller('adminController',['$scope','$route','AdminService',
+  function($scope,$route,AdminService){
+    $scope.got_users=false;
+    
+    $scope.getAllUsers = function(){
+      AdminService.getAllUsers()
+      .then(function(data){
+        $scope.users=data.users;
+        console.log("USERS:")
+        console.log(data.users)
+        $scope.got_users=true;
+    })
+    }
+    
+    var init=function(){
+      $scope.getAllUsers();
+    }
+    init();
+  }])

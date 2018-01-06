@@ -8,55 +8,60 @@ myApp.config(function ($routeProvider) {
     .when('/', {
       templateUrl: 'partials/home.html',
       //controller: 'homeController',
-      access: {restricted: false}
+      access: {restricted: false,admin:false}
     })
     .when('/login', {
       templateUrl: 'partials/login.html',
       controller: 'loginController',
-      access: {restricted: false}
+      access: {restricted: false,admin:false}
     })
     .when('/register', {
       templateUrl: 'partials/register.html',
       controller: 'registerController',
-      access: {restricted: false}
+      access: {restricted: false,admin:false}
     })
     .when('/events',{
       templateUrl:'partials/events.html',
       controller:'eventsController',
-      access:{restricted:false}
+      access:{restricted:false,admin:false}
     })
     .when('/events-location',{
       templateUrl:'partials/events-location.html',
       controller:'eventsLocationController',
-      access:{restricted:true}
+      access:{restricted:true,admin:false}
     })
     .when('/terms',{
       templateUrl:'partials/terms.html',
-      access:{restricted:false}
+      access:{restricted:false,admin:false}
     })
     .when('/about',{
       templateUrl:'partials/about.html',
-      accss:{restricted:false}
+      access:{restricted:false,admin:false}
     })
     .when('/contact',{
       templateUrl:'partials/contact.html',
-      accss:{restricted:false}
+      access:{restricted:false,admin:false}
     })
     .when('/faq',{
       templateUrl:'partials/faq.html',
-      accss:{restricted:false}
+      access:{restricted:false,admin:false}
     })
     .when('/donate',{
       templateUrl:'partials/donate.html',
-      accss:{restricted:false}
+      access:{restricted:false,admin:false}
     })
     .when('/profile',{
       templateUrl:'partials/profile.html',
-      access:{restricted:true}
+      access:{restricted:true,admin:false}
+    })
+    .when('/admin',{
+      templateUrl:'partials/admin.html',
+      controller:'adminController',
+      access:{restricted:false, admin:true}
     })
     .otherwise({
       redirectTo: '/',
-      access:{restricted:false}
+      access:{restricted:false, admin:false}
     });
     
 });
