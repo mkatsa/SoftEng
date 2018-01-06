@@ -46,20 +46,28 @@ angular.module('myApp').controller('headerController',
   ['$scope', '$route', 'AuthService',
   function ($scope, $route, AuthService) {
 
-    //Check if user is logged in
-    $scope.isLoggedIn = AuthService.isLoggedIn();
+    console.log("ROUTE IS:"+$route)
+    console.log($route.current.access)
     
-    if($scope.isLoggedIn)
-    {
-    //If true, refresh service.username
-    AuthService.refreshUserName()
-    .then(function () {
-    //After service.username has been refreshed, get it and store it in the scope
-    //to be called from html
-    $scope.username = AuthService.getUserName();
-    });
+    if ($route.current.access.admin){
+      $scope.isLoggedIn=true;
+      $scope.username="Admin";
     }
-    
+    else{
+      //Check if user is logged in
+      $scope.isLoggedIn = AuthService.isLoggedIn();
+      
+      if($scope.isLoggedIn)
+      {
+      //If true, refresh service.username
+      AuthService.refreshUserName()
+      .then(function () {
+      //After service.username has been refreshed, get it and store it in the scope
+      //to be called from html
+      $scope.username = AuthService.getUserName();
+      });
+      }
+    }
     //);
     
     //Function logout to be called from html
@@ -172,3 +180,53 @@ angular.module('myApp').controller('eventsLocationController',
       document.getElementById("mapholder").innerHTML = "<iframe src='"+img_url+"'></iframe>";
 }
   }]);
+
+
+
+
+angular.module('myApp').controller('adminController',['$scope','$route','AdminService',
+  function($scope,$route,AdminService){
+    $scope.got_users=false;
+    
+    var examples_per_page=10;
+
+    
+    $scope.getAllUsers = function(){
+      AdminService.getAllUsers()
+      .then(function(data){
+        $scope.page=1;
+        $scope.pages=[];
+        $scope.users=data.users;
+        console.log("USERS:")
+        console.log(data.users)
+        $scope.got_users=true;
+        $scope.num_users=data.users.length;
+        $scope.num_pages=Math.ceil($scope.num_users/examples_per_page);
+        for(var i=1;i<$scope.num_pages+1;i++) {
+          $scope.pages.push(i);
+        }
+        $scope.pages=$scope.pages.reverse();
+        $scope.setPage(1)        
+    })
+    }
+    
+    $scope.setPage=function(pagenum){
+      $scope.page=pagenum;
+      //Index of first user of the page
+      start=($scope.page-1)*examples_per_page;
+      if ($scope.page<$scope.num_pages){
+        end = ($scope.page)*examples_per_page;
+      }
+      else{
+        end=$scope.users.length;
+      }
+        $scope.pageusers=$scope.users.slice(start,end);
+      }
+      
+    
+
+    var init=function(){
+      $scope.getAllUsers();
+    }
+    init();
+  }])
