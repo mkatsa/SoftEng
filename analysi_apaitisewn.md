@@ -357,18 +357,25 @@
 
 <br />**1) Parent:**<br />
 <br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ParentUseCases/ParentBrowse.png)
+---
 <br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ParentUseCases/ParentLoginLogoutRegister.png)
+---
 <br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ParentUseCases/ParentProfile.png)
+---
 <br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ParentUseCases/ViewActivities.png)
 
 <br />**2) Provider:**<br />
 <br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ProviderUseCases/ProviderBrowse.png)
+---
 <br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ProviderUseCases/ProviderLogin.png)
+---
 <br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ProviderUseCases/ProviderLoginLogoutRegister.png)
+---
 <br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ProviderUseCases/ProviderProfile.png)
 
 <br />**3) Administrator:**<br />
 <br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/AdminUseCases/AnonymousBrowse.png)
+---
 
 <br />**4) Anonymous:**<br />
 <br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/NoNameUseCases/AnonymousBrowse.png)
