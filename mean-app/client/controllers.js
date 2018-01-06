@@ -181,20 +181,50 @@ angular.module('myApp').controller('eventsLocationController',
 }
   }]);
 
+
+
+
 angular.module('myApp').controller('adminController',['$scope','$route','AdminService',
   function($scope,$route,AdminService){
     $scope.got_users=false;
     
+    var examples_per_page=10;
+
+    
     $scope.getAllUsers = function(){
       AdminService.getAllUsers()
       .then(function(data){
+        $scope.page=1;
+        $scope.pages=[];
         $scope.users=data.users;
         console.log("USERS:")
         console.log(data.users)
         $scope.got_users=true;
+        $scope.num_users=data.users.length;
+        $scope.num_pages=Math.ceil($scope.num_users/examples_per_page);
+        for(var i=1;i<$scope.num_pages+1;i++) {
+          $scope.pages.push(i);
+        }
+        $scope.pages=$scope.pages.reverse();
+        $scope.setPage(1)        
     })
     }
     
+    $scope.setPage=function(pagenum){
+      $scope.page=pagenum;
+      //Index of first user of the page
+      start=($scope.page-1)*examples_per_page;
+      if ($scope.page<$scope.num_pages){
+        end = ($scope.page)*examples_per_page;
+      }
+      else{
+        end=$scope.users.length;
+      }
+        $scope.pageusers=$scope.users.slice(start,end);
+      }
+      
+    
+
     var init=function(){
       $scope.getAllUsers();
     }
