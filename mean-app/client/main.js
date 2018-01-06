@@ -50,6 +50,10 @@ myApp.config(function ($routeProvider) {
       templateUrl:'partials/donate.html',
       accss:{restricted:false}
     })
+    .when('/profile',{
+      templateUrl:'partials/profile.html',
+      access:{restricted:true}
+    })
     .otherwise({
       redirectTo: '/',
       access:{restricted:false}
