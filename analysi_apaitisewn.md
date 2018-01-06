@@ -343,16 +343,56 @@
 
 #### 5.3.1 Γενικό διάγραμμα ροής
 
-Αρχικά, παρουσιάζουμε ένα ένα γενικό διάγραμμα ροής μεταξύ των διαφόρων σελίδων της πλατφόρμας. Επισημαίνεται, ότι το παρακάτω σχήμα αναφέρεται αποκλειστικά στο τρόπο χρήσης από γονείς και παρόχους. Ο διαχειριστής, λόγω των ιδιαίτερων δικαιωμάτων του και χαρακτηριστικών του αναλύεται σε άλλη ενότητα.
+Αρχικά, παρουσιάζουμε ένα ένα γενικό διάγραμμα ροής μεταξύ των διαφόρων σελίδων της πλατφόρμας. Επισημαίνεται, ότι το παρακάτω σχήμα αναφέρεται αποκλειστικά στο τρόπο χρήσης από γονείς και παρόχους. Ο διαχειριστής, λόγω των ιδιαίτερων δικαιωμάτων του και χαρακτηριστικών του θα αποκτάει εισέρχεται στο σύστημα της πλατφόρμας από άλλο url. Πέρα από τις δικές του δυνατότητες, όμως, θα μπορεί να περιηγηθεί στις σελίδες ακριβώς όπως φαίνεται παρακάτω, έτσι ώστε να μπορεί να έχει πλήρη εποπτεία του συστήματος.
 
 
 <br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/general.png)
 
 #### 5.3.2 UML διαγράμματα
 
+##### 5.3.2.1 Use Case Diagrams
+Για την διευκρίνηση της λειτουργικότητας της εφαρμογής καθώς και για την παρουσίαση των σεναρίων χρήσης χρησιμοποιήσαμε Use-Case Uml Diagrams.
+Θα μπορούσαμε να συμπεριλάβουμε ολόκληρη την εφαρμογή σε ένα μεγάλο use case uml diagram αλλά για λόγους μεγέθους χωρίσαμε τις use cases σε 4 κατηγορίες, μία για κάθε χρήστη.
 
 
-### 5.4. Πρόσθετο Συστατικό για Υδατογράφημα
+<br />**1) Parent:**<br />
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ParentUseCases/ParentBrowse.png)
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ParentUseCases/ParentLoginLogoutRegister.png)
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ParentUseCases/ParentProfile.png)
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ParentUseCases/ViewActivities.png)
+
+<br />**2) Provider:**<br />
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ProviderUseCases/ProviderBrowse.png)
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ProviderUseCases/ProviderLogin.png)
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ProviderUseCases/ProviderLoginLogoutRegister.png)
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/ProviderUseCases/ProviderProfile.png)
+
+<br />**3) Administrator:**<br />
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/AdminUseCases/AnonymousBrowse.png)
+
+<br />**4) Anonymous:**<br />
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/NoNameUseCases/AnonymousBrowse.png)
+
+Στα παραπάνω διαγράμματα φαίνεται απλά και κατανοητά πως οι διάφοροι χρήστες της πλατφόρμας μας επικοινωνούν και αλληλεπιδρούν με την εφαρμογή.
+
+
+##### 5.3.2.2 Deployment Diagrams
+
+Για την περιγραφή της διαδικασίας που χρειάζεται να ακολουθηθεί προκειμένου να τρέξει η εφαρμογή μας χρησιμοποιήσαμε το deployment uml diagram.Αυτού του τύπου τα διαγράμματα είναι υπεύθυνα να παρέχουν πληροφορία για την δομή του hardware και τον τρόπο με  τον  οποίο θα γίνουν deploy τα software artifacts της εφαρμογής μας.
+Το παρακάτω deployment diagram εξηγεί πως θα είναι δομημένη σε τελική μορφή η mean-stack εφαρμογή που έχουμε προγραμματίσει:
+
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/DeploymentDiag/Deploy.png)
+
+
+##### 5.3.2.3 Component Diagrams
+Επίσης, παρουσιάζεται και ένα component διάγραμμα, το οποίο πρόκειται ουσιαστικά για ένα διάγραμμα αποτύπωσης των συστατικών του λογισμικού σε ένα υψηλότερο επίπεδο αφαίρεσης, όπου δίνεται κυρίως έμφαση στις διεπαφές, αλληλεπιδράσεις και αλληλεξαρτήσεις μεταξύ των διαφόρων συστατικών.
+
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/Component_Diagram/Component_Diagram_Funactivities.png)
+
+
+### 5.4. Βάση Δεδομένων
+
+### 5.5. Πρόσθετο Συστατικό για Υδατογράφημα
 
 Το πρόσθετο συστατικό για την εφαρμογή λεκτικού υδατογραφήματος σε εικόνες θα υλοποιηθεί ως ένα ξεχωριστό node module, και θα συμπεριληφθεί στην εφαρμογή μέσω του του [npm](https://docs.npmjs.com/getting-started/what-is-npm) (node package manager). 
 
