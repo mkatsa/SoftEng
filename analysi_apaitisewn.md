@@ -470,6 +470,8 @@ nav_bar στην επιλογή Σύνδεση για παρόχους και ν
 
 ### 5.4. Βάση Δεδομένων
 
+<br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/dbModel.png)
+
 ### 5.5. Πρόσθετο Συστατικό για Υδατογράφημα
 
 Το πρόσθετο συστατικό για την εφαρμογή λεκτικού υδατογραφήματος σε εικόνες θα υλοποιηθεί ως ένα ξεχωριστό node module, και θα συμπεριληφθεί στην εφαρμογή μέσω του του [npm](https://docs.npmjs.com/getting-started/what-is-npm) (node package manager). 
