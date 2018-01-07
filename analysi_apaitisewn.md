@@ -381,7 +381,7 @@ nav_bar στην επιλογή Σύνδεση για παρόχους και ν
 πλατφόρμα μας αφού επιλέξει τον μήνα που θέλει.Τα στατιστικά
 εμφανίζονται ανά δραστηριότητα σε μορφή "grid".
 
-![alt text](https://github.com/nwlis/SoftEng/blob/master/wireframes_user/provider_event_grids.PNG)
+![alt text](https://github.com/nwlis/SoftEng/blob/master/wireframes_user/provider_grids.PNG)
 
 
 
