@@ -451,7 +451,6 @@ nav_bar στην επιλογή Σύνδεση για παρόχους και ν
 
 <br />**3) Administrator:**<br />
 <br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/AdminUseCases/AnonymousBrowse.png)
----
 
 <br />**4) Anonymous:**<br />
 <br />![alt text](https://github.com/nwlis/SoftEng/blob/master/uml_diagrams/UseCaseDiags/NoNameUseCases/AnonymousBrowse.png)
