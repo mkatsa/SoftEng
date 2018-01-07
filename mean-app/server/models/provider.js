@@ -11,7 +11,11 @@ var Provider = new Schema({
   companyname: {type: String, required: true, unique: true}, 	//we cannot have two companies with the exact same name
   username: {type: String, required: true, unique: true},	//unique username for each providers
   password: {type: String, required: true},
-  email: {type: mongoose.SchemaTypes.Email, required: true, unique: true}
+  email: {type: mongoose.SchemaTypes.Email, required: true, unique: true},
+  phone: {type: Number, required: true},
+  TaxID: {type: String},
+  authenticated:{type: Boolean},
+  events:{type: [String]}  //contains the id of each event
 });
 
 Provider.plugin(passportLocalMongoose);
