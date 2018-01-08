@@ -28,7 +28,7 @@ var User = new Schema({
 	  code: {type: Number},
 	  points: { type: Number}
   },
-  img: { data: Buffer, contentType: String, default: '' }		//not sure abbout that...
+  img: { data: Buffer, contentType: String, default: '' },		//not sure abbout that...
   events_bought: { type: [String]},
   events_interested: {type: [String]}
 });
