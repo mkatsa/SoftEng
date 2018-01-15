@@ -87,6 +87,7 @@ router.get('/status', function(req, res) {
 });
 
 
+
 //Returns provider's username {"username":"example_username"}
 router.get('/userName',function(req,res){
   //If provider is authenticated, return their username
