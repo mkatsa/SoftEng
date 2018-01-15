@@ -28,9 +28,10 @@ var Event = require('./models/event.js');
 // create instance of express
 var app = express();
 
-// require routes
+// required routes
 var user_routes = require('./routes/user_api.js');
 var admin_routes= require('./routes/admin_api.js');
+var provider_routes= require('./routes/provider_api.js');
 
 // define middleware
 app.use(express.static(path.join(__dirname, '../client')));
@@ -55,6 +56,7 @@ passport.deserializeUser(User.deserializeUser());
 // routes
 app.use('/user/', user_routes);
 app.use('/admin/',admin_routes);
+app.use('/provider/',provider_routes);
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));

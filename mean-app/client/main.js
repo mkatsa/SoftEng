@@ -20,6 +20,11 @@ myApp.config(function ($routeProvider) {
       controller: 'registerController',
       access: {restricted: false,admin:false}
     })
+	.when('/register_provider', {
+      templateUrl: 'partials/register_provider.html',
+      controller: 'registerProviderController',
+      access: {restricted: false,admin:false}
+    })
     .when('/events',{
       templateUrl:'partials/events.html',
       controller:'eventsController',

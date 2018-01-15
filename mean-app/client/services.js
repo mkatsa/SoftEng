@@ -180,6 +180,34 @@ angular.module('myApp').factory('AuthService',
 }
 
 
+function register_provider(username, password, firstname, lastname, email, companyname, TaxID) {
+
+      // create a new instance of deferred
+      var deferred = $q.defer();
+
+      // send a post request to the server
+      $http.post('/provider/register_provider',
+        {username:username, password:password, firstname:firstname, lastname:lastname, email:email, companyname:companyname,TaxID:TaxID})
+      // handle success
+      .success(function (data, status) {
+        if(status === 200 && data.status){
+          deferred.resolve();
+        } else {
+          deferred.reject();
+        }
+      })
+      // handle error
+      .error(function (data) {
+        console.log(data)
+        deferred.reject();
+      });
+
+  // return promise object
+  return deferred.promise;
+}
+
+
+
 
 //username=getUserName();
 
@@ -190,7 +218,8 @@ return ({
       refreshUserName: refreshUserName,
       login: login,
       logout: logout,
-      register: register
+      register: register,
+	  register_provider: register_provider
     });
 }]);
 

@@ -9,7 +9,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 var User = new Schema({
   username: {type: String, required: true, unique: true },						//unique username for each parent
-  password: {type: String },									//password
+  password: {type: String },													//password
   firstname: {type: String, required: true },									//firstname of parent
   lastname: {type: String, required: true },									//lastname of parent
   email: {type: mongoose.SchemaTypes.Email, required: true, unique: true },		//unique email address for each parent

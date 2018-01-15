@@ -122,6 +122,46 @@ angular.module('myApp').controller('registerController',
 
 }]);
 
+//Controller to handle provider registration
+angular.module('myApp').controller('registerProviderController',
+  ['$scope', '$location', 'AuthService',
+  function ($scope, $location, AuthService) {
+	
+    //Function to be called from html
+    $scope.register_provider = function () {
+      console.log("REGISTERING PROVIDER")
+      // initial values
+      $scope.error = false;
+      $scope.disabled = true;
+
+      // call register from service, with inputs from the html form
+      AuthService.register_provider($scope.registerForm.username, $scope.registerForm.password
+									,$scope.registerForm.firstname,$scope.registerForm.lastname
+									,$scope.registerForm.email,$scope.registerForm.companyname
+									,$scope.registerForm.TaxID)
+        // handle success
+        .then(function () {
+          $scope.disabled = false;
+          $scope.registerForm = {};
+          console.log("CHANGING PATH")
+          $location.path('/');
+
+        })
+        // handle error
+        .catch(function () {
+          $scope.error = true;
+          $scope.errorMessage = "Something went wrong!";
+          $scope.disabled = false;
+          $scope.registerForm = {};
+        });
+
+    };
+
+}]);
+
+
+
+
 
 angular.module('myApp').controller('eventsController',
   ['$scope', '$route', 'AuthService',
