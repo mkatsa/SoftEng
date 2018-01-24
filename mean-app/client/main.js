@@ -20,11 +20,10 @@ myApp.config(function ($routeProvider) {
       controller: 'registerController',
       access: {restricted: false,admin:false}
     })
-<<<<<<< HEAD
-  .when('/register_provider', {
-=======
+  
+
 	.when('/register_provider', {
->>>>>>> f8c54893c26935ff61026317a7f6e852e8ead331
+
       templateUrl: 'partials/register_provider.html',
       controller: 'registerProviderController',
       access: {restricted: false,admin:false}
