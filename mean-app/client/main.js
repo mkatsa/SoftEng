@@ -1,7 +1,7 @@
 var myApp = angular.module('myApp', ['ngRoute']);
 
 
-//Configure clienet side routing. If restricted = true, only available to logged in users
+//Configure client side routing. If restricted = true, only available to logged in users
 //For each route there is a controller in controllers.js
 myApp.config(function ($routeProvider) {
   $routeProvider

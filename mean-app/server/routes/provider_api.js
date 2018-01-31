@@ -9,7 +9,6 @@ var passport = require('passport');
 var Provider = require('../models/provider.js');		//connection to database
 
 
-
 //Handle provider registration
 router.post('/register_provider', function(req, res) {
   
@@ -39,7 +38,7 @@ router.post('/register_provider', function(req, res) {
 
 
 //Handle provider login
-router.post('/login', function(req, res, next) {
+/*router.post('/login', function(req, res, next) {
   //Try to auhtenticate provider
   passport.authenticate('local', function(err, provider, info) {
     if (err) {
@@ -63,20 +62,20 @@ router.post('/login', function(req, res, next) {
     });
   })(req, res, next);
 });
-
+*/
 
 //Handle logout
-router.get('/logout', function(req, res) {
+/*router.get('/logout', function(req, res) {
   //Call logout from passport
   req.logout();
   res.status(200).json({
     status: 'Bye!'
   });
-});
+});*/
 
 //Handle status. Returns {"status":"true"} if provider is logged in
-router.get('/status', function(req, res) {
-  if (!req.isAuthenticated()) {									//ATTENTION: this has nothing to do with provder's authentication from admin!!!!!
+/*router.get('/status', function(req, res) {
+  if (!req.isAuthenticated()) {									//ATTENTION: this has nothing to do with provider's authentication from admin!!!!!
     return res.status(200).json({
       status: false
     });
@@ -85,11 +84,11 @@ router.get('/status', function(req, res) {
     status: true
   });
 });
-
+*/
 
 
 //Returns provider's username {"username":"example_username"}
-router.get('/userName',function(req,res){
+/*router.get('/userName',function(req,res){
   //If provider is authenticated, return their username
   if (req.isAuthenticated()){									//ATTENTION: this has nothing to do with provder's authentication from admin!!!!!
   return res.status(200).json({
@@ -103,6 +102,6 @@ router.get('/userName',function(req,res){
   });
   }
 });
-
+*/
 
 module.exports = router;

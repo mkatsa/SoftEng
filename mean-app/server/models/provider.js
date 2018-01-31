@@ -1,6 +1,7 @@
-// administrator model database
+// provider's model database
 var mongoose = require('mongoose');
 require('mongoose-type-email');
+require('mongoose-double')(mongoose);
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
