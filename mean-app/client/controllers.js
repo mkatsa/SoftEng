@@ -126,7 +126,8 @@ angular.module('myApp').controller('registerController',
 angular.module('myApp').controller('registerProviderController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
-	
+	 
+
     //Function to be called from html
     $scope.register_provider = function () {
       console.log("REGISTERING PROVIDER")
@@ -141,6 +142,7 @@ angular.module('myApp').controller('registerProviderController',
 									,$scope.registerForm.TaxID)
         // handle success
         .then(function () {
+          console.log("controller:RP:THEN")
           $scope.disabled = false;
           $scope.registerForm = {};
           console.log("CHANGING PATH")
@@ -149,6 +151,7 @@ angular.module('myApp').controller('registerProviderController',
         })
         // handle error
         .catch(function () {
+          console.log("controller:RP:catch")
           $scope.error = true;
           $scope.errorMessage = "Something went wrong!";
           $scope.disabled = false;
@@ -157,6 +160,12 @@ angular.module('myApp').controller('registerProviderController',
 
     };
 
+    var init=function(){
+      if (AuthService.isLoggedIn() && AuthService.isProvider()){
+        $location.path('/welcome_provider');
+      }
+    };
+    init()
 }]);
 
 

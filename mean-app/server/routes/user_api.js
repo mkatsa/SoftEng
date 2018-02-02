@@ -13,6 +13,7 @@ var User = require('../models/user.js');
 router.post('/register', function(req, res) {
   //passport-local-mongoose function register. Get input params from request
   User.register(new User({ 
+    usertype:"user",
     username: req.body.username,
     email:req.body.email,
     firstname:req.body.firstname,
@@ -37,7 +38,7 @@ router.post('/register', function(req, res) {
 //Handle user login
 router.post('/login', function(req, res, next) {
   //Try to auhtenticate user
-  passport.authenticate('local', function(err, user, info) {
+  passport.authenticate('user', function(err, user, info) {
     if (err) {
       return next(err);
     }
@@ -72,12 +73,14 @@ router.get('/logout', function(req, res) {
 
 //Handle status. Returns {"status":"true"} if user is logged in
 router.get('/status', function(req, res) {
-  if (!req.isAuthenticated()) {
+  if (!req.isAuthenticated('user')&&(!req.isAuthenticated('provider'))&&(!req.isAuthenticated())) {
+    console.log("IS NOT AUTHENTICATED")
     return res.status(200).json({
       status: false
     });
   }
-  res.status(200).json({
+  console.log("IS authenticated")
+  return res.status(200).json({
     status: true
   });
 });

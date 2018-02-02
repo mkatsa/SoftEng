@@ -8,6 +8,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 
 var User = new Schema({
+  usertype: {type:String,required:true},//Is always = "user"
   username: {type: String, required: true, unique: true },						//unique username for each parent
   password: {type: String },													//password
   firstname: {type: String, required: true },									//firstname of parent

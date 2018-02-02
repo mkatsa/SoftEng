@@ -50,10 +50,28 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // configure passport
-passport.use(new localStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+//https://github.com/jaredhanson/passport/issues/50
+passport.use('user',new localStrategy(User.authenticate()));
+//passport.serializeUser('user',User.serializeUser());
+//passport.deserializeUser('user',User.deserializeUser());
 
+passport.use('provider',new localStrategy(Provider.authenticate()));
+//passport.serializeUser('provider',Provider.serializeUser());
+//passport.deserializeUser('provider',Provider.deserializeUser());
+passport.serializeUser(function(user, done) {
+  var key = {
+    id: user.id,
+    type: user.usertype
+  }
+  done(null, key);
+});
+passport.deserializeUser(function(key, done) {
+  // this could be more complex with a switch or if statements
+  var Model = key.type === 'user' ? User : Provider; 
+    Model.findById(key.id, function(err, user) {
+        done(err, user);
+    });
+});
 // routes
 app.use('/user/', user_routes);
 app.use('/admin/',admin_routes);

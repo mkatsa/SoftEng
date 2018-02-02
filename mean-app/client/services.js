@@ -9,7 +9,8 @@ angular.module('myApp').factory('AuthService',
   function ($q, $timeout, $http) {
     // create user variable
     if(!isLoggedIn()){
-      var user = null;
+      var user = null; //User is true if any type of user is logged in
+      var provider=false; //Proveder is true if provider is logged in
       var username="anonymous";
     }
 
@@ -23,6 +24,14 @@ angular.module('myApp').factory('AuthService',
       }
     }
 
+    function isProvider(){
+      if(provider){
+        return true;
+      }
+      else{
+        return false
+      }
+    }
 
     //Logs out the user
     function logout() {
@@ -35,11 +44,13 @@ angular.module('myApp').factory('AuthService',
       // handle success
         .success(function (data) {
         user = false;
+        provider=false;
         deferred.resolve();
       })
       // handle error
         .error(function (data) {
         user = false;
+        provider=false;
         deferred.reject();
       });
 
@@ -50,9 +61,10 @@ angular.module('myApp').factory('AuthService',
 
 
 
-
-    
     //Log in
+    //First check if user login
+    //If it fails check if provider login
+    //If it fails, login fails
     function login(username, password) {
       // create a new instance of deferred
       var deferred = $q.defer();
@@ -63,18 +75,36 @@ angular.module('myApp').factory('AuthService',
       // handle success
       .success(function (data, status) {
         if(status === 200 && data.status){
-          user = true;
-          
+          user = true;          
           deferred.resolve();
-        } else {
-          user = false;
-          deferred.reject();
-        }
+        } 
       })
       // handle error
       .error(function (data) {
-        user = false;
-        deferred.reject();
+        console.log("auth_service:login.error")
+        $http.post('/provider/login',
+          {username:username,password:password})
+          .success(function(data,status){
+            console.log("auth_service:login.error.success")
+            if(status==200&&data.status){
+              console.log("auth_service:login.error.success IF")
+              user=true;
+              provider=true;
+              deferred.resolve();
+            }
+            else{
+              console.log("auth_service:login.error.success ELSE")
+              user = false;
+              provider=false;
+              deferred.reject();
+            }
+          })
+          .error(function(data){
+            console.log("auth_service:login.error.error")
+            user = false;
+            provider=false;
+            deferred.reject();
+          })
       });
 
     // return promise object
@@ -88,10 +118,18 @@ angular.module('myApp').factory('AuthService',
     function refreshUserName(){
       
       var deferred = $q.defer();
-
+      if (!provider){
+        console.log("provider bool is false")
+        req=$http.get('/user/userName');
+      }
+      else{
+        console.log("provider bool is true")
+        req=$http.get('/provider/companyName')
+      }
       // send a post request to the server
-      $http.get('/user/userName')
+      //$http.get('/user/userName')
       // handle success
+      req
       .success(function (data,status) {
       if(status === 200 && data.username){
         console.log('SERVICE: Success!')
@@ -191,13 +229,16 @@ function register_provider(username, password, firstname, lastname, email, compa
       // handle success
       .success(function (data, status) {
         if(status === 200 && data.status){
+          console.log("rp:success(200)")
           deferred.resolve();
         } else {
+          console.log("rp.sucess(else)")
           deferred.reject();
         }
       })
       // handle error
       .error(function (data) {
+        console.log("rp.error")
         console.log(data)
         deferred.reject();
       });
