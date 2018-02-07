@@ -5,12 +5,28 @@
 <div class="container">
   
   <div class="row">
-
+	
     
-      <h1>Εδώ είναι το προφίλ σας {{username}}</h1>
+      <h1>Καλωσήρθατε στο προφίλ σας {{username}}</h1>
+	  
+	  <h2> User Name: {{username}} </h2>
+	  <h2> First Name:{{firstname}} </h2>
+	  <h2> Last Name: {{lastname}} </h2>
+	  
+	  
            
       
   </div>
+  
+  
+  <div ng-if=isProvider>
+		provider
+	    </div>
+	<div ng-if=!isProvider>
+		not provider
+	</div><!-- /.navbar-collapse -->
+  
+  
       
       <!--end form-->
     </div>

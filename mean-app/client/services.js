@@ -124,7 +124,7 @@ angular.module('myApp').factory('AuthService',
       }
       else{
         console.log("provider bool is true")
-        req=$http.get('/provider/companyName')
+        req=$http.get('/provider/userName')
       }
       // send a post request to the server
       //$http.get('/user/userName')
@@ -133,7 +133,7 @@ angular.module('myApp').factory('AuthService',
       .success(function (data,status) {
       if(status === 200 && data.username){
         console.log('SERVICE: Success!')
-        username=data.username;
+        username=data.username
         deferred.resolve();
       } else {
         console.log('SERVICE: else')
@@ -153,10 +153,52 @@ angular.module('myApp').factory('AuthService',
   }
     
 
+
     //Returns user's username  
     function getUserName(){
       return username;
     }  
+
+
+
+
+	function getUserData(){
+      
+      var deferred = $q.defer();
+      if (!provider){
+        console.log("provider bool is false")
+        req=$http.get('/user/get_all');
+      }
+      else{
+        console.log("provider bool is true")
+        req=$http.get('/provider/get_all')
+      }
+     
+      req
+      .success(function (data,status) {
+      if(status === 200 && data.username){
+        console.log('SERVICE: Success!')
+		console.dir(data)
+        deferred.resolve(data);
+      } else {
+        console.log('SERVICE: else')
+        console.log('SERVICE: status:'+status)
+        console.log('SERVICE: data:'+data)
+        deferred.reject();
+      }
+    })
+    // handle error
+      .error(function (data) {
+      console.log('SERVICE: error')
+      deferred.reject();
+    });
+
+    // return promise object
+    return deferred.promise;
+  }
+
+
+
 
     
     //Gets user's status from backend
@@ -260,7 +302,9 @@ return ({
       login: login,
       logout: logout,
       register: register,
-	  register_provider: register_provider
+	  register_provider: register_provider,
+	  getUserData: getUserData,
+	  isProvider: isProvider
     });
 }]);
 

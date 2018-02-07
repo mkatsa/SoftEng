@@ -64,6 +64,7 @@ myApp.config(function ($routeProvider) {
     })
     .when('/profile',{
       templateUrl:'partials/profile.html',
+	  controller:'profileController',
       access:{restricted:true,admin:false}
     })
     .when('/admin',{

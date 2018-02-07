@@ -17,7 +17,7 @@ var Provider = new Schema({
   TaxID: {type: String, unique: true},											//Tax ID of the provider
   authenticated:{type: Boolean},												//authenticated field is true when the provider is verified from the admin.
   events:{type: [String]}, 														//contains the id of each event
-  usertype:{type:String,required:true}                //Constant = "provider". 
+  usertype:{type:String,required:true}                						//Constant = "provider". 
 });
 
 Provider.plugin(passportLocalMongoose);

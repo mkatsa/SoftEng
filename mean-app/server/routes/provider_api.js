@@ -98,22 +98,54 @@ router.get('/logout', function(req, res) {
 
 
 //Returns provider's username {"username":"example_username"}
-router.get('/companyName',function(req,res){
+router.get('/userName',function(req,res){
   //If provider is authenticated, return their username
   if (req.isAuthenticated()){									//ATTENTION: this has nothing to do with provder's authentication from admin!!!!!
   //console.log("Request for company name from");
   //console.dir(req);
+  
   return res.status(200).json({
-      username: req.user.companyname
+      username: req.user.username
     });
   }
   //If not, return this for debugging (this should never be returned)
   else{
   res.status(200).json({
-    username:"Default Companyname"
+    username:"Default Username"
   });
   }
 });
+
+
+
+
+
+//Returns all data of provider
+router.get('/get_all',function(req,res){
+  //If provider is authenticated, return their username
+  if (req.isAuthenticated()){									//ATTENTION: this has nothing to do with provder's authentication from admin!!!!!
+  //console.log("Request for company name from");
+  //console.dir(req);
+  return res.status(200).json({
+      username: req.user.username,
+	  firstname: req.user.firstname,
+	  lastname: req.user.lastname,
+	  companyname: req.user.companyname,
+	  email: req.user.email
+    });
+  }
+  //If not, return this for debugging (this should never be returned)
+  else{
+  res.status(200).json({
+    username:"Default Username",
+	firstname:"Default Firstname",
+	lastname:"Default Lastname",
+	companyname:"Default Companyname",
+	email:"Default Email"
+  });
+  }
+});
+
 
 
 module.exports = router;

@@ -203,6 +203,25 @@ angular.module('myApp').controller('eventsController',
   });
   }]);
 
+  
+angular.module('myApp').controller('profileController',
+	['$scope', '$route' ,'AuthService',
+	function ($scope, $route, AuthService) {
+		
+		$scope.isProvider = AuthService.isProvider();
+		userdata = AuthService.getUserData()
+		.then(function(userdata){
+			console.log('adsdas')
+			console.dir(userdata)
+			$scope.username = userdata.username;
+			$scope.firstname = userdata.firstname;
+			$scope.lastname = userdata.lastname;
+
+		})
+	}]);
+  
+
+  
 //https://stackoverflow.com/questions/23185619/how-can-i-use-html5-geolocation-in-angularjs
 angular.module('myApp').controller('eventsLocationController',
   ['$scope', '$route', 'AuthService', 'GeolocationService',
