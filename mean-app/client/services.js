@@ -162,10 +162,11 @@ angular.module('myApp').factory('AuthService',
 
 
 
+	//Returns all data of a user or a provider
 	function getUserData(){
       
       var deferred = $q.defer();
-      if (!provider){
+      if (!provider){									//check if he is provider or parent
         console.log("provider bool is false")
         req=$http.get('/user/get_all');
       }

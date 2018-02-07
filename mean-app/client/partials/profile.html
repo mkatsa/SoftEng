@@ -8,23 +8,26 @@
 	
     
       <h1>Καλωσήρθατε στο προφίλ σας {{username}}</h1>
-	  
-	  <h2> User Name: {{username}} </h2>
-	  <h2> First Name:{{firstname}} </h2>
-	  <h2> Last Name: {{lastname}} </h2>
-	  
-	  
-           
-      
   </div>
   
   
   <div ng-if=isProvider>
-		provider
-	    </div>
-	<div ng-if=!isProvider>
-		not provider
-	</div><!-- /.navbar-collapse -->
+		<h2> User Name		: {{username}} </h2>
+		<h2> First Name		: {{firstname}} </h2>
+		<h2> Last Name		: {{lastname}} </h2>
+		<h2> Email    	 	: {{email}} </h2>
+		<h2> Company Name 	: {{companyname}} </h2>
+		<h2> Tax ID 		: {{TaxID}} </h2>
+		<h2> Phone			: {{phone}} </h2>
+	</div>
+	
+  <div ng-if=!isProvider>
+		<h2> User Name		: {{username}} </h2>
+		<h2> First Name		: {{firstname}} </h2>
+		<h2> Last Name		: {{lastname}} </h2>
+		<h2> Email    	 	: {{email}} </h2>
+		<h2> Phone    	 	: {{mobile}} </h2>
+  </div><!-- /.navbar-collapse -->
   
   
       

@@ -131,7 +131,9 @@ router.get('/get_all',function(req,res){
 	  firstname: req.user.firstname,
 	  lastname: req.user.lastname,
 	  companyname: req.user.companyname,
-	  email: req.user.email
+	  email: req.user.email,
+	  phone: req.user.phone,
+	  TaxID: req.user.TaxID
     });
   }
   //If not, return this for debugging (this should never be returned)
@@ -141,7 +143,9 @@ router.get('/get_all',function(req,res){
 	firstname:"Default Firstname",
 	lastname:"Default Lastname",
 	companyname:"Default Companyname",
-	email:"Default Email"
+	email:"Default Email",
+	phone:"Default Phone",
+	TaxID:"Default ID"
   });
   }
 });

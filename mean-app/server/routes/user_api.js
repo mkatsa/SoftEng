@@ -115,7 +115,8 @@ router.get('/get_all',function(req,res){
       username: req.user.username,
 	  firstname: req.user.firstname,
 	  lastname: req.user.lastname,
-	  email: req.user.email
+	  email: req.user.email,
+	  mobile: req.user.mobile
     });
   }
   //If not, return this for debugging (this should never be returned)
@@ -124,7 +125,8 @@ router.get('/get_all',function(req,res){
     username:"Default Username",
 	firstname:"Default Firstname",
 	lastname:"Default Lastname",
-	email:"Default Email"
+	email:"Default Email",
+	mobile:"Default mobile"
   });
   }
 });

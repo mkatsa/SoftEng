@@ -216,7 +216,15 @@ angular.module('myApp').controller('profileController',
 			$scope.username = userdata.username;
 			$scope.firstname = userdata.firstname;
 			$scope.lastname = userdata.lastname;
-
+			$scope.email = userdata.email;
+			if($scope.isProvider){	
+				$scope.companyname = userdata.companyname;
+				$scope.TaxID = userdata.TaxID;
+				$scope.phone = userdata.phone;
+			}
+			else{
+				$scope.mobile = userdata.mobile;
+			}
 		})
 	}]);
   
