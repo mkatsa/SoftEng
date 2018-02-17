@@ -364,3 +364,48 @@ angular.module('myApp').factory('AdminService',['$q','$http',
       getAllUsers:getAllUsers
     };
   }]);
+  
+  angular.module('myApp')
+  .factory('EventsParsing', function ($q, $http) {
+    return {
+      getAllEvents: function () {
+        var deferred = $q.defer(),
+          httpPromise = $http.get('events/findEvents');
+ 
+        httpPromise.success(function (response) {
+          deferred.resolve(response);
+        })
+        .error(function (error) {
+          console.error(error);
+        });
+ 
+        return deferred.promise;
+      }
+    };
+  });
+
+
+
+  //service just for static data parsing in order to debug
+  /*angular.module('myApp').service('EventsParsing',function(){
+    this.getAllEvents = function(){
+       return ([
+        {
+          component: 'MongoDB',
+          url: 'http://www.mongodb.org'
+        },
+        {
+          component: 'Express',
+          url: 'http://expressjs.com'
+        },
+        {
+          component: 'AngularJS',
+          url: 'http://angularjs.org'
+        },
+        {
+          component: 'Node.js',
+          url: 'http://nodejs.org'
+        }
+      ])
+     };
+  });*/
