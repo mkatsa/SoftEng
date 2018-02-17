@@ -173,9 +173,9 @@ angular.module('myApp').controller('registerProviderController',
 
 
 angular.module('myApp').controller('eventsController',
-  ['$scope', '$route', 'AuthService',
-  function ($scope, $route, AuthService) {
-  $(document).ready(function(){
+  ['$scope', '$route', 'AuthService','EventsParsing',
+  function ($scope, $route, AuthService,EventsParsing) {
+ /* $(document).ready(function(){
 
       $(".filter-button").click(function(){
           var value = $(this).attr('data-filter');
@@ -200,7 +200,50 @@ angular.module('myApp').controller('eventsController',
   }
   $(this).addClass("active");
 
+  });*/
+$scope.eventsList = {};
+EventsParsing.getAllEvents()
+  .then(function (response) {
+    $scope.eventsList = response;
+    console.log("i am here")
+  }, function (error) {
+    console.error(error);
   });
+  //$scope.eventsList = EventsParsing.getAllEvents();
+  
+  //testing with a static list
+  // $scope.eventsList = [
+  //     {
+  //         eventname: "Mpala me ton messi",  
+  //         agemin: "2",
+  //         agemax: "6",  
+  //     },
+  //     {
+  //         eventname: "Software is art me kwsta saidh",  
+  //         agemin: "1",
+  //         agemax: "7",  
+  //     },
+  //     {
+  //         eventname: "Kai gamiotane kai kseskizotane",  
+  //         agemin: "5",
+  //         agemax: "10",  
+  //     },
+  //     {
+  //         eventname: "Mathimata kerkidas me ton lao toy paok",  
+  //         agemin: "18",
+  //         agemax: "90",  
+  //     },
+  //     {
+  //         eventname: "How to be ekpatzis epishs me kwsta saidh",  
+  //         agemin: "2",
+  //         agemax: "6",  
+  //     },
+  //     {
+  //         eventname: "Σαΐδης ο καθηγητής μας",  
+  //         agemin: "2",
+  //         agemax: "6",  
+  //     }
+  //   ];
   }]);
 
   
