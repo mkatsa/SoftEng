@@ -2,11 +2,14 @@
 
 var debug = require('debug')('passport-mongo');
 var app = require('./app');
+var fs = require('fs');
+var server=require('https');
 
 
 app.set('port', process.env.PORT || 3000);
 
 
-var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port);
-});
+server.createServer({
+      key: fs.readFileSync('local.key'),
+      cert: fs.readFileSync('local.crt')
+    }, app).listen(3000);

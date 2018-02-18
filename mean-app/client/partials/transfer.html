@@ -1,0 +1,17 @@
+<div style="width: 100%">
+  <header-nav-directive></header-nav-directive>
+</div>
+
+<h1>Amount</h1>
+<div class="row">
+<form name="forma" ng-submit="transfer()">
+ <input type="number" ng-model="amount"  required>
+ <h3>Card Number</h3>
+ <input type="text" ng-model="cardId" maxlength="16" pattern="\d{16}" required>
+ <h3>Card Holder</h3>
+ <input type="text" ng-model="cardHolder" required>
+ <h3>CCV</h3>
+ <input type="text" ng-model="CCV" maxlength="3" pattern="\d{3}" required>
+<button type="submit" class="btn" >Transfer</button>
+</form>
+</div>

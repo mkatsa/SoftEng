@@ -162,11 +162,11 @@ angular.module('myApp').factory('AuthService',
 
 
 
-	//Returns all data of a user or a provider
-	function getUserData(){
+  //Returns all data of a user or a provider
+  function getUserData(){
       
       var deferred = $q.defer();
-      if (!provider){									//check if he is provider or parent
+      if (!provider){                 //check if he is provider or parent
         console.log("provider bool is false")
         req=$http.get('/user/get_all');
       }
@@ -179,7 +179,7 @@ angular.module('myApp').factory('AuthService',
       .success(function (data,status) {
       if(status === 200 && data.username){
         console.log('SERVICE: Success!')
-		console.dir(data)
+    console.dir(data)
         deferred.resolve(data);
       } else {
         console.log('SERVICE: else')
@@ -303,9 +303,9 @@ return ({
       login: login,
       logout: logout,
       register: register,
-	  register_provider: register_provider,
-	  getUserData: getUserData,
-	  isProvider: isProvider
+    register_provider: register_provider,
+    getUserData: getUserData,
+    isProvider: isProvider
     });
 }]);
 
@@ -384,7 +384,7 @@ angular.module('myApp').factory('AdminService',['$q','$http',
         return deferred.promise;
       }
 
-      createEvent: function(eventname,price,minage,maxage,description){
+      /*createEvent: function(eventname,price,minage,maxage,description){
         var deferred = $q.defer(),
          httpPromise = $http.post('/events/createEvent',
           //here change attributes
@@ -398,11 +398,26 @@ angular.module('myApp').factory('AdminService',['$q','$http',
         });
  
         return deferred.promise;
-      }
+      }*/
     };
   });
 
+angular.module('myApp').factory('TransferService',['$q','$http',
+  function($q,$http){
+    
+    function transfer(amount){
+      var deferred = $q.defer();
+      //console.log(amount)
+      $http.post('/user/transfer',{amount:amount}).success(function () {          
+          deferred.resolve();
+      });
+      return deferred.promise;
+    }
 
+    return{
+      transfer:transfer
+    };
+  }]);
 
   //service just for static data parsing in order to debug
   /*angular.module('myApp').service('EventsParsing',function(){
