@@ -48,9 +48,9 @@ router.post("/createEvent", function(req, res) {
 		maxage: req.body.maxage
     });
 
-    ev.save(function(err, u) {
+    ev.save(function(err, status) {
         if (err) return res.json(err);
-        return res.json(u);
+        return res.json(status);
     });
 });
 

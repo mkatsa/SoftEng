@@ -226,8 +226,8 @@ EventsParsing.getAllEvents()
 
 //Controller for add remove or update event
 angular.module('myApp').controller('manipulateEventsController',
-  ['$scope', '$route','AuthService',
-  function ($scope, $route, AuthService) {
+  ['$scope', '$route','AuthService', '$location', 
+  function ($scope, $route, AuthService, $location) {
   
    //Function to be called from html
     $scope.createEvent = function () {

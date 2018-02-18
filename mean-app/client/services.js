@@ -302,13 +302,8 @@ function createEvent(eventname, price, minage, maxage, description){
     $http.post('/event/createEvent',
     {eventname:eventname, price:price, minage:minage, maxage:maxage, description:description})
     .success(function (status) {
-       if(status === 200){
           console.log("createEvent:success(200)")
           deferred.resolve();
-        } else {
-          console.log("createEvent.sucess(else)")
-          deferred.reject();
-        }
     })
 	.error( function () {
 		console.log("createEvent.error")
