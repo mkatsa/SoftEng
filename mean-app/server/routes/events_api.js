@@ -17,28 +17,9 @@ router.get('/findEvents',function(req,res){
     });
 })	
 
-//handle provider create event
-//todo
-/*router.post('/createEvent',function(req,res){
-
-	console.log("i am on events_api")
-	
-	Event.insertOne({
-		eventname: req.body.eventname,
-		price: req.body.price,
-		description: req.body.description,
-		minage: req.body.minage,
-		maxage: req.body.maxage
-	}, function(err) {
-			if (err)
-				res.send(err);
-			
-			res.status(200).json({
-        status: 'Event creation successful!'})
-	});
-})*/
 
 
+//POST message for event creation, not all necessairy data included yet
 router.post("/createEvent", function(req, res) {  
     var ev = new Event({
         eventname: req.body.eventname,
@@ -50,11 +31,9 @@ router.post("/createEvent", function(req, res) {
 
     ev.save(function(err, status) {
         if (err) return res.json(err);
-        return res.json(status);
+        return res.json(status);			//status in fact is data, just for debugging
     });
 });
-
-
 
 
 

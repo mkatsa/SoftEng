@@ -314,7 +314,7 @@ function createEvent(eventname, price, minage, maxage, description){
 
 
 
-/*function getAllEvents() {
+function getAllEvents() {
     var deferred = $q.defer(),
       httpPromise = $http.get('events/findEvents');
  
@@ -323,14 +323,12 @@ function createEvent(eventname, price, minage, maxage, description){
     })
     .error(function (error) {
       console.error(error);
-    });
- 
+    }); 
     return deferred.promise;
-  }*/
+}
  
 
-
-//username=getUserName();
+ //username=getUserName();
 
 return ({
       isLoggedIn: isLoggedIn,
@@ -343,8 +341,8 @@ return ({
 	  register_provider: register_provider,
 	  getUserData: getUserData,
 	  isProvider: isProvider,
-	  createEvent: createEvent
-	  //getAllEvents: getAllEvents
+	  createEvent: createEvent,
+	  getAllEvents: getAllEvents
     });
 }]);
 
