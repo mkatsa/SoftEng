@@ -17,5 +17,24 @@ router.get('/findEvents',function(req,res){
     });
 })
 
+//handle provider create event
+//todo
+router.post('/createEvent',function(req,res){
+
+	var doc = {
+		eventname: req.body.eventname,
+		price: req.body.price,
+		description: req.body.description,
+		minage: req.body.minage,
+		maxage: req.body.maxage
+	};
+
+	Event.insertOne(doc);
+
+	//codehere to manipulate database
+
+
+})
+
 
 module.exports = router;

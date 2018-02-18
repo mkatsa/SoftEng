@@ -365,12 +365,30 @@ angular.module('myApp').factory('AdminService',['$q','$http',
     };
   }]);
   
+
+  //EventsParsing Service for events
   angular.module('myApp')
   .factory('EventsParsing', function ($q, $http) {
     return {
       getAllEvents: function () {
         var deferred = $q.defer(),
           httpPromise = $http.get('events/findEvents');
+ 
+        httpPromise.success(function (response) {
+          deferred.resolve(response);
+        })
+        .error(function (error) {
+          console.error(error);
+        });
+ 
+        return deferred.promise;
+      }
+
+      createEvent: function(eventname,price,minage,maxage,description){
+        var deferred = $q.defer(),
+         httpPromise = $http.post('/events/createEvent',
+          //here change attributes
+        {eventname: eventname, price: price, minage:minage, maxage:maxage, description:description});
  
         httpPromise.success(function (response) {
           deferred.resolve(response);

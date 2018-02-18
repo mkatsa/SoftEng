@@ -40,6 +40,17 @@ angular.module('myApp').controller('loginController',
 
 }]);
 
+//Controller for home page
+
+angular.module('myApp').controller('homeController',
+  ['$scope', '$route' ,'AuthService',
+  function ($scope, $route, AuthService) {
+    
+    $scope.isProvider = AuthService.isProvider();
+    
+  }]);
+
+
 
 //Controller paired with home page
 angular.module('myApp').controller('headerController',
@@ -209,44 +220,51 @@ EventsParsing.getAllEvents()
   }, function (error) {
     console.error(error);
   });
-  //$scope.eventsList = EventsParsing.getAllEvents();
   
-  //testing with a static list
-  // $scope.eventsList = [
-  //     {
-  //         eventname: "Mpala me ton messi",  
-  //         agemin: "2",
-  //         agemax: "6",  
-  //     },
-  //     {
-  //         eventname: "Software is art me kwsta saidh",  
-  //         agemin: "1",
-  //         agemax: "7",  
-  //     },
-  //     {
-  //         eventname: "Kai gamiotane kai kseskizotane",  
-  //         agemin: "5",
-  //         agemax: "10",  
-  //     },
-  //     {
-  //         eventname: "Mathimata kerkidas me ton lao toy paok",  
-  //         agemin: "18",
-  //         agemax: "90",  
-  //     },
-  //     {
-  //         eventname: "How to be ekpatzis epishs me kwsta saidh",  
-  //         agemin: "2",
-  //         agemax: "6",  
-  //     },
-  //     {
-  //         eventname: "Σαΐδης ο καθηγητής μας",  
-  //         agemin: "2",
-  //         agemax: "6",  
-  //     }
-  //   ];
   }]);
 
+
+//Controller for add remove or update event
+angular.module('myApp').controller('manipulateEventsController',
+  ['$scope', '$route','EventsParsing',
+  function ($scope, $route, AuthService,EventsParsing) {
   
+   //Function to be called from html
+    $scope.createEvent = function () {
+      console.log("REGISTERING PROVIDER")
+      // initial values
+      $scope.error = false;
+      $scope.disabled = true;
+
+      // call register from service, with inputs from the html form
+      EventsParsing.createEvent($scope.eventForm.eventname, $scope.eventForm.price
+                  ,$scope.eventForm.minage,$scope.eventForm.maxage
+                  ,$scope.eventForm.description)
+        // handle success
+        .then(function () {
+          console.log("controller:RP:THEN")
+          $scope.disabled = false;
+          $scope.eventForm = {};
+          console.log("CHANGING PATH")
+          $location.path('/');
+
+        })
+        // handle error
+        .catch(function () {
+          console.log("controller:RP:catch")
+          $scope.error = true;
+          $scope.errorMessage = "Something went wrong!";
+          $scope.disabled = false;
+          $scope.registerForm = {};
+        });
+
+    };
+
+  
+  }]);
+
+
+
 angular.module('myApp').controller('profileController',
 	['$scope', '$route' ,'AuthService',
 	function ($scope, $route, AuthService) {

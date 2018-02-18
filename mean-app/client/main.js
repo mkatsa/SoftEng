@@ -7,7 +7,7 @@ myApp.config(function ($routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'partials/home.html',
-      //controller: 'homeController',
+      controller: 'homeController',
       access: {restricted: false,admin:false}
     })
     .when('/login', {
@@ -71,6 +71,11 @@ myApp.config(function ($routeProvider) {
       templateUrl:'partials/admin.html',
       controller:'adminController',
       access:{restricted:false, admin:true}
+    })
+    .when('/addEvent',{
+      templateUrl:'partials/addEvent.html',
+      controller:'munipulateEventsController',
+      access:{restricted:false,admin:false}
     })
     .otherwise({
       redirectTo: '/',
