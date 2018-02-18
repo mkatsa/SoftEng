@@ -25,7 +25,7 @@ var User = new Schema({
     index: '2d'           //create the geospatial index
     },
   },              //wallet info about code of wallet and the remaining poi
-    points: { type: Number,default: 0},
+  points: { type: Number,default: 0},
   img: { data: Buffer, contentType: String, default: '' },    //not sure abbout that...
   events_bought: { type: [String]},
   events_interested: {type: [String]}

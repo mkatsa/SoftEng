@@ -285,6 +285,7 @@ angular.module('myApp').controller('profileController',
       }
       else{
         $scope.mobile = userdata.mobile;
+        $scope.points = userdata.points;
       }
     })
   }]);

@@ -128,17 +128,18 @@ router.get('/get_all',function(req,res){
   //console.log("Request for company name from");
   //console.dir(req);
   return res.status(200).json({
-      username: req.user.username,
+    username: req.user.username,
     firstname: req.user.firstname,
     lastname: req.user.lastname,
     email: req.user.email,
-    mobile: req.user.mobile
+    mobile: req.user.mobile,
+    points : req.user.points
     });
   }
   //If not, return this for debugging (this should never be returned)
   else{
   res.status(200).json({
-    username:"Default Username",
+  username:"Default Username",
   firstname:"Default Firstname",
   lastname:"Default Lastname",
   email:"Default Email",
