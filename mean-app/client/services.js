@@ -10,7 +10,7 @@ angular.module('myApp').factory('AuthService',
     // create user variable
     if(!isLoggedIn()){
       var user = null; //User is true if any type of user is logged in
-      var provider=false; //Proveder is true if provider is logged in
+      var provider=false; //Provider is true if provider is logged in
       var username="anonymous";
     }
 
@@ -273,6 +273,7 @@ function register_provider(username, password, firstname, lastname, email, compa
       .success(function (data, status) {
         if(status === 200 && data.status){
           console.log("rp:success(200)")
+		  provider= true;
           deferred.resolve();
         } else {
           console.log("rp.sucess(else)")
@@ -344,17 +345,11 @@ return ({
       login: login,
       logout: logout,
       register: register,
-<<<<<<< HEAD
 	  register_provider: register_provider,
 	  getUserData: getUserData,
 	  isProvider: isProvider,
 	  createEvent: createEvent
 	  //getAllEvents: getAllEvents
-=======
-    register_provider: register_provider,
-    getUserData: getUserData,
-    isProvider: isProvider
->>>>>>> d98a88210f8cbd0f962d44992765c93e55abf038
     });
 }]);
 
@@ -415,8 +410,6 @@ angular.module('myApp').factory('AdminService',['$q','$http',
   }]);
   
 
-<<<<<<< HEAD
-=======
   //EventsParsing Service for events
   angular.module('myApp')
   .factory('EventsParsing', function ($q, $http) {
@@ -452,7 +445,7 @@ angular.module('myApp').factory('AdminService',['$q','$http',
       }*/
     };
   });
-
+ q
 angular.module('myApp').factory('TransferService',['$q','$http',
   function($q,$http){
     
@@ -464,7 +457,6 @@ angular.module('myApp').factory('TransferService',['$q','$http',
       });
       return deferred.promise;
     }
->>>>>>> d98a88210f8cbd0f962d44992765c93e55abf038
 
     return{
       transfer:transfer
