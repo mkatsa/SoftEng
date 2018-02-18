@@ -183,7 +183,7 @@ angular.module('myApp').controller('registerProviderController',
 
 
 
-angular.module('myApp').controller('eventsController',
+/*angular.module('myApp').controller('eventsController',
   ['$scope', '$route', 'AuthService','EventsParsing',
   function ($scope, $route, AuthService,EventsParsing) {
  /* $(document).ready(function(){
@@ -211,7 +211,7 @@ angular.module('myApp').controller('eventsController',
   }
   $(this).addClass("active");
 
-  });*/
+  });
 $scope.eventsList = {};
 EventsParsing.getAllEvents()
   .then(function (response) {
@@ -222,27 +222,27 @@ EventsParsing.getAllEvents()
   });
   
   }]);
-
+*/
 
 //Controller for add remove or update event
 angular.module('myApp').controller('manipulateEventsController',
-  ['$scope', '$route','EventsParsing',
-  function ($scope, $route, AuthService,EventsParsing) {
+  ['$scope', '$route','AuthService',
+  function ($scope, $route, AuthService) {
   
    //Function to be called from html
     $scope.createEvent = function () {
-      console.log("REGISTERING PROVIDER")
+      console.log("Creating event")
       // initial values
       $scope.error = false;
       $scope.disabled = true;
 
       // call register from service, with inputs from the html form
-      EventsParsing.createEvent($scope.eventForm.eventname, $scope.eventForm.price
+      AuthService.createEvent($scope.eventForm.eventname, $scope.eventForm.price
                   ,$scope.eventForm.minage,$scope.eventForm.maxage
                   ,$scope.eventForm.description)
         // handle success
         .then(function () {
-          console.log("controller:RP:THEN")
+          console.log("controller:events controller:THEN")
           $scope.disabled = false;
           $scope.eventForm = {};
           console.log("CHANGING PATH")
@@ -251,7 +251,7 @@ angular.module('myApp').controller('manipulateEventsController',
         })
         // handle error
         .catch(function () {
-          console.log("controller:RP:catch")
+          console.log("controller:events controller:catch")
           $scope.error = true;
           $scope.errorMessage = "Something went wrong!";
           $scope.disabled = false;
@@ -259,8 +259,6 @@ angular.module('myApp').controller('manipulateEventsController',
         });
 
     };
-
-  
   }]);
 
 

@@ -290,7 +290,48 @@ function register_provider(username, password, firstname, lastname, email, compa
   return deferred.promise;
 }
 
+function createEvent(eventname,price,minage,maxage,description){
+    var deferred = $q.defer();
+	console.log("here1")
+	console.log(eventname)
+	console.log(price)
+	console.log(minage)
+	console.log(maxage)
+	console.log(description)
+    $http.post('/event/createEvent',
+    {eventname: eventname, price: price, minage:minage, maxage:maxage, description:description})
+    .success(function (status) {
+       if(status === 200){
+          console.log("createEvent:success(200)")
+          deferred.resolve();
+        } else {
+          console.log("createEvent.sucess(else)")
+          deferred.reject();
+        }
+    })
+	.error( function () {
+		console.log("createEvent.error")
+		deferred.reject();
+	});
+    return deferred.promise;
+}
 
+
+
+/*function getAllEvents() {
+    var deferred = $q.defer(),
+      httpPromise = $http.get('events/findEvents');
+ 
+    httpPromise.success(function (response) {
+      deferred.resolve(response);
+    })
+    .error(function (error) {
+      console.error(error);
+    });
+ 
+    return deferred.promise;
+  }*/
+ 
 
 
 //username=getUserName();
@@ -305,7 +346,9 @@ return ({
       register: register,
 	  register_provider: register_provider,
 	  getUserData: getUserData,
-	  isProvider: isProvider
+	  isProvider: isProvider,
+	  createEvent: createEvent
+	  //getAllEvents: getAllEvents
     });
 }]);
 
@@ -365,42 +408,6 @@ angular.module('myApp').factory('AdminService',['$q','$http',
     };
   }]);
   
-
-  //EventsParsing Service for events
-  angular.module('myApp')
-  .factory('EventsParsing', function ($q, $http) {
-    return {
-      getAllEvents: function () {
-        var deferred = $q.defer(),
-          httpPromise = $http.get('events/findEvents');
- 
-        httpPromise.success(function (response) {
-          deferred.resolve(response);
-        })
-        .error(function (error) {
-          console.error(error);
-        });
- 
-        return deferred.promise;
-      }
-
-      createEvent: function(eventname,price,minage,maxage,description){
-        var deferred = $q.defer(),
-         httpPromise = $http.post('/events/createEvent',
-          //here change attributes
-        {eventname: eventname, price: price, minage:minage, maxage:maxage, description:description});
- 
-        httpPromise.success(function (response) {
-          deferred.resolve(response);
-        })
-        .error(function (error) {
-          console.error(error);
-        });
- 
-        return deferred.promise;
-      }
-    };
-  });
 
 
 

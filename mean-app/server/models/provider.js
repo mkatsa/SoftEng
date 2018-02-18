@@ -20,7 +20,6 @@ var Provider = new Schema({
   usertype:{type:String,required:true}                						//Constant = "provider". 
 });
 
+
 Provider.plugin(passportLocalMongoose);
-
-
 module.exports = mongoose.model('providers', Provider);

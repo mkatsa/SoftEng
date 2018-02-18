@@ -11,6 +11,7 @@
     "express": "^4.13.4",
     "express-jwt": "^5.3.0",
     "express-session": "^1.13.0",
+    "heapster_watermark": "^1.0.0",
     "mongoose": "^4.4.5",
     "mongoose-double": "0.0.1",
     "mongoose-type-email": "^1.0.5",

@@ -1,3 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="myApp" style="width: 100%">
+<head>
+	
+	<title>Heapsters Project</title>
+
+	
+	<link rel="stylesheet" href="./partials/app.css">
+	<!--<link rel="stylesheet" type="text/css" href="jquery-3.2.1.min.js">-->
+</head>
+
+
+<body style="width: 100%">
+
+<div style="width: 100%">
+	<header-nav-directive></header-nav-directive>
+</div>
+
+
 <div class="container-fluid bg">
   
   <div class="row" >
@@ -7,7 +26,6 @@
 
         <h1>Προσθήκη Δραστηριότητας</h1>
         <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
-        <!--<form class="form" ng-submit="register()" style="margin-bottom: 35%;overflow: scroll;">-->
         <form class="form" ng-submit="createEvent()" style="margin-bottom: 35%;">
           <div class="form-group">
             <label><h3><b>Όνομα Δραστηριότητας</h3></b></label>
@@ -42,4 +60,9 @@
         </form>
       </div>
     </div>
-  </div>
+	</div>
+	
+	
+	</body>
+
+</html>

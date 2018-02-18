@@ -58,6 +58,9 @@ passport.use('user',new localStrategy(User.authenticate()));
 passport.use('provider',new localStrategy(Provider.authenticate()));
 //passport.serializeUser('provider',Provider.serializeUser());
 //passport.deserializeUser('provider',Provider.deserializeUser());
+
+
+
 passport.serializeUser(function(user, done) {
   var key = {
     id: user.id,
@@ -76,7 +79,7 @@ passport.deserializeUser(function(key, done) {
 app.use('/user/', user_routes);
 app.use('/admin/',admin_routes);
 app.use('/provider/',provider_routes);
-app.use('/events',event_routes);
+app.use('/event/',event_routes);
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));

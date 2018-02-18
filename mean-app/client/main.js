@@ -74,7 +74,7 @@ myApp.config(function ($routeProvider) {
     })
     .when('/addEvent',{
       templateUrl:'partials/addEvent.html',
-      controller:'munipulateEventsController',
+      controller:'manipulateEventsController',
       access:{restricted:false,admin:false}
     })
     .otherwise({

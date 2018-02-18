@@ -1,7 +1,10 @@
 // administrator model database
+
 var mongoose = require('mongoose');
+require('mongoose-double')(mongoose);
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
+
 
 
 var Event = new Schema({
@@ -17,15 +20,15 @@ var Event = new Schema({
 	  }
 	},
 	*/
-	price: {type: Number, required: true, min: 0},			//we should see how we will store the prices
+	price: {type: String, required: true, /*min: 0*/},			//we should see how we will store the prices
 	//img: {data: Buffer, contentType: String, default: ''},		//not sure about that...
 	description: { type: String, default:''},			//we ask for a short description of the event
 	//users_interested: {type:[String]},
 	//date: {type: Date, default: Date.now},
 	//start_time: {type: Date, required: true},
     //end_time: {type: Date,  required: true},
-	minage: {type: Number, default: '0'},
-	maxage: {type: Number, default: '18'}
+	minage: {type: String, default: '0'},
+	maxage: {type: String, default: '18'}
 	//users_interested: {type:[String]},
   	//users_bought: {type:[String]},
   	//users_seen: {type:[String]}
@@ -33,6 +36,6 @@ var Event = new Schema({
 });
 
 Event.plugin(passportLocalMongoose);
-module.exports = mongoose.model('events', Event);
+module.exports = mongoose.model('event', Event);
 
 
