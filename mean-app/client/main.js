@@ -22,7 +22,7 @@ myApp.config(function ($routeProvider) {
     })
   
 
-	.when('/register_provider', {
+  .when('/register_provider', {
 
       templateUrl: 'partials/register_provider.html',
       controller: 'registerProviderController',
@@ -64,7 +64,7 @@ myApp.config(function ($routeProvider) {
     })
     .when('/profile',{
       templateUrl:'partials/profile.html',
-	  controller:'profileController',
+    controller:'profileController',
       access:{restricted:true,admin:false}
     })
     .when('/admin',{
@@ -76,6 +76,11 @@ myApp.config(function ($routeProvider) {
       templateUrl:'partials/addEvent.html',
       controller:'manipulateEventsController',
       access:{restricted:false,admin:false}
+    })
+    .when('/transfer',{
+      templateUrl:'partials/transfer.html',
+      controller:'transferController',
+      access:{restricted:false, admin:false}
     })
     .otherwise({
       redirectTo: '/',

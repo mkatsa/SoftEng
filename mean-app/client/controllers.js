@@ -137,7 +137,7 @@ angular.module('myApp').controller('registerController',
 angular.module('myApp').controller('registerProviderController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
-	 
+   
 
     //Function to be called from html
     $scope.register_provider = function () {
@@ -148,9 +148,9 @@ angular.module('myApp').controller('registerProviderController',
 
       // call register from service, with inputs from the html form
       AuthService.register_provider($scope.registerForm.username, $scope.registerForm.password
-									,$scope.registerForm.firstname,$scope.registerForm.lastname
-									,$scope.registerForm.email,$scope.registerForm.companyname
-									,$scope.registerForm.TaxID)
+                  ,$scope.registerForm.firstname,$scope.registerForm.lastname
+                  ,$scope.registerForm.email,$scope.registerForm.companyname
+                  ,$scope.registerForm.TaxID)
         // handle success
         .then(function () {
           console.log("controller:RP:THEN")
@@ -264,28 +264,29 @@ angular.module('myApp').controller('manipulateEventsController',
 
 
 angular.module('myApp').controller('profileController',
-	['$scope', '$route' ,'AuthService',
-	function ($scope, $route, AuthService) {
-		
-		$scope.isProvider = AuthService.isProvider();
-		userdata = AuthService.getUserData()
-		.then(function(userdata){
-			console.log('adsdas')
-			console.dir(userdata)
-			$scope.username = userdata.username;
-			$scope.firstname = userdata.firstname;
-			$scope.lastname = userdata.lastname;
-			$scope.email = userdata.email;
-			if($scope.isProvider){	
-				$scope.companyname = userdata.companyname;
-				$scope.TaxID = userdata.TaxID;
-				$scope.phone = userdata.phone;
-			}
-			else{
-				$scope.mobile = userdata.mobile;
-			}
-		})
-	}]);
+  ['$scope', '$route' ,'AuthService',
+  function ($scope, $route, AuthService) {
+    
+    $scope.isProvider = AuthService.isProvider();
+    userdata = AuthService.getUserData()
+    .then(function(userdata){
+      console.log('adsdas')
+      console.dir(userdata)
+      $scope.username = userdata.username;
+      $scope.firstname = userdata.firstname;
+      $scope.lastname = userdata.lastname;
+      $scope.email = userdata.email;
+      if($scope.isProvider){  
+        $scope.companyname = userdata.companyname;
+        $scope.TaxID = userdata.TaxID;
+        $scope.phone = userdata.phone;
+      }
+      else{
+        $scope.mobile = userdata.mobile;
+        $scope.points = userdata.points;
+      }
+    })
+  }]);
   
 
   
@@ -316,7 +317,23 @@ angular.module('myApp').controller('eventsLocationController',
 }
   }]);
 
-
+angular.module('myApp').controller('transferController',
+  ['$scope', 'TransferService',
+  function ($scope, TransferService) {
+    //$scope.amount="12";
+    //console.log("pousth")
+    //$scope.disabled = false;
+    $scope.transfer = function(){
+      //console.log($scope.amount);
+      TransferService.transfer($scope.amount,);
+      //$scope.disabled = true;
+      $scope.amount="";
+      $scope.cardId="";
+      $scope.cardHolder="";
+      $scope.CCV="";
+      }
+    }
+  ]);
 
 
 angular.module('myApp').controller('adminController',['$scope','$route','AdminService',
