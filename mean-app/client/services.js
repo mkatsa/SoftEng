@@ -291,7 +291,7 @@ function register_provider(username, password, firstname, lastname, email, compa
   return deferred.promise;
 }
 
-function createEvent(eventname,price,minage,maxage,description){
+function createEvent(eventname, price, minage, maxage, description){
     var deferred = $q.defer();
 	console.log("here1")
 	console.log(eventname)
@@ -300,7 +300,7 @@ function createEvent(eventname,price,minage,maxage,description){
 	console.log(maxage)
 	console.log(description)
     $http.post('/event/createEvent',
-    {eventname: eventname, price: price, minage:minage, maxage:maxage, description:description})
+    {eventname:eventname, price:price, minage:minage, maxage:maxage, description:description})
     .success(function (status) {
        if(status === 200){
           console.log("createEvent:success(200)")
@@ -445,7 +445,7 @@ angular.module('myApp').factory('AdminService',['$q','$http',
       }*/
     };
   });
- q
+ 
 angular.module('myApp').factory('TransferService',['$q','$http',
   function($q,$http){
     

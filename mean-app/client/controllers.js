@@ -257,7 +257,6 @@ angular.module('myApp').controller('manipulateEventsController',
           $scope.disabled = false;
           $scope.registerForm = {};
         });
-
     };
   }]);
 
