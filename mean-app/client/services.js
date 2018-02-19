@@ -42,13 +42,13 @@ angular.module('myApp').factory('AuthService',
       // send a get request to the server
       $http.get('/user/logout')
       // handle success
-        .success(function (data) {
+      .success(function (data) {
         user = false;
         provider=false;
         deferred.resolve();
       })
       // handle error
-        .error(function (data) {
+      .error(function (data) {
         user = false;
         provider=false;
         deferred.reject();
@@ -71,7 +71,7 @@ angular.module('myApp').factory('AuthService',
 
       // send a post request to the server
       $http.post('/user/login',
-      {username: username, password: password})
+        {username: username, password: password})
       // handle success
       .success(function (data, status) {
         if(status === 200 && data.status){
@@ -84,27 +84,27 @@ angular.module('myApp').factory('AuthService',
         console.log("auth_service:login.error")
         $http.post('/provider/login',
           {username:username,password:password})
-          .success(function(data,status){
-            console.log("auth_service:login.error.success")
-            if(status==200&&data.status){
-              console.log("auth_service:login.error.success IF")
-              user=true;
-              provider=true;
-              deferred.resolve();
-            }
-            else{
-              console.log("auth_service:login.error.success ELSE")
-              user = false;
-              provider=false;
-              deferred.reject();
-            }
-          })
-          .error(function(data){
-            console.log("auth_service:login.error.error")
+        .success(function(data,status){
+          console.log("auth_service:login.error.success")
+          if(status==200&&data.status){
+            console.log("auth_service:login.error.success IF")
+            user=true;
+            provider=true;
+            deferred.resolve();
+          }
+          else{
+            console.log("auth_service:login.error.success ELSE")
             user = false;
             provider=false;
             deferred.reject();
-          })
+          }
+        })
+        .error(function(data){
+          console.log("auth_service:login.error.error")
+          user = false;
+          provider=false;
+          deferred.reject();
+        })
       });
 
     // return promise object
@@ -116,7 +116,7 @@ angular.module('myApp').factory('AuthService',
     //Gets the user's username from backend
     //(Does not return)
     function refreshUserName(){
-      
+
       var deferred = $q.defer();
       if (!provider){
         console.log("provider bool is false")
@@ -131,19 +131,19 @@ angular.module('myApp').factory('AuthService',
       // handle success
       req
       .success(function (data,status) {
-      if(status === 200 && data.username){
-        console.log('SERVICE: Success!')
-        username=data.username
-        deferred.resolve();
-      } else {
-        console.log('SERVICE: else')
-        console.log('SERVICE: status:'+status)
-        console.log('SERVICE: data:'+data)
-        deferred.reject();
-      }
-    })
+        if(status === 200 && data.username){
+          console.log('SERVICE: Success!')
+          username=data.username
+          deferred.resolve();
+        } else {
+          console.log('SERVICE: else')
+          console.log('SERVICE: status:'+status)
+          console.log('SERVICE: data:'+data)
+          deferred.reject();
+        }
+      })
     // handle error
-      .error(function (data) {
+    .error(function (data) {
       console.log('SERVICE: error')
       deferred.reject();
     });
@@ -151,7 +151,7 @@ angular.module('myApp').factory('AuthService',
     // return promise object
     return deferred.promise;
   }
-    
+
 
 
     //Returns user's username  
@@ -164,8 +164,8 @@ angular.module('myApp').factory('AuthService',
 
   //Returns all data of a user or a provider
   function getUserData(){
-      
-      var deferred = $q.defer();
+
+    var deferred = $q.defer();
       if (!provider){                 //check if he is provider or parent
         console.log("provider bool is false")
         req=$http.get('/user/get_all');
@@ -174,22 +174,22 @@ angular.module('myApp').factory('AuthService',
         console.log("provider bool is true")
         req=$http.get('/provider/get_all')
       }
-     
+
       req
       .success(function (data,status) {
-      if(status === 200 && data.username){
-        console.log('SERVICE: Success!')
-    console.dir(data)
-        deferred.resolve(data);
-      } else {
-        console.log('SERVICE: else')
-        console.log('SERVICE: status:'+status)
-        console.log('SERVICE: data:'+data)
-        deferred.reject();
-      }
-    })
+        if(status === 200 && data.username){
+          console.log('SERVICE: Success!')
+          console.dir(data)
+          deferred.resolve(data);
+        } else {
+          console.log('SERVICE: else')
+          console.log('SERVICE: status:'+status)
+          console.log('SERVICE: data:'+data)
+          deferred.reject();
+        }
+      })
     // handle error
-      .error(function (data) {
+    .error(function (data) {
       console.log('SERVICE: error')
       deferred.reject();
     });
@@ -201,7 +201,7 @@ angular.module('myApp').factory('AuthService',
 
 
 
-    
+
     //Gets user's status from backend
     //(does not return)
     function getUserStatus() {
@@ -210,7 +210,7 @@ angular.module('myApp').factory('AuthService',
       //console.log('SERVICE: getting userStatus')
       $http.get('/user/status')
       // handle success
-        .success(function (data) {
+      .success(function (data) {
         if(data.status){
           //console.log('SERVICE: Success if')
           user = true;
@@ -227,7 +227,7 @@ angular.module('myApp').factory('AuthService',
       .error(function (data) {
         //console.log('SERVICE: error')
         user = false;
-       deferred.reject();
+        deferred.reject();
 
       });
       return deferred.promise;
@@ -273,7 +273,7 @@ function register_provider(username, password, firstname, lastname, email, compa
       .success(function (data, status) {
         if(status === 200 && data.status){
           console.log("rp:success(200)")
-		  provider= true;
+          provider= true;
           deferred.resolve();
         } else {
           console.log("rp.sucess(else)")
@@ -292,58 +292,58 @@ function register_provider(username, password, firstname, lastname, email, compa
 }
 
 function createEvent(eventname, price, minage, maxage, description){
-    var deferred = $q.defer();
-	console.log("here1")
-	console.log(eventname)
-	console.log(price)
-	console.log(minage)
-	console.log(maxage)
-	console.log(description)
-    $http.post('/event/createEvent',
+  var deferred = $q.defer();
+  console.log("here1")
+  console.log(eventname)
+  console.log(price)
+  console.log(minage)
+  console.log(maxage)
+  console.log(description)
+  $http.post('/event/createEvent',
     {eventname:eventname, price:price, minage:minage, maxage:maxage, description:description})
-    .success(function (status) {
-          console.log("createEvent:success(200)")
-          deferred.resolve();
-    })
-	.error( function () {
-		console.log("createEvent.error")
-		deferred.reject();
-	});
-    return deferred.promise;
+  .success(function (status) {
+    console.log("createEvent:success(200)")
+    deferred.resolve();
+  })
+  .error( function () {
+    console.log("createEvent.error")
+    deferred.reject();
+  });
+  return deferred.promise;
 }
 
 
 
 function getAllEvents() {
-    var deferred = $q.defer(),
-      httpPromise = $http.get('events/findEvents');
- 
-    httpPromise.success(function (response) {
-      deferred.resolve(response);
-    })
-    .error(function (error) {
-      console.error(error);
-    }); 
-    return deferred.promise;
+  var deferred = $q.defer(),
+  httpPromise = $http.get('event/findEvents');
+
+  httpPromise.success(function (response) {
+    deferred.resolve(response);
+  })
+  .error(function (error) {
+    console.error(error);
+  }); 
+  return deferred.promise;
 }
- 
+
 
  //username=getUserName();
 
-return ({
-      isLoggedIn: isLoggedIn,
-      getUserStatus: getUserStatus,
-      getUserName: getUserName,
-      refreshUserName: refreshUserName,
-      login: login,
-      logout: logout,
-      register: register,
-	  register_provider: register_provider,
-	  getUserData: getUserData,
-	  isProvider: isProvider,
-	  createEvent: createEvent,
-	  getAllEvents: getAllEvents
-    });
+ return ({
+  isLoggedIn: isLoggedIn,
+  getUserStatus: getUserStatus,
+  getUserName: getUserName,
+  refreshUserName: refreshUserName,
+  login: login,
+  logout: logout,
+  register: register,
+  register_provider: register_provider,
+  getUserData: getUserData,
+  isProvider: isProvider,
+  createEvent: createEvent,
+  getAllEvents: getAllEvents
+});
 }]);
 
 
@@ -354,28 +354,28 @@ return ({
 
 angular.module('myApp').factory('GeolocationService', ['$q', '$window', function ($q, $window) {
 
-    'use strict';
+  'use strict';
 
-    function getCurrentPosition() {
-        var deferred = $q.defer();
-        if (!$window.navigator.geolocation) {
-            deferred.reject('Geolocation not supported.');
-        } else {
-            $window.navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    deferred.resolve(position);
-                },
-                function (err) {
-                    deferred.reject(err);
-                });
-        }
-
-        return deferred.promise;
+  function getCurrentPosition() {
+    var deferred = $q.defer();
+    if (!$window.navigator.geolocation) {
+      deferred.reject('Geolocation not supported.');
+    } else {
+      $window.navigator.geolocation.getCurrentPosition(
+        function (position) {
+          deferred.resolve(position);
+        },
+        function (err) {
+          deferred.reject(err);
+        });
     }
 
-    return {
-        getCurrentPosition: getCurrentPosition
-    };
+    return deferred.promise;
+  }
+
+  return {
+    getCurrentPosition: getCurrentPosition
+  };
 }]);
 
 
@@ -383,7 +383,7 @@ angular.module('myApp').factory('GeolocationService', ['$q', '$window', function
 //Service handling ADMIN api requests
 angular.module('myApp').factory('AdminService',['$q','$http',
   function($q,$http){
-    
+
     function getAllUsers(){
       console.log("GETTING USERS")
       var deferred=$q.defer();
@@ -401,52 +401,52 @@ angular.module('myApp').factory('AdminService',['$q','$http',
       getAllUsers:getAllUsers
     };
   }]);
-  
 
-  //EventsParsing Service for events
+
+  /*//EventsParsing Service for events
   angular.module('myApp')
   .factory('EventsParsing', function ($q, $http) {
     return {
       getAllEvents: function () {
         var deferred = $q.defer(),
-          httpPromise = $http.get('events/findEvents');
- 
+        httpPromise = $http.get('events/findEvents');
+
         httpPromise.success(function (response) {
           deferred.resolve(response);
         })
         .error(function (error) {
           console.error(error);
         });
- 
+
         return deferred.promise;
       }
 
-      /*createEvent: function(eventname,price,minage,maxage,description){
+      createEvent: function(eventname,price,minage,maxage,description){
         var deferred = $q.defer(),
-         httpPromise = $http.post('/events/createEvent',
+        httpPromise = $http.post('/events/createEvent',
           //here change attributes
-        {eventname: eventname, price: price, minage:minage, maxage:maxage, description:description});
- 
+          {eventname: eventname, price: price, minage:minage, maxage:maxage, description:description});
+
         httpPromise.success(function (response) {
           deferred.resolve(response);
         })
         .error(function (error) {
           console.error(error);
         });
- 
+
         return deferred.promise;
-      }*/
+      }
     };
-  });
- 
-angular.module('myApp').factory('TransferService',['$q','$http',
-  function($q,$http){
-    
-    function transfer(amount){
-      var deferred = $q.defer();
+  });*/
+
+  angular.module('myApp').factory('TransferService',['$q','$http',
+    function($q,$http){
+
+      function transfer(amount){
+        var deferred = $q.defer();
       //console.log(amount)
       $http.post('/user/transfer',{amount:amount}).success(function () {          
-          deferred.resolve();
+        deferred.resolve();
       });
       return deferred.promise;
     }
