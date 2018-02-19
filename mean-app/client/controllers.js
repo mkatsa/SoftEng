@@ -40,6 +40,17 @@ angular.module('myApp').controller('loginController',
 
 }]);
 
+//Controller for home page
+
+angular.module('myApp').controller('homeController',
+  ['$scope', '$route' ,'AuthService',
+  function ($scope, $route, AuthService) {
+    
+    $scope.isProvider = AuthService.isProvider();
+    
+  }]);
+
+
 
 //Controller paired with home page
 angular.module('myApp').controller('headerController',
@@ -126,7 +137,7 @@ angular.module('myApp').controller('registerController',
 angular.module('myApp').controller('registerProviderController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
-	 
+   
 
     //Function to be called from html
     $scope.register_provider = function () {
@@ -137,9 +148,9 @@ angular.module('myApp').controller('registerProviderController',
 
       // call register from service, with inputs from the html form
       AuthService.register_provider($scope.registerForm.username, $scope.registerForm.password
-									,$scope.registerForm.firstname,$scope.registerForm.lastname
-									,$scope.registerForm.email,$scope.registerForm.companyname
-									,$scope.registerForm.TaxID)
+                  ,$scope.registerForm.firstname,$scope.registerForm.lastname
+                  ,$scope.registerForm.email,$scope.registerForm.companyname
+                  ,$scope.registerForm.TaxID)
         // handle success
         .then(function () {
           console.log("controller:RP:THEN")
@@ -172,10 +183,10 @@ angular.module('myApp').controller('registerProviderController',
 
 
 
-angular.module('myApp').controller('eventsController',
-  ['$scope', '$route', 'AuthService',
-  function ($scope, $route, AuthService) {
-  $(document).ready(function(){
+/*angular.module('myApp').controller('eventsController',
+  ['$scope', '$route', 'AuthService','EventsParsing',
+  function ($scope, $route, AuthService,EventsParsing) {
+ /* $(document).ready(function(){
 
       $(".filter-button").click(function(){
           var value = $(this).attr('data-filter');
@@ -201,32 +212,80 @@ angular.module('myApp').controller('eventsController',
   $(this).addClass("active");
 
   });
+$scope.eventsList = {};
+EventsParsing.getAllEvents()
+  .then(function (response) {
+    $scope.eventsList = response;
+    console.log("i am here")
+  }, function (error) {
+    console.error(error);
+  });
+  
+  }]);
+*/
+
+//Controller for add remove or update event
+angular.module('myApp').controller('manipulateEventsController',
+  ['$scope', '$route','AuthService', '$location', 
+  function ($scope, $route, AuthService, $location) {
+  
+   //Function to be called from html
+    $scope.createEvent = function () {
+      console.log("Creating event")
+      // initial values
+      $scope.error = false;
+      $scope.disabled = true;
+
+      // call register from service, with inputs from the html form
+      AuthService.createEvent($scope.eventForm.eventname, $scope.eventForm.price
+                  ,$scope.eventForm.minage,$scope.eventForm.maxage
+                  ,$scope.eventForm.description)
+        // handle success
+        .then(function () {
+          console.log("controller:events controller:THEN")
+          $scope.disabled = false;
+          $scope.eventForm = {};
+          console.log("CHANGING PATH")
+          $location.path('/');
+
+        })
+        // handle error
+        .catch(function () {
+          console.log("controller:events controller:catch")
+          $scope.error = true;
+          $scope.errorMessage = "Something went wrong!";
+          $scope.disabled = false;
+          $scope.registerForm = {};
+        });
+    };
   }]);
 
-  
+
+
 angular.module('myApp').controller('profileController',
-	['$scope', '$route' ,'AuthService',
-	function ($scope, $route, AuthService) {
-		
-		$scope.isProvider = AuthService.isProvider();
-		userdata = AuthService.getUserData()
-		.then(function(userdata){
-			console.log('adsdas')
-			console.dir(userdata)
-			$scope.username = userdata.username;
-			$scope.firstname = userdata.firstname;
-			$scope.lastname = userdata.lastname;
-			$scope.email = userdata.email;
-			if($scope.isProvider){	
-				$scope.companyname = userdata.companyname;
-				$scope.TaxID = userdata.TaxID;
-				$scope.phone = userdata.phone;
-			}
-			else{
-				$scope.mobile = userdata.mobile;
-			}
-		})
-	}]);
+  ['$scope', '$route' ,'AuthService',
+  function ($scope, $route, AuthService) {
+    
+    $scope.isProvider = AuthService.isProvider();
+    userdata = AuthService.getUserData()
+    .then(function(userdata){
+      console.log('adsdas')
+      console.dir(userdata)
+      $scope.username = userdata.username;
+      $scope.firstname = userdata.firstname;
+      $scope.lastname = userdata.lastname;
+      $scope.email = userdata.email;
+      if($scope.isProvider){  
+        $scope.companyname = userdata.companyname;
+        $scope.TaxID = userdata.TaxID;
+        $scope.phone = userdata.phone;
+      }
+      else{
+        $scope.mobile = userdata.mobile;
+        $scope.points = userdata.points;
+      }
+    })
+  }]);
   
 
   
@@ -257,7 +316,23 @@ angular.module('myApp').controller('eventsLocationController',
 }
   }]);
 
-
+angular.module('myApp').controller('transferController',
+  ['$scope', 'TransferService',
+  function ($scope, TransferService) {
+    //$scope.amount="12";
+    //console.log("pousth")
+    //$scope.disabled = false;
+    $scope.transfer = function(){
+      //console.log($scope.amount);
+      TransferService.transfer($scope.amount,);
+      //$scope.disabled = true;
+      $scope.amount="";
+      $scope.cardId="";
+      $scope.cardHolder="";
+      $scope.CCV="";
+      }
+    }
+  ]);
 
 
 angular.module('myApp').controller('adminController',['$scope','$route','AdminService',

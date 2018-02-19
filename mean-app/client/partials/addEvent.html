@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="myApp" style="width: 100%">
+<head>
+	
+	<title>Heapsters Project</title>
+
+	
+	<link rel="stylesheet" href="./partials/app.css">
+	<!--<link rel="stylesheet" type="text/css" href="jquery-3.2.1.min.js">-->
+</head>
+
+
+<body style="width: 100%">
+
+<div style="width: 100%">
+	<header-nav-directive></header-nav-directive>
+</div>
+
+
+<div class="container-fluid bg">
+  
+  <div class="row" >
+
+    <div class="col-md-4 col-sm-4 col-xs-12"></div>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+
+        <h1>Προσθήκη Δραστηριότητας</h1>
+        <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+        <form class="form" ng-submit="createEvent()" style="margin-bottom: 35%;">
+          <div class="form-group">
+            <label><h3><b>Όνομα Δραστηριότητας</h3></b></label>
+            <input type="text" class="form-control" name="eventname" ng-model="eventForm.eventname" placeholder="π.χ Ποδόσφαιρο" required>
+          </div>
+          <div class="form-group">
+            <label><h3><b>Τιμή</h3></b></label>
+            <input type="text" class="form-control" name="price" ng-model="eventForm.price" required>
+          </div>
+          <div class="form-group">
+            <label><h3><b>Για παιδιά ηλικίας από :</h3></b></label>
+            <input type="text" class="form-control" name="minage" ng-model="eventForm.minage" required>
+          </div>
+          <div class="form-group">
+            <label><h3><b>Εως</h3></b></label>
+            <input type="text" class="form-control" name="maxage" ng-model="eventForm.maxage" required>
+          </div>
+          <div class="form-group">
+            <label><h3><b>Σύντομη περιγραφη δραστηριοτητας :</h3></b></label>
+            <input type="text" class="form-control" name="description" ng-model="eventForm.description" required>
+          </div>
+          <div class="row">
+
+          <div class="col-md-4 col-sm-4 col-xs-12"></div>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+          <!--div-->
+            <button type="submit" class="btn btn-success" ng-disabled="disabled" id="sub_but">Προσθήκη</button>
+            <!--button type="submit" class="btn btn-success"></button-->
+          <!--/div-->
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>
+	</div>
+	
+	
+	</body>
+
+</html>

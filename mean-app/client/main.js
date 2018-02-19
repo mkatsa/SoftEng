@@ -7,7 +7,7 @@ myApp.config(function ($routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'partials/home.html',
-      //controller: 'homeController',
+      controller: 'homeController',
       access: {restricted: false,admin:false}
     })
     .when('/login', {
@@ -22,7 +22,7 @@ myApp.config(function ($routeProvider) {
     })
   
 
-	.when('/register_provider', {
+  .when('/register_provider', {
 
       templateUrl: 'partials/register_provider.html',
       controller: 'registerProviderController',
@@ -64,13 +64,23 @@ myApp.config(function ($routeProvider) {
     })
     .when('/profile',{
       templateUrl:'partials/profile.html',
-	  controller:'profileController',
+    controller:'profileController',
       access:{restricted:true,admin:false}
     })
     .when('/admin',{
       templateUrl:'partials/admin.html',
       controller:'adminController',
       access:{restricted:false, admin:true}
+    })
+    .when('/addEvent',{
+      templateUrl:'partials/addEvent.html',
+      controller:'manipulateEventsController',
+      access:{restricted:false,admin:false}
+    })
+    .when('/transfer',{
+      templateUrl:'partials/transfer.html',
+      controller:'transferController',
+      access:{restricted:false, admin:false}
     })
     .otherwise({
       redirectTo: '/',

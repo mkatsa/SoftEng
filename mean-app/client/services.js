@@ -10,7 +10,7 @@ angular.module('myApp').factory('AuthService',
     // create user variable
     if(!isLoggedIn()){
       var user = null; //User is true if any type of user is logged in
-      var provider=false; //Proveder is true if provider is logged in
+      var provider=false; //Provider is true if provider is logged in
       var username="anonymous";
     }
 
@@ -162,11 +162,11 @@ angular.module('myApp').factory('AuthService',
 
 
 
-	//Returns all data of a user or a provider
-	function getUserData(){
+  //Returns all data of a user or a provider
+  function getUserData(){
       
       var deferred = $q.defer();
-      if (!provider){									//check if he is provider or parent
+      if (!provider){                 //check if he is provider or parent
         console.log("provider bool is false")
         req=$http.get('/user/get_all');
       }
@@ -179,7 +179,7 @@ angular.module('myApp').factory('AuthService',
       .success(function (data,status) {
       if(status === 200 && data.username){
         console.log('SERVICE: Success!')
-		console.dir(data)
+    console.dir(data)
         deferred.resolve(data);
       } else {
         console.log('SERVICE: else')
@@ -273,6 +273,7 @@ function register_provider(username, password, firstname, lastname, email, compa
       .success(function (data, status) {
         if(status === 200 && data.status){
           console.log("rp:success(200)")
+		  provider= true;
           deferred.resolve();
         } else {
           console.log("rp.sucess(else)")
@@ -290,10 +291,44 @@ function register_provider(username, password, firstname, lastname, email, compa
   return deferred.promise;
 }
 
+function createEvent(eventname, price, minage, maxage, description){
+    var deferred = $q.defer();
+	console.log("here1")
+	console.log(eventname)
+	console.log(price)
+	console.log(minage)
+	console.log(maxage)
+	console.log(description)
+    $http.post('/event/createEvent',
+    {eventname:eventname, price:price, minage:minage, maxage:maxage, description:description})
+    .success(function (status) {
+          console.log("createEvent:success(200)")
+          deferred.resolve();
+    })
+	.error( function () {
+		console.log("createEvent.error")
+		deferred.reject();
+	});
+    return deferred.promise;
+}
 
 
 
-//username=getUserName();
+function getAllEvents() {
+    var deferred = $q.defer(),
+      httpPromise = $http.get('events/findEvents');
+ 
+    httpPromise.success(function (response) {
+      deferred.resolve(response);
+    })
+    .error(function (error) {
+      console.error(error);
+    }); 
+    return deferred.promise;
+}
+ 
+
+ //username=getUserName();
 
 return ({
       isLoggedIn: isLoggedIn,
@@ -305,7 +340,9 @@ return ({
       register: register,
 	  register_provider: register_provider,
 	  getUserData: getUserData,
-	  isProvider: isProvider
+	  isProvider: isProvider,
+	  createEvent: createEvent,
+	  getAllEvents: getAllEvents
     });
 }]);
 
@@ -364,3 +401,81 @@ angular.module('myApp').factory('AdminService',['$q','$http',
       getAllUsers:getAllUsers
     };
   }]);
+  
+
+  //EventsParsing Service for events
+  angular.module('myApp')
+  .factory('EventsParsing', function ($q, $http) {
+    return {
+      getAllEvents: function () {
+        var deferred = $q.defer(),
+          httpPromise = $http.get('events/findEvents');
+ 
+        httpPromise.success(function (response) {
+          deferred.resolve(response);
+        })
+        .error(function (error) {
+          console.error(error);
+        });
+ 
+        return deferred.promise;
+      }
+
+      /*createEvent: function(eventname,price,minage,maxage,description){
+        var deferred = $q.defer(),
+         httpPromise = $http.post('/events/createEvent',
+          //here change attributes
+        {eventname: eventname, price: price, minage:minage, maxage:maxage, description:description});
+ 
+        httpPromise.success(function (response) {
+          deferred.resolve(response);
+        })
+        .error(function (error) {
+          console.error(error);
+        });
+ 
+        return deferred.promise;
+      }*/
+    };
+  });
+ 
+angular.module('myApp').factory('TransferService',['$q','$http',
+  function($q,$http){
+    
+    function transfer(amount){
+      var deferred = $q.defer();
+      //console.log(amount)
+      $http.post('/user/transfer',{amount:amount}).success(function () {          
+          deferred.resolve();
+      });
+      return deferred.promise;
+    }
+
+    return{
+      transfer:transfer
+    };
+  }]);
+
+  //service just for static data parsing in order to debug
+  /*angular.module('myApp').service('EventsParsing',function(){
+    this.getAllEvents = function(){
+       return ([
+        {
+          component: 'MongoDB',
+          url: 'http://www.mongodb.org'
+        },
+        {
+          component: 'Express',
+          url: 'http://expressjs.com'
+        },
+        {
+          component: 'AngularJS',
+          url: 'http://angularjs.org'
+        },
+        {
+          component: 'Node.js',
+          url: 'http://nodejs.org'
+        }
+      ])
+     };
+  });*/

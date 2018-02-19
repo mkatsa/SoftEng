@@ -61,6 +61,22 @@ router.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
+router.post('/transfer', function(req, res){
+    //console.log(req.body.amount)
+    console.log(req.user.username)
+    var bal = parseInt(req.body.amount);
+    console.log(bal)
+    User.findOne({username:req.user.username}, function(err,doc){
+      doc.points = bal + doc.points;
+      doc.save();
+    });
+    console.log(req.user.points)
+
+    });
+
+
+
+
 
 //Handle logout
 router.get('/logout', function(req, res) {
@@ -108,25 +124,26 @@ router.get('/userName',function(req,res){
 //Returns all data of user
 router.get('/get_all',function(req,res){
   //If user is authenticated, return their username
-  if (req.isAuthenticated()){									//ATTENTION: this has nothing to do with user's authentication from admin!!!!!
+  if (req.isAuthenticated()){                 //ATTENTION: this has nothing to do with user's authentication from admin!!!!!
   //console.log("Request for company name from");
   //console.dir(req);
   return res.status(200).json({
-      username: req.user.username,
-	  firstname: req.user.firstname,
-	  lastname: req.user.lastname,
-	  email: req.user.email,
-	  mobile: req.user.mobile
+    username: req.user.username,
+    firstname: req.user.firstname,
+    lastname: req.user.lastname,
+    email: req.user.email,
+    mobile: req.user.mobile,
+    points : req.user.points
     });
   }
   //If not, return this for debugging (this should never be returned)
   else{
   res.status(200).json({
-    username:"Default Username",
-	firstname:"Default Firstname",
-	lastname:"Default Lastname",
-	email:"Default Email",
-	mobile:"Default mobile"
+  username:"Default Username",
+  firstname:"Default Firstname",
+  lastname:"Default Lastname",
+  email:"Default Email",
+  mobile:"Default mobile"
   });
   }
 });

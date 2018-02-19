@@ -1,15 +1,13 @@
 <script type="text/javascript">
-  function readURL(input) {
+	function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-
             reader.onload = function (e) {
                 $('#blah')
                     .attr('src', e.target.result)
                     .width(150)
                     .height(200);
             };
-
             reader.readAsDataURL(input.files[0]);
         }
     }
@@ -20,36 +18,36 @@
 <div class="container">
   
   <div class="row">
-  
+	
     
       <h1>Καλωσήρθατε στο προφίλ σας {{username}}</h1>
   </div>
   
   
   <div ng-if=isProvider>
-      <h5><strong>Εικόνα προφίλ</strong></h5>
-      <br>
-      <input type='file' onchange="readURL(this);" />
-      <img id="blah" src="#" alt="your image" />
-      <br>
-    <h2> User Name    : {{username}} </h2>
-    <h2> First Name   : {{firstname}} </h2>
-    <h2> Last Name    : {{lastname}} </h2>
-    <h2> Email        : {{email}} </h2>
-    <h2> Company Name   : {{companyname}} </h2>
-    <h2> Tax ID     : {{TaxID}} </h2>
-    <h2> Phone      : {{phone}} </h2>
-     Profile Picture <button> Upload or Change Profile Picture<input type="file" ng-file-select="onFileSelect($files)"> </button>
-  </div>
-  
+  		<h5><strong>Εικόνα προφίλ</strong></h5>
+    	<br>
+    	<input type='file' onchange="readURL(this);" />
+    	<img id="blah" src="#" alt="your image" />
+    	<br>
+		<h2> User Name		: {{username}} </h2>
+		<h2> First Name		: {{firstname}} </h2>
+		<h2> Last Name		: {{lastname}} </h2>
+		<h2> Email    	 	: {{email}} </h2>
+		<h2> Company Name 	: {{companyname}} </h2>
+		<h2> Tax ID 		: {{TaxID}} </h2>
+		<h2> Phone			: {{phone}} </h2>
+		 Profile Picture <button> Upload or Change Profile Picture<input type="file" ng-file-select="onFileSelect($files)"> </button>
+	</div>
+	
   <div ng-if=!isProvider>
-    <h2> User Name    : {{username}} </h2>
-    <h2> First Name   : {{firstname}} </h2>
-    <h2> Last Name    : {{lastname}} </h2>
-    <h2> Email        : {{email}} </h2>
-    <h2> Phone        : {{mobile}} </h2>
-    <h2> Balance      : {{points}} </h2>
-    <button onclick="location.href='/#/transfer';" class="btn btn-default btn-lg">Βάλε χρήματα βλάκα!!</button>
+		<h2> User Name		: {{username}} </h2>
+		<h2> First Name		: {{firstname}} </h2>
+		<h2> Last Name		: {{lastname}} </h2>
+		<h2> Email    	 	: {{email}} </h2>
+		<h2> Phone    	 	: {{mobile}} </h2>
+		<h2> Balance    	: {{points}} </h2>
+		<button onclick="location.href='/#/transfer';" class="btn btn-default btn-lg">Βάλε χρήματα βλάκα!!</button>
   </div><!-- /.navbar-collapse -->
   
   
