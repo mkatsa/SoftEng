@@ -1,9 +1,8 @@
-
 <div style="width: 100%">
   <header-nav-directive></header-nav-directive>
 </div>
 <div>
-<h1 style="text-align: center; color: aquamarine">Μεταφορά χρημάτων στο πορτοφόλι {{username}}</h1>
+<h1 style="text-align: center; color: chocolate">Μεταφορά χρημάτων στο πορτοφόλι {{username}}</h1>
 </div>
 <br>
 <br>
@@ -17,18 +16,22 @@
         
         <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
         <!--<form class="form" ng-submit="register()" style="margin-bottom: 35%;overflow: scroll;">-->
-        <form class="form" name="forma" ng-submit="donate()" style="margin-bottom: 35%;">
+        <form class="form" name="forma" ng-submit="transfer()" style="margin-bottom: 35%;">
           <div class="form-group">
-            <label>Ποσό</label>
-            <input type="number" class="form-control" name="amount" ng-model="amount"  required>
+            <label style="color: aqua">Ποσό</label>
+            <input type="number" class="form-control"  ng-model="amount"  required>
           </div>
           <div class="form-group">
-            <label>Αριθμός κάρτας</label>
-            <input type="text" class="form-control" name="cardId" ng-model="cardId" maxlength="16" pattern="\d{16}" required>
+            <label style="color: aqua">Αριθμός κάρτας</label>
+            <input type="text" class="form-control"  ng-model="cardId" maxlength="16" pattern="\d{16}" required>
           </div>
           <div class="form-group">
-            <label>Κάτοχος κάρτας</label>
-            <input type="text" class="form-control" name="cardHolder" ng-model="cardHolder" maxlength="3" pattern="\d{3}" required>
+            <label style="color: aqua">Κάτοχος κάρτας</label>
+            <input type="text" class="form-control"  ng-model="cardHolder"  required>
+          </div>  
+          <div class="form-group">
+            <label style="color: aqua">CVV</label>
+            <input type="text" class="form-control" name="cardHolder" ng-model="CCV" maxlength="3" pattern="\d{3}" required>
           </div>
           
           <div class="row">
@@ -36,7 +39,8 @@
           <div class="col-md-4 col-sm-4 col-xs-12"></div>
           <div class="col-md-4 col-sm-4 col-xs-12">
           <!--div-->
-            <button type="submit" class="btn btn-success" ng-disabled="disabled" id="sub_but">Μεταφορά!</button>
+              <button type="submit" class="btn btn-success" >Μεταφορά!</button>
+            
             <!--button type="submit" class="btn btn-success"></button-->
           <!--/div-->
           </div>
@@ -47,3 +51,4 @@
   </div>
 
 <div footer-directive></div>
+
