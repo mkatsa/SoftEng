@@ -20,11 +20,11 @@
   <div class="row">
 	
     
-      <h1>Καλωσήρθατε στο προφίλ σας {{username}}</h1>
+      <h1 style="text-align: center" >Καλωσήρθατε στο προφίλ σας {{username}}</h1>
   </div>
   
   
-  <div ng-if=isProvider>
+  <div ng-if=isProvider >
   		<h5><strong>Εικόνα προφίλ</strong></h5>
     	<br>
     	<input type='file' onchange="readURL(this);" ng-file-select="onFileSelect($files)" />
@@ -63,42 +63,52 @@
         <br>
 	</div>
 	
-  <div ng-if=!isProvider>
+  <div ng-if=!isProvider class="container" style="text-align: center;width: 100%;">
+    <div style="width: 100%;text-align: center;" class="row"  >
+    <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
+      	 		
+        <div id="synopsis">
         <h4 style="color: azure">Εικόνα προφίλ</strong></h4>
     	<br>
     	<input type='file' onchange="readURL(this);" ng-file-select="onFileSelect($files)" />
     	<img id="blah" src="#" alt="your image" />
     	<br>
         <h4 style="color: azure"> Όνομα χρήστη </h4>
-        <input style="width: 15%" type="text"  class="form-control" value={{username}} readonly>
+        <input style="width: 100%" type="text"  class="form-control" value={{username}} readonly>
         <br>
 		<h4 style="color: azure">Όνομα </h4>
-        <input style="width: 15%" type="text" class="form-control"  value={{firstname}} readonly>
+        <input style="width: 100%" type="text" class="form-control"  value={{firstname}} readonly>
         <br>
         <h4 style="color: azure">Επώνυμο  </h4>
-        <input style="width: 15%" type="text" class="form-control"  value={{lastname}} readonly>
+        <input style="width: 100%" type="text" class="form-control"  value={{lastname}} readonly>
+        </div>
+      </div>
         <br>
 		<br>
+      <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
         <h6 style="color: azure">*Συμπληρώστε στοιχεία επικοινωνίας για να λαμβάνετε ενημερώσεις. </h6>
         <br>
-        <h4 style="color: azure">Ηλεκτρονική Διεύθυνση </h4>
+        <h4 style="color: blue">Ηλεκτρονική Διεύθυνση </h4>
         <form class="form-inline">
-        <input style="width: 15%" type="email" class="form-control"  value={{email}}  >
+        <input style="width: 100%" type="email" class="form-control"  value={{email}}  >
         <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
         </form>    
 		
-        <h4 style="color: azure">Τηλέφωνο επικοινωνίας </h4>
+        <h4 style="color: blue">Τηλέφωνο επικοινωνίας </h4>
         <form class="form-inline">
-        <input style="width: 15%" type="text" class="form-control"  value={{mobile}}  >
+        <input style="width: 100%" type="text" class="form-control"  value={{mobile}}  >
         <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
         </form>
         <br>
-		<h2 style="color: azure"> Οι πόντοι μου</h2>
+      </div>
+      <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
+		<h2 style="color: lawngreen"> Οι πόντοι μου</h2>
         <br>
-        <input style="width: 15%" type="text"  class="form-control" value={{points}} readonly> 
+        <input style="width: 100%" type="text"  class="form-control" value={{points}} readonly> 
         <br>
         <br>
-		<button onclick="location.href='/#/transfer';" class="btn btn-success btn-lg">Εισαγωγή πόντων μέσω κάρτας<i class="fa fa-plus" ></i></button>
+		<button onclick="location.href='/#/transfer';" class="btn btn-success btn-lg">Εισαγωγή πόντων μέσω κάρτας <i class="fa fa-plus" ></i></button>
+      </div>
   </div><!-- /.navbar-collapse -->
   
   
