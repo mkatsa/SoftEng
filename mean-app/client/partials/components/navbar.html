@@ -22,10 +22,20 @@
 	          
 	            <li><a href="./#/events">Ψάξε δραστηριότητα</a></li>
 	            <li><a href="./#/events-location">Δραστηριότητες κοντά σου</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="./#/">Οι δραστηριότητές μου</a></li>
-	          </ul>
+                
+                
+                   
+                    <li ng-if="isLoggedIn" role="separator" class="divider"></li>
+	               <li ng-if="isLoggedIn && !isProvider"><a href="./#/">Οι δραστηριότητές μου</a></li>
+                    <li ng-if="isLoggedIn && !isProvider"><a href="./#/">Οι δραστηριότητές που με ενδιαφέρουν</a></li>
+	               <li ng-if="isLoggedIn && !isProvider"><a href="./#/"> Ιστορικό των δραστηριοτήτων</a></li>
+                   <li ng-if="isLoggedIn && isProvider"><a href="./#/">Δημιουργία δραστηριότητας</a></li>
+                    <li ng-if="isLoggedIn && isProvider"><a href="./#/">Επεξεργασία δραστηριότητας</a></li>
+	               <li ng-if="isLoggedIn && isProvider"><a href="./#/"> Προβολή δραστηριοτήτων</a></li>
+                   
+            </ul>
 	        </li>
+            
 
 	      </ul>
 
