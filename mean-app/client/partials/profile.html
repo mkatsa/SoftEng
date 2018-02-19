@@ -27,17 +27,40 @@
   <div ng-if=isProvider>
   		<h5><strong>Εικόνα προφίλ</strong></h5>
     	<br>
-    	<input type='file' onchange="readURL(this);" />
+    	<input type='file' onchange="readURL(this);" ng-file-select="onFileSelect($files)" />
     	<img id="blah" src="#" alt="your image" />
     	<br>
-		<h2> User Name		: {{username}} </h2>
-		<h2> First Name		: {{firstname}} </h2>
-		<h2> Last Name		: {{lastname}} </h2>
-		<h2> Email    	 	: {{email}} </h2>
-		<h2> Company Name 	: {{companyname}} </h2>
-		<h2> Tax ID 		: {{TaxID}} </h2>
-		<h2> Phone			: {{phone}} </h2>
-		 Profile Picture <button> Upload or Change Profile Picture<input type="file" onchange="readURL(this);" ng-file-select="onFileSelect($files)"> </button>
+		<h4 style="color: azure"> Όνομα χρήστη </h4>
+        <input style="width: 15%" type="text"  class="form-control" value={{username}} readonly>
+        <br>
+		<h4 style="color: azure">Όνομα </h4>
+        <input style="width: 15%" type="text" class="form-control"  value={{firstname}} readonly>
+        <br>
+        <h4 style="color: azure">Επώνυμο  </h4>
+        <input style="width: 15%" type="text" class="form-control"  value={{lastname}} readonly>
+        <br>
+		
+		<h4 style="color: azure">Όνομα Εταιρείας</h4>
+    
+        <input style="width: 15%" type="text" class="form-control"  value={{companyname}}  >
+		<h4 style="color: azure"> Αριθμός Φορολογικού Μητρώου </h4>
+    
+        <input style="width: 15%" type="text" class="form-control"  value={{TaxID}} > 
+		<h6 style="color: azure">*Συμπληρώστε στοιχεία επικοινωνίας για να λαμβάνετε ενημερώσεις. </h6>
+        <br>
+        <h4 style="color: azure">Ηλεκτρονική Διεύθυνση </h4>
+    
+        <form class="form-inline">
+        <input style="width: 15%" type="email" class="form-control"  value={{email}}  >
+        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
+        </form>    
+		
+        <h4 style="color: azure">Τηλέφωνο επικοινωνίας </h4>
+        <form class="form-inline">
+        <input style="width: 15%" type="text" class="form-control"  value={{mobile}}  >
+        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
+        </form>
+        <br>
 	</div>
 	
   <div ng-if=!isProvider>
@@ -59,13 +82,17 @@
         <h6 style="color: azure">*Συμπληρώστε στοιχεία επικοινωνίας για να λαμβάνετε ενημερώσεις. </h6>
         <br>
         <h4 style="color: azure">Ηλεκτρονική Διεύθυνση </h4>
-    
+        <form class="form-inline">
         <input style="width: 15%" type="email" class="form-control"  value={{email}}  >
-		<h4 style="color: azure">Τηλέφωνο επικοινωνίας </h4>
-    
+        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
+        </form>    
+		
+        <h4 style="color: azure">Τηλέφωνο επικοινωνίας </h4>
+        <form class="form-inline">
         <input style="width: 15%" type="text" class="form-control"  value={{mobile}}  >
+        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
+        </form>
         <br>
-        <button  type="submit" class="btn btn-success" ng-disabled="disabled" >Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button> 
 		<h2 style="color: azure"> Οι πόντοι μου</h2>
         <br>
         <input style="width: 15%" type="text"  class="form-control" value={{points}} readonly> 
