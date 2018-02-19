@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	function readURL(input) {
+  function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
@@ -19,86 +19,37 @@
 </div>
 <div class="container">
   
+  <div class="row">
+  
+    
+      <h1>Καλωσήρθατε στο προφίλ σας {{username}}</h1>
+  </div>
   
   
-  
-  <div ng-if=isUser>
-    <h3>{{companyname}}}</h3>
-    <br>
-    <div>
-    <div>
-      <h3><strong>Ηλεκτρονική Διεύθυνση :</strong> {{email}} </h3>
-    </div>
-    <div>
-      <h3><strong>Τηλέφωνο επικοινωνίας :</strong> {{phone}} </h3>
-    </div>
-    <div>
-      <h3><strong>Διεύθυνση :</strong> {{TaxID}} </h3>
-    </div>
-    <div>
-      <h3><strong>Βαθμολογία :</strong> {{grade}} </h3>
-    </div>
-		</div>
-    <br>
-    <h6>*Στο παρακάτω πεδίο είναι σημαντικό να γίνει μία περιγραφή της εταιρείας ή του οργανισμού</h6>
-    <div>
-      <h3 style="text-align: center">Περιγραφή </h3>
+  <div ng-if=isProvider>
+      <h5><strong>Εικόνα προφίλ</strong></h5>
       <br>
-      <div>
-        <textarea rows="6" cols="50" name="comment" form="usrform">Σύντομη περιγραφή</textarea>
-      </div>
-    </div>
-    <div>
-      
-    </div>
-	</div>
-	
-  <div ng-if=!isUser>
-    <div class="row">
+      <input type='file' onchange="readURL(this);" />
+      <img id="blah" src="#" alt="your image" />
+      <br>
+    <h2> User Name    : {{username}} </h2>
+    <h2> First Name   : {{firstname}} </h2>
+    <h2> Last Name    : {{lastname}} </h2>
+    <h2> Email        : {{email}} </h2>
+    <h2> Company Name   : {{companyname}} </h2>
+    <h2> Tax ID     : {{TaxID}} </h2>
+    <h2> Phone      : {{phone}} </h2>
+     Profile Picture <button> Upload or Change Profile Picture<input type="file" ng-file-select="onFileSelect($files)"> </button>
+  </div>
   
-    
-      <h3>Καλωσήρθατε στο προφίλ σας {{username}}</h3>
-   </div>
-  	<h4>Εικόνα προφίλ</h4>
-    <br>
-    <input type='file' onchange="readURL(this);" />
-    <img id="blah" src="#" alt="your image" />
-    <br>
-    <h4> Όνομα χρήστη </h4>
-    <input style="width: 15%" type="text"  class="form-control" value={{username}} readonly>
-    <br>
-    <h4> Όνομα </h4>
-    <input style="width: 15%" type="text" class="form-control"  value={{firstname}} readonly>
-    <br>
-    <h4> Επώνυμο </h4>
-    <input style="width: 15%" type="text" class="form-control"  value={{lastname}} readonly>
-    <br>
-    <br>
-    <h6>*Συμπληρώστε στοιχεία επικοινωνίας για να λαμβάνετε ενημερώσεις. </h6>
-    <br>
-    <h4>Ηλεκτρονική Διεύθυνση </h4>
-    
-    <input style="width: 15%" type="email" class="form-control"  value={{email}}  >
-     
-		<h4>Ταχυδρομικός κώδικας </h4>
-    
-    <input style="width: 15%" type="text" class="form-control"  value={{postalcode}}>
-    
-    <h4>Τηλέφωνο επικοινωνίας </h4>
-    
-    <input style="width: 15%" type="text" class="form-control"  value={{mobile}}  >
-    <br>
-		<button  type="submit" class="btn btn-success" ng-disabled="disabled" >Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button> 
-    
-    <h2> Οι πόντοι μου</h2>
-    <br>
-    <input style="width: 15%" type="text"  class="form-control" value={{points}} readonly> 
-    <br>
-    <br>
-    <button  type="submit" class="btn btn-success" ng-disabled="disabled" >Εισαγωγή πόντων μέσω κάρτας <i class="fa fa-plus" ></i></button> 
-
-    
-    
+  <div ng-if=!isProvider>
+    <h2> User Name    : {{username}} </h2>
+    <h2> First Name   : {{firstname}} </h2>
+    <h2> Last Name    : {{lastname}} </h2>
+    <h2> Email        : {{email}} </h2>
+    <h2> Phone        : {{mobile}} </h2>
+    <h2> Balance      : {{points}} </h2>
+    <button onclick="location.href='/#/transfer';" class="btn btn-default btn-lg">Βάλε χρήματα βλάκα!!</button>
   </div><!-- /.navbar-collapse -->
   
   
@@ -109,7 +60,7 @@
     
   
 
-
+<footer-directive></footer-directive>
 <!--script type="text/javascript" src="signup.js"></script>
 </body>
 </html!>
