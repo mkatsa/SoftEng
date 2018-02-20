@@ -412,44 +412,36 @@ angular.module('myApp').factory('AdminService',['$q','$http',
       getAllEvents: function () {
         var deferred = $q.defer(),
         httpPromise = $http.get('events/findEvents');
-<<<<<<< HEAD
-=======
 
->>>>>>> 2c725940dfd7215d9c576079bc858f69f32d30d5
+
+
         httpPromise.success(function (response) {
           deferred.resolve(response);
         })
         .error(function (error) {
           console.error(error);
         });
-<<<<<<< HEAD
-        return deferred.promise;
-      }
-=======
 
         return deferred.promise;
       }
 
->>>>>>> 2c725940dfd7215d9c576079bc858f69f32d30d5
+
+        return deferred.promise;
+      }
+
       createEvent: function(eventname,price,minage,maxage,description){
         var deferred = $q.defer(),
         httpPromise = $http.post('/events/createEvent',
           //here change attributes
           {eventname: eventname, price: price, minage:minage, maxage:maxage, description:description});
-<<<<<<< HEAD
-=======
 
->>>>>>> 2c725940dfd7215d9c576079bc858f69f32d30d5
         httpPromise.success(function (response) {
           deferred.resolve(response);
         })
         .error(function (error) {
           console.error(error);
         });
-<<<<<<< HEAD
-=======
 
->>>>>>> 2c725940dfd7215d9c576079bc858f69f32d30d5
         return deferred.promise;
       }
     };
