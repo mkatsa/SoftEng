@@ -1,0 +1,28 @@
+Αν το δει κάποιος αυτό το αρχείο :( να μην κάνει αλλαγές για να μην γίνει μπάχαλο. Θα το ανανεώνω εγώ τακτικά =Σ
+----Tasks-Done----
+-User
+1)Profile user αποθήκευση αλλαγών-0
+2)email στον user μετά το registration-0
+3)στο donate παίρνουμε από το πορτοφόλι του user και προς ποιον ?
+4)πεδίο user profile picture-0
+
+
+
+
+-Provider
+3)email στον provider μετά το registration ότι θα τον ελέγξουμε και αν είναι οκ θα γίνει confirmed-0
+4)πεδίο provider authorized-0
+5)να δουλεύει με το refresh-0
+
+
+
+
+
+
+-Admin
+1)??_??
+
+
+
+-Anonymous
+1)new logo, δεν ξέρω πως θα φτιάξουμε το δικό μας.

@@ -1,17 +1,55 @@
 <div style="width: 100%">
   <header-nav-directive></header-nav-directive>
 </div>
-
-<h1>Amount</h1>
-<div class="row">
-<form name="forma" ng-submit="transfer()">
- <input type="number" ng-model="amount"  required>
- <h3>Card Number</h3>
- <input type="text" ng-model="cardId" maxlength="16" pattern="\d{16}" required>
- <h3>Card Holder</h3>
- <input type="text" ng-model="cardHolder" required>
- <h3>CCV</h3>
- <input type="text" ng-model="CCV" maxlength="3" pattern="\d{3}" required>
-<button type="submit" class="btn" >Transfer</button>
-</form>
+<div>
+<h1 style="text-align: center; color: chocolate">Μεταφορά χρημάτων στο πορτοφόλι {{username}}</h1>
 </div>
+<br>
+<br>
+<div class="container-fluid bg">
+  
+  <div class="row" >
+
+    <div class="col-md-4 col-sm-4 col-xs-12"></div>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+
+        
+        <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+        <!--<form class="form" ng-submit="register()" style="margin-bottom: 35%;overflow: scroll;">-->
+        <form class="form" name="forma" ng-submit="transfer()" style="margin-bottom: 35%;">
+          <div class="form-group">
+            <label style="color: aqua">Ποσό</label>
+            <input type="number" class="form-control"  ng-model="amount"  required>
+          </div>
+          <div class="form-group">
+            <label style="color: aqua">Αριθμός κάρτας</label>
+            <input type="text" class="form-control"  ng-model="cardId" maxlength="16" pattern="\d{16}" required>
+          </div>
+          <div class="form-group">
+            <label style="color: aqua">Κάτοχος κάρτας</label>
+            <input type="text" class="form-control"  ng-model="cardHolder"  required>
+          </div>  
+          <div class="form-group">
+            <label style="color: aqua">CVV</label>
+            <input type="text" class="form-control" name="cardHolder" ng-model="CCV" maxlength="3" pattern="\d{3}" required>
+          </div>
+          
+          <div class="row">
+
+          <div class="col-md-4 col-sm-4 col-xs-12"></div>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+          <!--div-->
+              
+              <button type="submit" class="btn btn-success"  >Μεταφορά!</button>
+            
+            <!--button type="submit" class="btn btn-success"></button-->
+          <!--/div-->
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<div footer-directive></div>
+
