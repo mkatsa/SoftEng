@@ -184,7 +184,6 @@ angular.module('myApp').controller('eventsController',
   ['$scope', '$route', 'AuthService',
   function ($scope, $route, AuthService) {
  /* $(document).ready(function(){
-
       $(".filter-button").click(function(){
           var value = $(this).attr('data-filter');
           
@@ -207,7 +206,6 @@ angular.module('myApp').controller('eventsController',
   $(this).removeClass("active");
   }
   $(this).addClass("active");
-
   });
   */
   $scope.eventsList = {};

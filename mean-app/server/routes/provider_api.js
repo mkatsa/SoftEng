@@ -84,7 +84,7 @@ router.get('/logout', function(req, res) {
 });
 
 //Handle status. Returns {"status":"true"} if provider is logged in
-/*router.get('/status', function(req, res) {
+router.get('/status', function(req, res) {
   if (!req.isAuthenticated()) {									//ATTENTION: this has nothing to do with provider's authentication from admin!!!!!
     return res.status(200).json({
       status: false
@@ -94,7 +94,6 @@ router.get('/logout', function(req, res) {
     status: true
   });
 });
-*/
 
 
 //Returns provider's username {"username":"example_username"}

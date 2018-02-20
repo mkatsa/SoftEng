@@ -92,8 +92,23 @@ router.get('/status', function(req, res) {
   if (!req.isAuthenticated('user')&&(!req.isAuthenticated('provider'))&&(!req.isAuthenticated())) {
     console.log("IS NOT AUTHENTICATED")
     return res.status(200).json({
-      status: false
+      status: false,
+	  isProvider: false
     });
+  }
+  if (( req.isAuthenticated('provider')||req.isAuthenticated('user') )&&req.isAuthenticated()) { 
+	  if (req.user.usertype == 'user'){
+		return res.status(200).json({
+			status: true,
+			isProvider: false
+		})
+	  }
+	  else {
+		return res.status(200).json({
+			status: true,
+			isProvider: true
+		})
+	  }
   }
   console.log("IS authenticated")
   return res.status(200).json({
@@ -147,11 +162,6 @@ router.get('/get_all',function(req,res){
   });
   }
 });
-
-
-
-
-
 
 
 module.exports = router;
