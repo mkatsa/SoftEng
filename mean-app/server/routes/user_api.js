@@ -96,8 +96,7 @@ router.get('/status', function(req, res) {
 	  isProvider: false
     });
   }
-  if (( req.isAuthenticated('provider')||req.isAuthenticated('user') )&&req.isAuthenticated()) {
-	  
+  if (( req.isAuthenticated('provider')||req.isAuthenticated('user') )&&req.isAuthenticated()) { 
 	  if (req.user.usertype == 'user'){
 		return res.status(200).json({
 			status: true,

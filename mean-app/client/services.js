@@ -405,47 +405,7 @@ angular.module('myApp').factory('AdminService',['$q','$http',
   }]);
 
 
-  /*//EventsParsing Service for events
-  angular.module('myApp')
-  .factory('EventsParsing', function ($q, $http) {
-    return {
-      getAllEvents: function () {
-        var deferred = $q.defer(),
-        httpPromise = $http.get('events/findEvents');
-
-
-
-        httpPromise.success(function (response) {
-          deferred.resolve(response);
-        })
-        .error(function (error) {
-          console.error(error);
-        });
-
-        return deferred.promise;
-      }
-
-
-        return deferred.promise;
-      }
-
-      createEvent: function(eventname,price,minage,maxage,description){
-        var deferred = $q.defer(),
-        httpPromise = $http.post('/events/createEvent',
-          //here change attributes
-          {eventname: eventname, price: price, minage:minage, maxage:maxage, description:description});
-
-        httpPromise.success(function (response) {
-          deferred.resolve(response);
-        })
-        .error(function (error) {
-          console.error(error);
-        });
-
-        return deferred.promise;
-      }
-    };
-  });*/
+  
 
   angular.module('myApp').factory('TransferService',['$q','$http',
     function($q,$http){
@@ -463,27 +423,3 @@ angular.module('myApp').factory('AdminService',['$q','$http',
       transfer:transfer
     };
   }]);
-
-  //service just for static data parsing in order to debug
-  /*angular.module('myApp').service('EventsParsing',function(){
-    this.getAllEvents = function(){
-       return ([
-        {
-          component: 'MongoDB',
-          url: 'http://www.mongodb.org'
-        },
-        {
-          component: 'Express',
-          url: 'http://expressjs.com'
-        },
-        {
-          component: 'AngularJS',
-          url: 'http://angularjs.org'
-        },
-        {
-          component: 'Node.js',
-          url: 'http://nodejs.org'
-        }
-      ])
-     };
-  });*/
