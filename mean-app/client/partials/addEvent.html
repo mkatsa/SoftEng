@@ -35,6 +35,12 @@
             <label><h3><b>Τιμή</h3></b></label>
             <input type="text" class="form-control" name="price" ng-model="eventForm.price" required>
           </div>
+          <div class="radio">
+            <input type="radio"  name="category" value="sports" ng-model="eventForm.category"> <h3>Sports</h3> 
+            <input type="radio"  name="category" value="art" ng-model="eventForm.category"> <h3>Art</h3>
+            <input type="radio"  name="category" value="science" ng-model="eventForm.category"> <h3>Science</h3>
+            <input type="radio"  name="category" value="fun" ng-model="eventForm.category"> <h3>Fun</h3>
+          </div>
           <div class="form-group">
             <label><h3><b>Για παιδιά ηλικίας από :</h3></b></label>
             <input type="text" class="form-control" name="minage" ng-model="eventForm.minage" required>
