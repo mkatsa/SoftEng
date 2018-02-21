@@ -17,12 +17,11 @@ router.get('/findEvents',function(req,res){
     });
 })	
 
-
-
 //POST message for event creation, not all necessairy data included yet
 router.post("/createEvent", function(req, res) {  
     var ev = new Event({
         eventname: req.body.eventname,
+        category: req.body.category,
 		price: req.body.price,
 		description: req.body.description,
 		minage: req.body.minage,
@@ -33,8 +32,16 @@ router.post("/createEvent", function(req, res) {
         if (err) return res.json(err);
         return res.json(status);			//status in fact is data, just for debugging
     });
-});
+})
 
+//handle user single event click
+router.get("/singleEvent/:id?", function(req, res) {  
+    Event.findById(req.params.id, function(err, event){
+    if (err)
+      res.send(err);
+    res.json(event);
+  });
+})
 
 
 module.exports = router;

@@ -1,14 +1,62 @@
-<div style="width: 100%">
-	<header-nav-directive></header-nav-directive>
-    <div align="center" >
-        <h3>Ο πάροχος σας προσφέρει:</h3>
-        <br>
-        <h3>{{eventname}}</h3>
-    </div>
-    <div align="center">
-        <h3>{{description}}</h3>
-    </div>
-    <h3>Ηλικίες:{{minage}} - {{maxage}}</h3> <br>
-    <h3>Τιμη:{{price}}</h3> <br>
+
     
+    
+<div style="width:100%">
+  <header-nav-directive></header-nav-directive>
 </div>
+
+
+<div class="container-fluid bg" ng-init="getEventById()">
+  
+  <div class="row" >
+
+    <div class="col-md-4 col-sm-4 col-xs-12"></div>
+    <div class="col-md-4 col-sm-4 col-xs-12" >
+
+        <h3>O πάροχος <a href=".#/publicprofile">{{event.provider}}</a> σας προσφέρει: </h1>
+        <div class="form-group">
+            <h3>Όνομα δραστηριότητας:</h3>
+            <input type="text" class="form-control"  value={{event.eventname}} readonly>
+        </div>
+        <div class="form-group">
+            <h3>Σύντομη περιγραφή δραστηριότητας:</h3>
+            <textarea style="width: 100%" rows="3"  readonly  >{{event.description}}</textarea>
+        </div>
+          <div class="form-group">
+            <h3>Ηλικίες:</h3>
+            <input type="text" class="form-control" value={{event.minage}}-{{event.maxage}}  readonly>
+          </div>
+          <div class="form-group">
+            <h3>Τιμή εισιτηρίου</h3>
+            <input type="text" class="form-control" value={{event.price}}  readonly >
+          </div>
+          <div class="form-group">
+            <h3>Τοποθεσία:</h3>
+            <input type="text" class="form-control" value={{event.location}}  readonly >
+          </div>
+         <div class="form-group">
+            <h3>Αριθμός διαθέσιμων εισιτηρίων:</h3>
+            <input type="text" class="form-control" value={{event.tickets}}  readonly >
+          </div>
+          <div class="row">
+
+        
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <!--div-->
+            <button type="submit" class="btn btn-success" ng-disabled="disabled" id="sub_but">Ενδιαφέρομαι! <i class="fa fa-thumbs-up"></i></button>
+            
+          <!--/div-->
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <button type="submit" class="btn btn-success">Αγορά εισιτηρίων  <i class="fa fa-plus"></i></button>
+          </div>
+          </div>
+       
+      </div>
+      <p style="height: 1000000px"></p>
+    </div>
+  </div>
+<div footer-directive></div>
+

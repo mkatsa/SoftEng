@@ -293,7 +293,7 @@ function register_provider(username, password, firstname, lastname, email, compa
   return deferred.promise;
 }
 
-function createEvent(eventname, price, minage, maxage, description){
+function createEvent(eventname,category, price, minage, maxage, description){
   var deferred = $q.defer();
   console.log("here1")
   console.log(eventname)
@@ -301,8 +301,9 @@ function createEvent(eventname, price, minage, maxage, description){
   console.log(minage)
   console.log(maxage)
   console.log(description)
+  console.log(category)
   $http.post('/event/createEvent',
-    {eventname:eventname, price:price, minage:minage, maxage:maxage, description:description})
+    {eventname:eventname,category: category, price:price, minage:minage, maxage:maxage, description:description})
   .success(function (status) {
     console.log("createEvent:success(200)")
     deferred.resolve();
@@ -329,6 +330,64 @@ function getAllEvents() {
   return deferred.promise;
 }
 
+function getSingleEvent(id) {
+  var deferred = $q.defer(),
+  httpPromise = $http.get('event/singleEvent/'+id);
+
+  httpPromise.success(function (response) {
+    deferred.resolve(response);
+  })
+  .error(function (error) {
+    console.error(error);
+  }); 
+  return deferred.promise;
+}
+
+
+
+
+//this service is about updating a provider's data
+//username is the username of the provider we want to update
+//what is the field we want to cheng and the value has the new value to be put in mongo
+function updateProviderData(username, what, value) {
+	console.log( "I am on updateProviderData service")
+	console.log(username)
+	console.log(what)
+	console.log(value)
+	var deferred = $q.defer(),
+	httpPromise = $http.put('/provider/update_provider',
+        {username: username,what: what, value: value})
+      // handle success
+      .success(function () {
+          deferred.resolve();
+	  })
+        
+	  return deferred.promise;
+}
+
+
+//this service is about updating a parent's data
+//username is the username of the provider we want to update
+//what is the field we want to cheng and the value has the new value to be put in mongo
+function updateParentData(username, what, value) {
+	console.log( "I am on updateProviderData service")
+	console.log(username)
+	console.log(what)
+	console.log(value)
+	var deferred = $q.defer(),
+	httpPromise = $http.put('/user/update_parent',
+        {username: username,what: what, value: value})
+      // handle success
+      .success(function () {
+          deferred.resolve();
+	  })
+        
+	  return deferred.promise;
+}
+
+
+
+
 
  //username=getUserName();
 
@@ -344,7 +403,10 @@ function getAllEvents() {
   getUserData: getUserData,
   isProvider: isProvider,
   createEvent: createEvent,
-  getAllEvents: getAllEvents
+  getAllEvents: getAllEvents,
+  updateProviderData: updateProviderData,
+  updateParentData: updateParentData,
+  getSingleEvent: getSingleEvent
 });
 }]);
 

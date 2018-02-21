@@ -80,6 +80,11 @@ myApp.config(function ($routeProvider) {
       controller:'transferController',
       access:{restricted:false, admin:false}
     })
+    .when('/singleEvent:id?',{
+      templateUrl:'partials/single_event.html',
+      controller:'manipulateEventsController',
+      access:{restricted:false, admin:false}
+    })    
     .otherwise({
       redirectTo: '/',
       access:{restricted:false, admin:false}
