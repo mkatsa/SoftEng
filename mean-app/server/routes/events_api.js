@@ -17,8 +17,6 @@ router.get('/findEvents',function(req,res){
     });
 })	
 
-
-
 //POST message for event creation, not all necessairy data included yet
 router.post("/createEvent", function(req, res) {  
     var ev = new Event({
@@ -35,6 +33,14 @@ router.post("/createEvent", function(req, res) {
     });
 });
 
+//handle user single event click
+router.get("/singleEvent/:id?", function(req, res) {  
+    Event.findById(req.params.id, function(err, event){
+    if (err)
+      res.send(err);
+    res.json(event);
+  });
+});
 
 
 module.exports = router;
