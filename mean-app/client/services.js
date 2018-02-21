@@ -329,6 +329,19 @@ function getAllEvents() {
   return deferred.promise;
 }
 
+function getSingleEvent(id) {
+  var deferred = $q.defer(),
+  httpPromise = $http.get('event/singleEvent/'+id);
+
+  httpPromise.success(function (response) {
+    deferred.resolve(response);
+  })
+  .error(function (error) {
+    console.error(error);
+  }); 
+  return deferred.promise;
+}
+
 
  //username=getUserName();
 
@@ -344,7 +357,8 @@ function getAllEvents() {
   getUserData: getUserData,
   isProvider: isProvider,
   createEvent: createEvent,
-  getAllEvents: getAllEvents
+  getAllEvents: getAllEvents,
+  getSingleEvent: getSingleEvent
 });
 }]);
 
