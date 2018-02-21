@@ -17,51 +17,80 @@
 </div>
 <div class="container">
   
-  <div class="row">
+  
 	
     
       <h1 style="text-align: center" >Καλωσήρθατε στο προφίλ σας {{username}}</h1>
-  </div>
+      <h2>Εδώ μπορείτε να επεξεργαστείτε το προφίλ σας.</h2>
   
   
-  <div ng-if=isProvider >
-  		<h5><strong>Εικόνα προφίλ</strong></h5>
+  
+  <div  class="container" style="text-align: center;width: 100%;" ng-if=isProvider>
+    <div style="width: 100%;text-align: center;" class="row"  >
+    <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
+      	 		
+        <div id="synopsis" style="color: aliceblue" >
+        <button onclick="location.href='/#/stats';" class="btn btn-success btn-lg">Προβολή στατιστικών <i class="fa fa-book"></i></button>
+        <br>
+        <br>
+        <h4 style="color: azure">Εικόνα προφίλ</strong></h4>
     	<br>
     	<input type='file' onchange="readURL(this);" ng-file-select="onFileSelect($files)" />
     	<img id="blah" src="#" alt="your image" />
     	<br>
-		<h4 style="color: azure"> Όνομα χρήστη </h4>
-        <input style="width: 15%" type="text"  class="form-control" value={{username}} readonly>
+        <h4 style="color: azure"> Όνομα χρήστη </h4>
+        <input style="width: 100%" type="text"  class="form-control" value={{username}} readonly>
         <br>
 		<h4 style="color: azure">Όνομα </h4>
-        <input style="width: 15%" type="text" class="form-control"  value={{firstname}} readonly>
+        <input style="width: 100%" type="text" class="form-control"  value={{firstname}} readonly>
         <br>
         <h4 style="color: azure">Επώνυμο  </h4>
-        <input style="width: 15%" type="text" class="form-control"  value={{lastname}} readonly>
+        <input style="width: 100%" type="text" class="form-control"  value={{lastname}} readonly>
         <br>
-		
-		<h4 style="color: azure">Όνομα Εταιρείας</h4>
-    
-        <input style="width: 15%" type="text" class="form-control"  value={{companyname}}  >
-		<h4 style="color: azure"> Αριθμός Φορολογικού Μητρώου </h4>
-    
-        <input style="width: 15%" type="text" class="form-control"  value={{TaxID}} > 
-		<h6 style="color: azure">*Συμπληρώστε στοιχεία επικοινωνίας για να λαμβάνετε ενημερώσεις. </h6>
+        <h4 style="color: azure">Όνομα εταιρείας  </h4>
+        <input style="width: 100%" type="text" class="form-control"  value={{companyname}} readonly>
+        
+
+        </div>
+      </div>
+        
+      <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
+        <h5 style="color: brown">*Συμπληρώστε τα στοιχεία επικοινωνίας. </h6>
         <br>
-        <h4 style="color: azure">Ηλεκτρονική Διεύθυνση </h4>
-    
+        <h4 style="color: blue">Ηλεκτρονική Διεύθυνση </h4>
         <form class="form-inline">
-        <input style="width: 15%" type="email" class="form-control"  value={{email}}  >
+        <input style="width: 100%" type="email" class="form-control"  value={{email}}  >
         <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
         </form>    
 		
-        <h4 style="color: azure">Τηλέφωνο επικοινωνίας </h4>
+        <h4 style="color: blue">Τηλέφωνο επικοινωνίας </h4> 
         <form class="form-inline">
-        <input style="width: 15%" type="text" class="form-control"  value={{mobile}}  >
+        <input style="width: 100%" type="text" class="form-control"  value={{phone}}  >
+        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
+        </form>
+        <h4 style="color: blue">Ταχυδρομικός κώδικας </h4>
+        <form class="form-inline">
+        <input style="width: 100%" type="text" class="form-control"  value={{postalcode}} pattern="\d{6}"  >
         <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
         </form>
         <br>
-	</div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
+        <br>
+        <br>
+        <h3 ><strong>Περιγράψτε τις υπηρεσίες σας.</strong></h3>
+        <form class="form-inline">
+        <textarea name="description" cols="60" rows="7"  >{{description}}</textarea>
+        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
+        </form>
+        
+      </div>
+  </div><!-- /.navbar-collapse -->
+  
+  
+      
+      <!--end form-->
+    </div>
 	
   <div ng-if=!isProvider class="container" style="text-align: center;width: 100%;">
     <div style="width: 100%;text-align: center;" class="row"  >
