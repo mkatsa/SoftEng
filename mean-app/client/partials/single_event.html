@@ -1,14 +1,17 @@
 <div style="width: 100%">
 	<header-nav-directive></header-nav-directive>
-    <div align="center" >
+
+    <div ng-init = "getEventById()">
+    <div>
+        <!--to do : Display provider of event by adding field of provider in event.js -->
         <h3>Ο πάροχος σας προσφέρει:</h3>
         <br>
-        <h3>{{eventname}}</h3>
+        <b><h3>Όνομα Δραστηριότητας :{{event.eventname}}</h3></b>
     </div>
-    <div align="center">
-        <h3>{{description}}</h3>
+    <div>
+        <b><h3> Σύντομη Περιγραφη δραστηριότητας : {{event.description}}</h3></b>
     </div>
-    <h3>Ηλικίες:{{minage}} - {{maxage}}</h3> <br>
-    <h3>Τιμη:{{price}}</h3> <br>
+    <b><h3>Ηλικίες:{{event.minage}} - {{event.maxage}}</h3></b>
+    <b><h3>Τιμη:{{event.price}}</h3> <br></b>
     
 </div>
