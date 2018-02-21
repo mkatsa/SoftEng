@@ -25,7 +25,8 @@ router.post("/createEvent", function(req, res) {
 		price: req.body.price,
 		description: req.body.description,
 		minage: req.body.minage,
-		maxage: req.body.maxage
+		maxage: req.body.maxage,
+		provider:req.body.provider
     });
 
     ev.save(function(err, status) {
