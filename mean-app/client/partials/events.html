@@ -43,6 +43,7 @@
             -->
 			<div ng-repeat="event in eventsList" align="center">
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter {{event.category}}">
+                <a ng-href="./#/singleEvent?id={{event._id}}">
                 <img src="http://www.femalefirst.co.uk/image-library/partners/rivals/square/500/l/lionel-messi-f012b0-rv.jpg" class="img-responsive" ng-href="event/single_event/?parameter={{event._id}}" >
                 <div class="event-title-overlay">
                 	<h2>{{event.eventname}}</h2>
@@ -50,8 +51,8 @@
                 <div class="event-age-overlay">
                 	<h2>ages:{{event.minage}}-{{event.maxage}}</h2>
                 </div>
-                <a ng-href="./#/singleEvent?id={{event._id}}">
-                    deite to
+                
+                    
                 </a>
                <!--  <a ng-href="./#/singleEvent" >
                     deite to
