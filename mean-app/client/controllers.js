@@ -270,7 +270,6 @@ $scope.getEventById = function (){
 
 
 angular.module('myApp').controller('profileController',
-<<<<<<< HEAD
 ['$scope', '$route' ,'AuthService',
 function ($scope, $route, AuthService) {
 

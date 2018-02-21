@@ -345,7 +345,6 @@ function getSingleEvent(id) {
 
 
 
-
 //this service is about updating a provider's data
 //username is the username of the provider we want to update
 //what is the field we want to cheng and the value has the new value to be put in mongo
@@ -384,8 +383,6 @@ function updateParentData(username, what, value) {
         
 	  return deferred.promise;
 }
-
-
 
 
 
