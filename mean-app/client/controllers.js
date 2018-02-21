@@ -221,8 +221,8 @@ angular.module('myApp').controller('eventsController',
 
 //Controller for add remove or update event
 angular.module('myApp').controller('manipulateEventsController',
-['$scope', '$route','AuthService', '$location', 
-function ($scope, $route, AuthService, $location) {
+  ['$scope', '$route','AuthService','$routeParams', '$location', 
+  function ($scope, $route, AuthService,$routeParams, $location) {
 
  //Function to be called from html
  $scope.createEvent = function () {
@@ -233,8 +233,8 @@ function ($scope, $route, AuthService, $location) {
 
   // call register from service, with inputs from the html form
   AuthService.createEvent($scope.eventForm.eventname, $scope.eventForm.price
-  ,$scope.eventForm.minage,$scope.eventForm.maxage
-  ,$scope.eventForm.description)
+    ,$scope.eventForm.minage,$scope.eventForm.maxage
+    ,$scope.eventForm.description)
   // handle success
   .then(function () {
     console.log("controller:events controller:THEN")
@@ -253,56 +253,68 @@ function ($scope, $route, AuthService, $location) {
     $scope.registerForm = {};
   });
 };
+
+$scope.getEventById = function (){
+  console.log("getting single event")
+  AuthService.getSingleEvent($routeParams.id)
+  .then(function (response) {
+    $scope.event = response;
+    console.log("i am here")
+  }, function (error) {
+    console.error(error);
+  });
+};
+
 }]);
 
 
 
 angular.module('myApp').controller('profileController',
-['$scope', '$route' ,'AuthService',
-function ($scope, $route, AuthService) {
+  ['$scope', '$route' ,'AuthService',
+  function ($scope, $route, AuthService) {
 
-  $scope.isProvider = AuthService.isProvider();
-  userdata = AuthService.getUserData()
-  .then(function(userdata){
-    console.log('adsdas')
-    console.dir(userdata)
-    $scope.username = userdata.username;
-    $scope.firstname = userdata.firstname;
-    $scope.lastname = userdata.lastname;
-    $scope.email = userdata.email;
-    if($scope.isProvider){  
-      $scope.companyname = userdata.companyname;
-      $scope.TaxID = userdata.TaxID;
-      $scope.phone = userdata.phone;
-    }
-    else{
-      $scope.mobile = userdata.mobile;
-      $scope.points = userdata.points;
-    }
-  })
-}]);
+    $scope.isProvider = AuthService.isProvider();
+    userdata = AuthService.getUserData()
+    .then(function(userdata){
+      console.log('adsdas')
+      console.dir(userdata)
+      $scope.username = userdata.username;
+      $scope.firstname = userdata.firstname;
+      $scope.lastname = userdata.lastname;
+      $scope.email = userdata.email;
+      if($scope.isProvider){  
+        $scope.companyname = userdata.companyname;
+        $scope.TaxID = userdata.TaxID;
+        $scope.phone = userdata.phone;
+      }
+      else{
+        $scope.mobile = userdata.mobile;
+        $scope.points = userdata.points;
+      }
+    })
+  }]);
 
 
 
 //https://stackoverflow.com/questions/23185619/how-can-i-use-html5-geolocation-in-angularjs
 angular.module('myApp').controller('eventsLocationController',
-['$scope', '$route', 'AuthService', 'GeolocationService',
-function ($scope, $route, AuthService,GeolocationService) {
+  ['$scope', '$route', 'AuthService', 'GeolocationService',
+  function ($scope, $route, AuthService,GeolocationService) {
 
-  var haveLoc=false;    
-  $scope.captureUserLocation = function() {
-    if (!haveLoc){
-      GeolocationService.getCurrentPosition()
-      .then(function(position){
-        haveLoc=true;
-        console.log("KOBLE");
-        showPosition(position);
-      });
+    var haveLoc=false;    
+    $scope.captureUserLocation = function() {
+      if (!haveLoc){
+        GeolocationService.getCurrentPosition()
+        .then(function(position){
+          haveLoc=true;
+          console.log("KOBLE");
+          showPosition(position);
+        });
+      }
     }
-  }
 
-  function showPosition(position) {
-    latlon = position.coords.latitude + "," + position.coords.longitude;
+    function showPosition(position) {
+      latlon = position.coords.latitude + "," + position.coords.longitude;
 
     //API key AIzaSyBpyJPBHwTbkAFdT8BBlc3p1i8OxMLR7pw
 
@@ -312,8 +324,8 @@ function ($scope, $route, AuthService,GeolocationService) {
 }]);
 
 angular.module('myApp').controller('transferController',
-['$scope', 'TransferService',
-function ($scope, TransferService) {
+  ['$scope', 'TransferService',
+  function ($scope, TransferService) {
   //$scope.amount="12";
   //console.log("pousth")
   //$scope.disabled = false;
@@ -331,33 +343,33 @@ function ($scope, TransferService) {
 
 
 angular.module('myApp').controller('adminController',['$scope','$route','AdminService',
-function($scope,$route,AdminService){
-  $scope.got_users=false;
+  function($scope,$route,AdminService){
+    $scope.got_users=false;
 
-  var examples_per_page=10;
+    var examples_per_page=10;
 
 
-  $scope.getAllUsers = function(){
-    AdminService.getAllUsers()
-    .then(function(data){
-      $scope.page=1;
-      $scope.pages=[];
-      $scope.users=data.users;
-      console.log("USERS:")
-      console.log(data.users)
-      $scope.got_users=true;
-      $scope.num_users=data.users.length;
-      $scope.num_pages=Math.ceil($scope.num_users/examples_per_page);
-      for(var i=1;i<$scope.num_pages+1;i++) {
-        $scope.pages.push(i);
-      }
-      $scope.pages=$scope.pages.reverse();
-      $scope.setPage(1)        
-    })
-  }
+    $scope.getAllUsers = function(){
+      AdminService.getAllUsers()
+      .then(function(data){
+        $scope.page=1;
+        $scope.pages=[];
+        $scope.users=data.users;
+        console.log("USERS:")
+        console.log(data.users)
+        $scope.got_users=true;
+        $scope.num_users=data.users.length;
+        $scope.num_pages=Math.ceil($scope.num_users/examples_per_page);
+        for(var i=1;i<$scope.num_pages+1;i++) {
+          $scope.pages.push(i);
+        }
+        $scope.pages=$scope.pages.reverse();
+        $scope.setPage(1)        
+      })
+    }
 
-  $scope.setPage=function(pagenum){
-    $scope.page=pagenum;
+    $scope.setPage=function(pagenum){
+      $scope.page=pagenum;
     //Index of first user of the page
     start=($scope.page-1)*examples_per_page;
     if ($scope.page<$scope.num_pages){
