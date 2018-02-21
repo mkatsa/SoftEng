@@ -252,6 +252,8 @@ angular.module('myApp').controller('manipulateEventsController',
     $scope.disabled = false;
     $scope.registerForm = {};
   });
+  
+  
 }
 
 $scope.getEventById = function (){
@@ -286,6 +288,7 @@ function ($scope, $route, AuthService) {
       $scope.companyname = userdata.companyname;
       $scope.TaxID = userdata.TaxID;
       $scope.phone = userdata.phone;
+	  $scope.description = userdata.description;
     }
     else{
       $scope.mobile = userdata.mobile;
@@ -312,6 +315,7 @@ function ($scope, $route, AuthService) {
       $scope.companyname = userdata.companyname;
       $scope.TaxID = userdata.TaxID;
       $scope.phone = userdata.phone;
+	  $scope.description = userdata.description;
     }
     else{
       $scope.mobile = userdata.mobile;
@@ -342,6 +346,7 @@ function ($scope, $route, AuthService) {
       $scope.companyname = userdata.companyname;
       $scope.TaxID = userdata.TaxID;
       $scope.phone = userdata.phone;
+	  $scope.description = userdata.description;
     }
     else{
       $scope.mobile = userdata.mobile;

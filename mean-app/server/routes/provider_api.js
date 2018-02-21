@@ -132,7 +132,8 @@ router.get('/get_all',function(req,res){
 	  companyname: req.user.companyname,
 	  email: req.user.email,
 	  phone: req.user.phone,
-	  TaxID: req.user.TaxID
+	  TaxID: req.user.TaxID,
+	  description: req.user.description
     });
   }
   //If not, return this for debugging (this should never be returned)
@@ -144,7 +145,8 @@ router.get('/get_all',function(req,res){
 	companyname:"Default Companyname",
 	email:"Default Email",
 	phone:"Default Phone",
-	TaxID:"Default ID"
+	TaxID:"Default ID",
+	description:"Default description"
   });
   }
 });
