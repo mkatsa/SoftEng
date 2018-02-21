@@ -20,6 +20,7 @@ var Event = new Schema({
 	  }
 	},
 	*/
+	category: {type: String, required: true},
 	price: {type: String, required: true, /*min: 0*/},			//we should see how we will store the prices
 	//img: {data: Buffer, contentType: String, default: ''},		//not sure about that...
 	description: { type: String, default:''},			//we ask for a short description of the event

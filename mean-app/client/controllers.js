@@ -232,7 +232,7 @@ angular.module('myApp').controller('manipulateEventsController',
   $scope.disabled = true;
 
   // call register from service, with inputs from the html form
-  AuthService.createEvent($scope.eventForm.eventname, $scope.eventForm.price
+  AuthService.createEvent($scope.eventForm.eventname,$scope.eventForm.category,$scope.eventForm.price
     ,$scope.eventForm.minage,$scope.eventForm.maxage
     ,$scope.eventForm.description)
   // handle success
@@ -252,7 +252,7 @@ angular.module('myApp').controller('manipulateEventsController',
     $scope.disabled = false;
     $scope.registerForm = {};
   });
-};
+}
 
 $scope.getEventById = function (){
   console.log("getting single event")
@@ -262,7 +262,7 @@ $scope.getEventById = function (){
     console.log("i am here")
   }, function (error) {
     console.error(error);
-  });
+  })
 };
 
 }]);
