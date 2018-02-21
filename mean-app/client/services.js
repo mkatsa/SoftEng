@@ -12,6 +12,7 @@ angular.module('myApp').factory('AuthService',
       var user = null; //User is true if any type of user is logged in
       var provider=false; //Provider is true if provider is logged in
       var username="anonymous";
+      var userLocation = {};
     }
 
     //Returns true if user is logged in
@@ -152,12 +153,46 @@ angular.module('myApp').factory('AuthService',
     return deferred.promise;
   }
 
-
-
-    //Returns user's username  
-    function getUserName(){
+  //Returns user's username  
+  function getUserName(){
       return username;
-    }  
+  } 
+
+
+  function refreshUserLocation(){
+      
+    var deferred = $q.defer();
+
+    // send a post request to the server
+    $http.get('/user/userLocation')
+    // handle success
+    .success(function (data,status) {
+    if(status === 200 && data.userLocation){
+      console.log('SERVICE: Success!')
+      userLocation=data.userLocation;
+      deferred.resolve();
+    } else {
+      console.log('SERVICE: else')
+      console.log('SERVICE: status:'+status)
+      console.log('SERVICE: data:'+data)
+      deferred.reject();
+    }
+  })
+  // handle error
+    .error(function (data) {
+    console.log('SERVICE: error')
+    deferred.reject();
+  });
+
+  // return promise object
+  return deferred.promise;
+}
+
+  //Returns users's location
+  function getUserLocation(){
+      console.log('asked for user location')
+      return userLocation;
+    } 
 
 
 
@@ -393,6 +428,8 @@ function updateParentData(username, what, value) {
   getUserStatus: getUserStatus,
   getUserName: getUserName,
   refreshUserName: refreshUserName,
+  getUserLocation: getUserLocation,
+  refreshUserLocation: refreshUserLocation,
   login: login,
   logout: logout,
   register: register,
@@ -437,6 +474,26 @@ angular.module('myApp').factory('GeolocationService', ['$q', '$window', function
   return {
     getCurrentPosition: getCurrentPosition
   };
+}]);
+
+// Service Handling User Location Update
+  angular.module('myApp').factory('UserLocService',['$q','$http',
+    function($q,$http){
+
+      function update(location){
+        var deferred = $q.defer();
+      console.log('123');
+      $http.post('/user/locationUpdate',{location:location}).success(function () {  
+        console.log('456')        
+        deferred.resolve();
+        
+      });
+      return deferred.promise;
+    }
+    
+    return{
+      update:update
+    };
 }]);
 
 
