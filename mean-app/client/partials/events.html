@@ -34,151 +34,27 @@
 				<button class="btn btn-default filter-button" data-filter="art">Τέχνη</button>
 				<button class="btn btn-default filter-button" data-filter="science">Επιστήμη</button>
 				<button class="btn btn-default filter-button" data-filter="fun">Ψυχαγωγία</button>
+                
 			</div>
 			<br/>
             <h1> Our Events</h1>
             
             <!--
                  opou uparxei stoixeio gia to event kanoume import auto pou exoume parei apo to query p.x: gia to eventname bazoume {{event.eventname}}
-            -->
-			<div ng-repeat="event in eventsList" align="center">
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter {{event.category}}">
-                <img src="http://www.femalefirst.co.uk/image-library/partners/rivals/square/500/l/lionel-messi-f012b0-rv.jpg" class="img-responsive" ng-href="event/single_event/?parameter={{event._id}}" >
-                <div class="event-title-overlay">
-                	<h2>{{event.eventname}}</h2>
-                </div>
-                <div class="event-age-overlay">
-                	<h2>ages:{{event.minage}}-{{event.maxage}}</h2>
-                </div>
-                <a ng-href="./#/singleEvent?id={{event._id}}">
+             -->
+             <div ng-repeat="event in eventsList" align="center">
+                <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter {{event.category}}">
+                    <img src="http://www.femalefirst.co.uk/image-library/partners/rivals/square/500/l/lionel-messi-f012b0-rv.jpg" class="img-responsive" ng-href="event/single_event/?parameter={{event._id}}" >
+                    <div class="event-title-overlay">
+                     <h2>{{event.eventname}}</h2>
+                 </div>
+                 <div class="event-age-overlay">
+                     <h2>ages:{{event.minage}}-{{event.maxage}}</h2>
+                 </div>
+                 <a ng-href="./#/singleEvent?id={{event._id}}">
                     deite to
                 </a>
-               <!--  <a ng-href="./#/singleEvent" >
-                    deite to
-                </a> -->
-            </div>
-            <!--
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter art">
-                <img src="https://images.8tracks.com/cover/i/000/143/965/tumblr_m9a4woXRWv1qdbpifo1_1345845438_cover-3901.jpg?rect=0,0,500,500&q=98&fm=jpg&fit=max" class="img-responsive">
-                <div class="event-title-overlay">
-                	<h2>Μαθήματα μουσικής με τον Mozart</h2>
-                </div>
-                <div class="event-age-overlay">
-                	<h2>93-106</h2>
-                </div>
-            </div>
-
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter sports">
-                <img src="https://pbs.twimg.com/profile_images/893586786487685122/8cE6VVvp_400x400.jpg" class="img-responsive">
-                <div class="event-title-overlay">
-                	<h2>Τουρνουά Overwatch</h2>
-                </div>
-                <div class="event-age-overlay">
-                	<h2>3+</h2>
-                </div>
-            </div>
-
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter science">
-                <img src="https://images-na.ssl-images-amazon.com/images/I/61h51ZJYKKL._SY463_.jpg" class="img-responsive">
-                <div class="event-title-overlay">
-                	<h2>Περίπατος στο Cape Canaveral</h2>
-                </div>
-                <div class="event-age-overlay">
-                	<h2>-18</h2>
-                </div>
-            </div>
-
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter fun">
-                <img src="https://f4.bcbits.com/img/0009477615_10.jpg" class="img-responsive">
-                <div class="event-title-overlay">
-                	<h2>Rave party στο βρεφονηπιακό σταθμό "Τα Μπαλόνια"</h2>
-                </div>
-                <div class="event-age-overlay">
-                	<h2>1-6</h2>
-                </div>
-            </div>
-
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter science">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Albert_Einstein_1947_square_cropped.jpg" class="img-responsive">
-                <div class="event-title-overlay">
-                	<h2>Γενική θεωρία της σχετικότητας για παιδιά</h2>
-                </div>
-                <div class="event-age-overlay">
-                	<h2>10-16</h2>
-                </div>
-            </div>
-
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter fun">
-                <img src="https://pre00.deviantart.net/19b3/th/pre/i/2016/162/1/e/joker___logo_by_duck_of_satan-da5trae.jpg" class="img-responsive">
-                <div class="event-title-overlay">
-                	<h2>Ο διάσημος κλόουν "Joker" για πρώτη φορά στην Ελλάδα!</h2>
-                </div>
-                <div class="event-age-overlay">
-                	<h2>1-2</h2>
-                </div>
-            </div>
-
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter science">
-                <img src="https://stocklogos-pd.s3.amazonaws.com/styles/logo-medium-alt/logos/image/1354134749-a89a71c51b73633e873638e6981570c6.png?itok=7dVutA3X" class="img-responsive">
-                <div class="event-title-overlay">
-                	<h2>Έλα να παίξεις με το γονιδίωμά σου!</h2>
-                </div>
-                <div class="event-age-overlay">
-                	<h2>2-3</h2>
-                </div>
-            </div>
-
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter science">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Science-symbol-2.svg/2000px-Science-symbol-2.svg.png" class="img-responsive">
-                 <div class="event-title-overlay">
-                	<h2>Μάθε να φτιάχνεις εικόνες με αόρατο background</h2>
-                </div>
-                <div class="event-age-overlay">
-                	<h2>2-10</h2>
-                </div>
-            </div>
-
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter sports">
-                <img src="https://cdn.eventfinda.co.nz/uploads/events/transformed/896484-411354-14.jpg?v=2" class="img-responsive">
-                 <div class="event-title-overlay">
-                	<h2>Μαραθώνιος για βρέφη</h2>
-                </div>
-                <div class="event-age-overlay">
-                	<h2>0-3</h2>
-                </div>
-            </div>
-
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter fun">
-                <img src="https://cdn.liquor.com/wp-content/uploads/2011/09/21090019/sidecar2.jpg" class="img-responsive">
-                 <div class="event-title-overlay">
-                	<h2>Cocktail party στην ταράτσα του Hilton</h2>
-                </div>
-                <div class="event-age-overlay">
-                	<h2>1-99</h2>
-                </div>
-            </div>
-
-            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter art">
-                <img src="http://cgi.di.uoa.gr/~saiko/images/saiko.jpg" class="img-responsive" style='height: 335px; width: 365px; '>
-                <div class="event-title-overlay">
-                	<h2>Software is Art με τον Κώστα Σαΐδη</h2>
-                </div>
-                <div class="event-age-overlay">
-                	<h2>1-99</h2>
-                </div>
-            </div> -->
-           <!--  <table>
-            	<thead>
-            		<tr><th colspan="4">Our Events</th></tr>
-            	</thead>
-            	<tbody>
-            		<tr ng-repeat="event in eventsList | filter: nameFilter">
-            			<td>{{$index + 1}}</td>
-            			<td>{{event.eventname}}</td>
-            		</tr>
-            	</tbody>
-            </table> -->
-            
+            </div> 
         </div>
     </div>
 </div>

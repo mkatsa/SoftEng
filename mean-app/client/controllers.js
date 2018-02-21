@@ -183,7 +183,7 @@ angular.module('myApp').controller('registerProviderController',
 angular.module('myApp').controller('eventsController',
   ['$scope', '$route', 'AuthService',
   function ($scope, $route, AuthService) {
- /* $(document).ready(function(){
+  $(document).ready(function(){
       $(".filter-button").click(function(){
           var value = $(this).attr('data-filter');
           
@@ -207,7 +207,8 @@ angular.module('myApp').controller('eventsController',
   }
   $(this).addClass("active");
   });
-  */
+
+
   $scope.eventsList = {};
   AuthService.getAllEvents()
   .then(function (response) {
@@ -231,10 +232,15 @@ angular.module('myApp').controller('manipulateEventsController',
   $scope.error = false;
   $scope.disabled = true;
 
+  userdata = AuthService.getUserData()
+    .then(function(userdata){
+      console.dir(userdata)
+      $scope.username = userdata.username;
+    })
   // call register from service, with inputs from the html form
   AuthService.createEvent($scope.eventForm.eventname,$scope.eventForm.category,$scope.eventForm.price
     ,$scope.eventForm.minage,$scope.eventForm.maxage
-    ,$scope.eventForm.description)
+    ,$scope.eventForm.description,$scope.username)
   // handle success
   .then(function () {
     console.log("controller:events controller:THEN")
