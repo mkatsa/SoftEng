@@ -57,18 +57,28 @@
       <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
         <h5 style="color: brown">*Συμπληρώστε τα στοιχεία επικοινωνίας. </h6>
         <br>
-        <h4 style="color: blue">Ηλεκτρονική Διεύθυνση </h4>
-        <form class="form-inline">
-        <input style="width: 100%" type="email" class="form-control"  value={{email}}  >
-        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
-        </form>    
+            
 		
-        <h4 style="color: blue">Τηλέφωνο επικοινωνίας </h4> 
-        <form class="form-inline">
-        <input style="width: 100%" type="text" class="form-control"  value={{phone}}  >
-        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
+		<form class="form" name="forma" ng-submit="updateProvider('email',newemail)">
+          <div class="form-group">
+            <label style="color: aqua">Ηλεκτρονική Διεύθυνση</label>
+				<input type="email" class="form-control" ng-model="newemail" placeholder={{email}}>
+          </div>
+          <button type="submit" class="btn btn-success">Αποθήκευση αλλαγών!</button>
         </form>
-        <h4 style="color: blue">Ταχυδρομικός κώδικας </h4>
+		
+		
+		<form class="form" name="formb" ng-submit="updateProvider('phone',newphone)">
+          <div class="form-group">
+            <label style="color: aqua">Νέο Τηλέφωνο Επικοινωνίας</label>
+				<input type="text" class="form-control" ng-model="newphone" placeholder={{phone}}>
+          </div>
+        <button type="submit" class="btn btn-success">Αποθήκευση αλλαγών!</button>
+		</form>
+		
+		
+		
+        <h4 style="color: blue">Ταχυδρομικός κώδικας(δεν είναι φτιαγμένο για update ακόμα) </h4>
         <form class="form-inline">
         <input style="width: 100%" type="text" class="form-control"  value={{postalcode}} pattern="\d{6}"  >
         <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
@@ -78,10 +88,10 @@
       <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
         <br>
         <br>
-        <h3 ><strong>Περιγράψτε τις υπηρεσίες σας.</strong></h3>
-        <form class="form-inline">
-        <textarea name="description" cols="60" rows="7"  >{{description}}</textarea>
-        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
+        <h3 ><strong>Περιγράψτε τις υπηρεσίες σας</strong></h3>
+        <form class="form-inline" ng-submit="updateProvider('description',newdescription)">
+			<textarea name="description" cols="60" rows="7" ng-model="newdescription" placeholder={{description}}></textarea>
+			<button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
         </form>
         
       </div>
@@ -117,17 +127,26 @@
       <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
         <h6 style="color: azure">*Συμπληρώστε στοιχεία επικοινωνίας για να λαμβάνετε ενημερώσεις. </h6>
         <br>
-        <h4 style="color: blue">Ηλεκτρονική Διεύθυνση </h4>
-        <form class="form-inline">
-        <input style="width: 100%" type="email" class="form-control"  value={{email}}  >
-        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
-        </form>    
 		
-        <h4 style="color: blue">Τηλέφωνο επικοινωνίας </h4>
-        <form class="form-inline">
-        <input style="width: 100%" type="text" class="form-control"  value={{mobile}}  >
-        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
+           
+		<form class="form" name="forma" ng-submit="updateParent('email',newemail)">
+          <div class="form-group">
+            <label style="color: aqua">Ηλεκτρονική Διεύθυνση</label>
+				<input type="email" class="form-control" ng-model="newemail" placeholder={{email}}>
+          </div>
+          <button type="submit" class="btn btn-success">Αποθήκευση αλλαγών!</button>
         </form>
+		
+        
+	
+        <form class="form" name="formb" ng-submit="updateParent('mobile',newphone)">
+          <div class="form-group">
+            <label style="color: aqua">Τηλέφωνο Επικοινωνίας</label>
+				<input type="text" class="form-control" ng-model="newphone" placeholder={{mobile}}>
+          </div>
+          <button type="submit" class="btn btn-success">Αποθήκευση αλλαγών!</button>
+        </form>
+		
         <br>
       </div>
       <div class="col-md-4 col-sm-4 col-lg-4 xs-4">

@@ -132,7 +132,8 @@ router.get('/get_all',function(req,res){
 	  companyname: req.user.companyname,
 	  email: req.user.email,
 	  phone: req.user.phone,
-	  TaxID: req.user.TaxID
+	  TaxID: req.user.TaxID,
+	  description: req.user.description
     });
   }
   //If not, return this for debugging (this should never be returned)
@@ -144,11 +145,33 @@ router.get('/get_all',function(req,res){
 	companyname:"Default Companyname",
 	email:"Default Email",
 	phone:"Default Phone",
-	TaxID:"Default ID"
+	TaxID:"Default ID",
+	description:"Default description"
   });
   }
 });
 
+
+router.put('/update_provider', function(req,res){
+
+	
+	var target = req.body.value;
+	var field = req.body.what;
+	var obj ={};
+	obj[field]=target;
+	
+
+	console.log("I am on update_provider")
+	console.log(req.body.username)
+	console.log(req.body.what)
+	console.log(req.body.value)
+	
+	Provider.updateOne({"username": req.body.username}, {$set: obj} ,					//{$set: {"email": req.body.value}}
+		function(err, status) {
+        if (err) return res.json(err);
+        return res.json(status);			//status in fact is data, just for debugging
+	})
+});
 
 
 module.exports = router;
