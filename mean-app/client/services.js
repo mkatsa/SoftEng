@@ -440,6 +440,7 @@ function updateEventandUser(username,cost,notickets,eventname){
   })
   //deferred.resolve();
   return deferred.promise;
+}
 
 
 function getPublicProviderDataByUsername(uname){
@@ -471,10 +472,6 @@ function getPublicProviderDataByUsername(uname){
     // return promise object
     return deferred.promise;
   }
-
-
-
-}
 
  //username=getUserName();
 

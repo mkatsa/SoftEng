@@ -296,6 +296,7 @@ $scope.getEventById = function (){
 };
 
 
+
 $scope.init = function() {
 	console.log("getting single event")
 	AuthService.getSingleEvent($routeParams.id)
@@ -307,7 +308,6 @@ $scope.init = function() {
     console.error(error);
   })
 }
-
 
 
 
@@ -338,9 +338,6 @@ $scope.check = function(){
   //console.log($scope.test)
   //console.log(userdata.username)
 }
-
-
-
 }]);
 
 

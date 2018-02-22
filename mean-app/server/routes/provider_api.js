@@ -193,8 +193,4 @@ router.get('/get_all_by_username/:username?',function(req,res){
 
 
 
-
-
-
-
 module.exports = router;

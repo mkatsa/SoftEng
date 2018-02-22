@@ -85,7 +85,6 @@ myApp.config(function ($routeProvider) {
       controller:'manipulateEventsController',
       access:{restricted:false, admin:false}
     })
-
 	.when('/public_profile',{
       templateUrl:'partials/public_profile.html',
       controller:'manipulateEventsController',
