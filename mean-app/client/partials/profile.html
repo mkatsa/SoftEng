@@ -15,6 +15,20 @@
 <div style="width: 100%">
   <header-nav-directive></header-nav-directive>
 </div>
+<script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq6gVXzKjVwYvc0Y6cB9LWJcngquAnsY4&language=el" async defer>
+</script> 
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+      height: 100%;
+    }
+</style>
 <div class="container">
   
   
@@ -49,6 +63,7 @@
         <br>
         <h4 style="color: azure">Όνομα εταιρείας  </h4>
         <input style="width: 100%" type="text" class="form-control"  value={{companyname}} readonly>
+        <br>
         
 
         </div>
@@ -57,32 +72,21 @@
       <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
         <h5 style="color: brown">*Συμπληρώστε τα στοιχεία επικοινωνίας. </h6>
         <br>
-        <h4 style="color: blue"> Τρέχουσα Ηλεκτρονική Διεύθυνση </h4>
-        <form class="form-inline">
-        <input style="width: 100%" type="email" class="form-control"  value={{email}}  readonly>
-        </form>    
+            
 		
 		<form class="form" name="forma" ng-submit="updateProvider('email',newemail)">
           <div class="form-group">
-            <label style="color: aqua">Νέα Ηλεκτρονική Διεύθυνση</label>
-				<input type="email" class="form-control" ng-model="newemail">
+            <label style="color: aqua">Ηλεκτρονική Διεύθυνση</label>
+				<input type="email" class="form-control" ng-model="newemail" placeholder={{email}}>
           </div>
           <button type="submit" class="btn btn-success">Αποθήκευση αλλαγών!</button>
         </form>
 		
 		
-		
-		
-		
-        <h4 style="color: blue">Τηλέφωνο επικοινωνίας </h4> 
-        <form class="form-inline">
-        <input style="width: 100%" type="text" class="form-control"  value={{phone}}  readonly>
-        </form>
-		
 		<form class="form" name="formb" ng-submit="updateProvider('phone',newphone)">
           <div class="form-group">
             <label style="color: aqua">Νέο Τηλέφωνο Επικοινωνίας</label>
-				<input type="text" class="form-control" ng-model="newphone">
+				<input type="text" class="form-control" ng-model="newphone" placeholder={{phone}}>
           </div>
         <button type="submit" class="btn btn-success">Αποθήκευση αλλαγών!</button>
 		</form>
@@ -95,14 +99,32 @@
         <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
         </form>
         <br>
+
+
+        <form class="form" name="formb" ng-submit="">
+            <div class="form-group">
+              <label style="color: aqua">Αναζητήστε νέα τοποθεσία(Δεν λειτουργεί ακόμα)</label>
+                  <input type="text" class="form-control" ng-model="newphone" placeholder={{phone}}>
+            </div>
+            <button type="submit" class="btn btn-success">Αναζήτηση</button>
+            <br>
+            <br>
+            <div ng-controller="locationController">
+                <div id="map" align = "center"> </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success">Αποθήκευση νέας τοποθεσίας!!</button>
+        </form>
+
+        <br>
       </div>
       <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
         <br>
         <br>
-        <h3 ><strong>Περιγράψτε τις υπηρεσίες σας( δεν είναι φτιαγμένο ακόμα για εισαγωγή περιγραφής)</strong></h3>
-        <form class="form-inline">
-        <textarea name="description" cols="60" rows="7"  >{{description}}</textarea>
-        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
+        <h3 ><strong>Περιγράψτε τις υπηρεσίες σας</strong></h3>
+        <form class="form-inline" ng-submit="updateProvider('description',newdescription)">
+			<textarea name="description" cols="60" rows="7" ng-model="newdescription" placeholder={{description}}></textarea>
+			<button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
         </form>
         
       </div>
@@ -139,29 +161,23 @@
         <h6 style="color: azure">*Συμπληρώστε στοιχεία επικοινωνίας για να λαμβάνετε ενημερώσεις. </h6>
         <br>
 		
-        <h4 style="color: blue"> Τρέχουσα Ηλεκτρονική Διεύθυνση </h4>
-        <form class="form-inline">
-        <input style="width: 100%" type="email" class="form-control"  value={{email}}  readonly>
-        </form>    
+           
 		<form class="form" name="forma" ng-submit="updateParent('email',newemail)">
           <div class="form-group">
-            <label style="color: aqua">Νέα Ηλεκτρονική Διεύθυνση</label>
-				<input type="email" class="form-control" ng-model="newemail">
+            <label style="color: aqua">Ηλεκτρονική Διεύθυνση</label>
+				<input type="email" class="form-control" ng-model="newemail" placeholder={{email}}>
           </div>
           <button type="submit" class="btn btn-success">Αποθήκευση αλλαγών!</button>
         </form>
 		
-        <h4 style="color: azure">Τηλέφωνο επικοινωνίας </h4>
-		<form class="form-inline">
-        <input style="width: 100%" type="email" class="form-control"  value={{mobile}}  readonly>
-        </form>
-		
+        
+	
         <form class="form" name="formb" ng-submit="updateParent('mobile',newphone)">
           <div class="form-group">
-            <label style="color: aqua">Νέο Τηλέφωνο Επικοινωνίας</label>
-				<input type="text" class="form-control" ng-model="newphone">
+            <label style="color: aqua">Τηλέφωνο Επικοινωνίας</label>
+				<input type="text" class="form-control" ng-model="newphone" placeholder={{mobile}}>
           </div>
-          <button type="submit" class="btn btn-success">Αλλαγή Τηλεφώνου επικοινωνίας!</button>
+          <button type="submit" class="btn btn-success">Αποθήκευση αλλαγών!</button>
         </form>
 		
         <br>
@@ -173,6 +189,17 @@
         <br>
         <br>
 		<button onclick="location.href='/#/transfer';" class="btn btn-success btn-lg">Εισαγωγή πόντων μέσω κάρτας <i class="fa fa-plus" ></i></button>
+      </div>
+      <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
+		<h2 style="color: lawngreen"> Η τοποθεσία μου</h2>
+        <br>
+        <input style="width: 100%" type="text"  class="form-control" value={{points}} readonly> 
+        <br>
+        <div ng-controller="locationController">
+            <div id="map" align = "center"> </div>
+        </div>
+        <br>
+		<button onclick="location.href='/#/transfer';" class="btn btn-success btn-lg">Ανανέωση Τοποθεσίας <i class="fa fa-plus" ></i></button>
       </div>
   </div><!-- /.navbar-collapse -->
   
