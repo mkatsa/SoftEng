@@ -328,7 +328,7 @@ function register_provider(username, password, firstname, lastname, email, compa
   return deferred.promise;
 }
 
-function createEvent(eventname,category, price, minage, maxage, description,provider){
+function createEvent(eventname,category, price, minage, maxage,tickets, description,provider){
   var deferred = $q.defer();
   console.log("here1")
   console.log(eventname)
@@ -339,8 +339,10 @@ function createEvent(eventname,category, price, minage, maxage, description,prov
   console.log(category)
   console.log(provider)
   $http.post('/event/createEvent',
-    {eventname:eventname,category: category, price:price, minage:minage, maxage:maxage, description:description,provider:provider})
+    {eventname:eventname,category: category, price:price, minage:minage, maxage:maxage, description:description,provider:provider,tickets:tickets})
   .success(function (status) {
+    console.log("yolo")
+    console.log(tickets)
     console.log("createEvent:success(200)")
     deferred.resolve();
   })
@@ -416,12 +418,30 @@ function updateParentData(username, what, value) {
       .success(function () {
           deferred.resolve();
 	  })
-        
 	  return deferred.promise;
 }
 
 
+function updateEventandUser(username,cost,notickets,eventname){
+  console.log(username)
+  console.log(cost)
+  console.log(notickets)
+  console.log(eventname)
+  var deferred=$q.defer();
+    httpPromise = $http.post('/user/eventbought',
+    {username:username,cost:cost,eventname:eventname})
+  .success(function(){
+    deferred.resolve();
+  })
+  httpPromise = $http.post('/event/updateTickets',
+    {eventname:eventname,notickets:notickets}).
+  success(function(){
+    deferred.resolve();
+  })
+  //deferred.resolve();
+  return deferred.promise;
 
+}
  //username=getUserName();
 
  return ({
@@ -441,7 +461,8 @@ function updateParentData(username, what, value) {
   getAllEvents: getAllEvents,
   updateProviderData: updateProviderData,
   updateParentData: updateParentData,
-  getSingleEvent: getSingleEvent
+  getSingleEvent: getSingleEvent,
+  updateEventandUser:updateEventandUser
 });
 }]);
 

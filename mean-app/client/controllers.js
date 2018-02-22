@@ -231,7 +231,7 @@ angular.module('myApp').controller('manipulateEventsController',
   // initial values
   $scope.error = false;
   $scope.disabled = true;
-
+  console.log($scope.eventForm.tickets)
   userdata = AuthService.getUserData()
     .then(function(userdata){
       console.dir(userdata)
@@ -239,7 +239,7 @@ angular.module('myApp').controller('manipulateEventsController',
     })
   // call register from service, with inputs from the html form
   AuthService.createEvent($scope.eventForm.eventname,$scope.eventForm.category,$scope.eventForm.price
-    ,$scope.eventForm.minage,$scope.eventForm.maxage
+    ,$scope.eventForm.minage,$scope.eventForm.maxage,$scope.eventForm.tickets
     ,$scope.eventForm.description,$scope.username)
   // handle success
   .then(function () {
@@ -272,6 +272,37 @@ $scope.getEventById = function (){
     console.error(error);
   })
 };
+
+
+
+$scope.buy = function(){
+  console.log($scope.event.price)
+  console.log($scope.notickets)
+  $scope.cost=parseInt($scope.event.price)*($scope.notickets);
+  userdata=AuthService.getUserData();
+  /*if($scope.cost>userdata.points){
+    $scope.suf="not enough money";
+  }else{
+    $scope.suf="enough money";
+  }*/
+
+}
+
+$scope.check = function(){
+  userdata=AuthService.getUserData()
+  .then(function(userdata){
+    //console.dir(userdata)
+    if($scope.cost>userdata.points){
+    alert("VALE LEFTA GAMW THN PANAGIA SOU");
+    }else{
+      AuthService.updateEventandUser(userdata.username,$scope.cost,$scope.notickets,$scope.event.eventname);
+    }
+  })
+  //$scope.test=userdata;
+  //console.log($scope.test)
+  //console.log(userdata.username)
+}
+
 
 }]);
 
