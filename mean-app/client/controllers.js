@@ -365,6 +365,7 @@ function ($scope, $route, AuthService) {
     $scope.firstname = userdata.firstname;
     $scope.lastname = userdata.lastname;
     $scope.email = userdata.email;
+    $scope.location = userdata.location;
     if($scope.isProvider){  
       $scope.companyname = userdata.companyname;
       $scope.TaxID = userdata.TaxID;
