@@ -37,7 +37,7 @@ myApp.config(function ($routeProvider) {
     })
     .when('/events-location',{
       templateUrl:'partials/events-location.html',
-      controller:'eventsLocationController',
+      controller:'locationController',
       access:{restricted:true,admin:false}
     })
     .when('/terms',{

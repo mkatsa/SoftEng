@@ -222,8 +222,8 @@ angular.module('myApp').controller('eventsController',
 
 //Controller for add remove or update event
 angular.module('myApp').controller('manipulateEventsController',
-  ['$scope', '$route','AuthService','$routeParams', '$location', 
-  function ($scope, $route, AuthService,$routeParams, $location) {
+  ['$scope', '$route','$timeout','AuthService','$routeParams', '$location', 'sharedProperties',
+  function ($scope, $route,$timeout, AuthService,$routeParams, $location, sharedProperties) {
 
  //Function to be called from html
  $scope.createEvent = function () {
@@ -231,16 +231,18 @@ angular.module('myApp').controller('manipulateEventsController',
   // initial values
   $scope.error = false;
   $scope.disabled = true;
+  $scope.location = sharedProperties.getProperty();
 
   userdata = AuthService.getUserData()
     .then(function(userdata){
       console.dir(userdata)
       $scope.username = userdata.username;
     })
+
   // call register from service, with inputs from the html form
   AuthService.createEvent($scope.eventForm.eventname,$scope.eventForm.category,$scope.eventForm.price
     ,$scope.eventForm.minage,$scope.eventForm.maxage
-    ,$scope.eventForm.description,$scope.username)
+    ,$scope.eventForm.description,$scope.username,$scope.location)
   // handle success
   .then(function () {
     console.log("controller:events controller:THEN")
@@ -257,24 +259,44 @@ angular.module('myApp').controller('manipulateEventsController',
     $scope.errorMessage = "Something went wrong!";
     $scope.disabled = false;
     $scope.registerForm = {};
-  });
-  
-  
+  });  
 }
 
 $scope.getEventById = function (){
   console.log("getting single event")
   AuthService.getSingleEvent($routeParams.id)
   .then(function (response) {
+    console.log("got single event")
     $scope.event = response;
+    sharedProperties.setProperty($scope.event.location);
+    $scope.initMap();
     console.log("i am here")
   }, function (error) {
     console.error(error);
   })
 };
 
-}]);
+$scope.initMap = function() { 
+  //$scope.options.extendedLocation = $scope.userLocation;
 
+  // New Map
+  $timeout(function() {
+    //vm.pauseLoading=false;
+    $scope.options = {
+      zoom: 12,
+      center: {lat: 37.987823, lng: 23.731857},
+    }
+    map = new google.maps.Map(document.getElementById('map'),$scope.options);
+    infoWindow = new google.maps.InfoWindow;
+    var center = $scope.event.location.geometry.location;
+    map.setCenter(center);
+    infoWindow.setPosition(center);
+    infoWindow.setContent('Η τοποθεσία μου:'+ $scope.event.location.formatted_address);
+    infoWindow.open(map);
+  }, 700);
+}
+
+}]);
 
 
 angular.module('myApp').controller('profileController',
@@ -364,16 +386,36 @@ function ($scope, $route, AuthService) {
 }
 ]);
 
+
+angular.module('myApp')
+    .service('sharedProperties', function () {
+        var location = {};
+
+        return {
+            getProperty: function () {
+                return location;
+            },
+            setProperty: function(value) {
+                location = value;
+                console.dir('myLocObject:')
+                console.dir(location)
+            }
+        };
+    });
+
 //https://stackoverflow.com/questions/23185619/how-can-i-use-html5-geolocation-in-angularjs
-angular.module('myApp').controller('eventsLocationController',
-  ['$scope', '$route','$timeout', 'AuthService', 'GeolocationService', 'UserLocService',
-  function ($scope, $route,$timeout, AuthService, GeolocationService, UserLocService) {
+angular.module('myApp').controller('locationController',
+  ['$scope', '$route','$timeout', 'AuthService', 'GeolocationService', 'UserLocService', 'sharedProperties',
+  function ($scope, $route,$timeout, AuthService, GeolocationService, UserLocService, sharedProperties) {
     // Map options
     $scope.options = {
       zoom: 12,
       center: {lat: 37.987823, lng: 23.731857},
       extendedLocation: null
     }
+    
+    console.dir('myLocObject:')
+    console.dir(sharedProperties.getProperty())
 
     $timeout(function(){
       AuthService.refreshUserLocation()
@@ -451,7 +493,7 @@ angular.module('myApp').controller('eventsLocationController',
         console.log("timeout");
         $scope.initMap();
         //vm.pauseLoading=false;
-      }, 700);     
+      }, 900);     
       $scope.captureUserLocation = function() {
 
         if (navigator.geolocation) {
@@ -519,26 +561,13 @@ angular.module('myApp').controller('eventsLocationController',
         //                    '</div>';
         infoWindow.setContent('Η τοποθεσία μου:'+ $scope.options.extendedLocation.formatted_address);
         infoWindow.open(map);
+        sharedProperties.setProperty($scope.options.extendedLocation);
         //for(var i = 0; i < markers.length; i++){
           // Add Marker
         //marker.setMap(null);
         //}
         //markers = [];
       };
-
-      //function showPosition(position) {
-      //  $scope.options = {
-      //    zoom: 16,
-      //    center: {lat: position.coords.latitude, lng: position.coords.longitude},
-      //    extendedLocation: position
-      //  }   
-      //  console.log(position);
-      //  map.setCenter($scope.options.center);
-      //  infoWindow.setPosition($scope.options.center);
-      //  infoWindow.setContent('Location found.'+position.formatted_address);
-      //  infoWindow.open(map);
-      //};
-      
       
       $scope.saveLocation = function() {
         //map.setCenter({lat: 12.32, lng:12.33});

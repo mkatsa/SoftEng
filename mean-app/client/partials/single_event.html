@@ -1,10 +1,22 @@
 
     
-  <div style="width:100%">
+<div style="width:100%">
   <header-nav-directive></header-nav-directive>
 </div>
-
-
+<script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq6gVXzKjVwYvc0Y6cB9LWJcngquAnsY4&language=el" async defer>
+</script> 
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+      height: 100%;
+    }
+</style>
 <div class="container-fluid bg" ng-init="getEventById()">
   
   <div class="row" >
@@ -31,7 +43,13 @@
           </div>
           <div class="form-group">
             <h3>Τοποθεσία:</h3>
-            <input type="text" class="form-control" value={{event.location}}  readonly >
+            <input type="text" class="form-control" value={{event.location.formatted_address}}  readonly >
+            <br/>
+            <div class = "text-right">
+                <div id="map" align = "center"> </div>
+            </div>
+  
+            <br/>
           </div>
          <div class="form-group">
             <h3>Αριθμός διαθέσιμων εισιτηρίων:</h3>

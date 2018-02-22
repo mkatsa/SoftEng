@@ -328,7 +328,7 @@ function register_provider(username, password, firstname, lastname, email, compa
   return deferred.promise;
 }
 
-function createEvent(eventname,category, price, minage, maxage, description,provider){
+function createEvent(eventname,category, price, minage, maxage, description,provider,location){
   var deferred = $q.defer();
   console.log("here1")
   console.log(eventname)
@@ -338,8 +338,9 @@ function createEvent(eventname,category, price, minage, maxage, description,prov
   console.log(description)
   console.log(category)
   console.log(provider)
+  console.log(location)
   $http.post('/event/createEvent',
-    {eventname:eventname,category: category, price:price, minage:minage, maxage:maxage, description:description,provider:provider})
+    {eventname:eventname,category: category, price:price, minage:minage, maxage:maxage, description:description,provider:provider,location:location})
   .success(function (status) {
     console.log("createEvent:success(200)")
     deferred.resolve();
