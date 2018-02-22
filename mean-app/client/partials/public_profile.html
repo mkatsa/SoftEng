@@ -1,0 +1,77 @@
+
+<html>
+
+<div style="width: 100%">
+  <header-nav-directive></header-nav-directive>
+</div>
+<div class="container">
+    
+	
+	
+	<div class="container-fluid bg" ng-init="init()">
+	
+   <h1 style="text-align: center" >Καλώς ήρθατε στο προφίλ του παρόχου {{event.provider}}</h1>
+   
+   
+  
+  
+  <div  class="container" style="text-align: center;width: 100%;">
+    <div style="width: 100%;text-align: center;" class="row"  >
+    <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
+        <div id="synopsis" style="color: aliceblue" >
+        <br>
+        <br>
+		<h4 style="color: azure">Όνομα Παρόχου</h4>
+        <input style="width: 100%" type="text" class="form-control"  value={{firstname}} readonly>
+        <br>
+        <h4 style="color: azure">Επώνυμο Παρόχου </h4>
+        <input style="width: 100%" type="text" class="form-control"  value={{lastname}} readonly>
+        <br>
+        <h4 style="color: azure">Όνομα εταιρείας  </h4>
+        <input style="width: 100%" type="text" class="form-control"  value={{companyname}} readonly>
+        </div>
+      </div>
+			
+	
+          <div class="form-group">
+            <label style="color: aqua">Ηλεκτρονική Διεύθυνση</label>
+				<input type="email" class="form-control" ng-model="email" value={{email}} readonly>
+          </div>
+   
+
+		
+		
+          <div class="form-group">
+            <label style="color: aqua">Τηλέφωνο Επικοινωνίας</label>
+				<input type="text" class="form-control" ng-model="phone" value={{phone}} readonly>
+          </div>
+		
+		
+
+        <br>
+      </div>
+      <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
+        <br>
+        <br>
+        <h3 ><strong>Λίγα λόγια για τον πάροχο</strong></h3>
+			<textarea name="description" cols="60" rows="7" ng-model="description" value={{description}} readonly></textarea>
+        </form>
+        
+      </div>
+  </div><!-- /.navbar-collapse -->
+  
+  
+      
+      <!--end form-->
+    </div>  
+      
+      <!--end form-->
+    </div>
+
+    
+  
+
+
+<!--script type="text/javascript" src="signup.js"></script>
+</body>
+</html!>

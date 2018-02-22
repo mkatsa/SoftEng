@@ -327,8 +327,7 @@ function register_provider(username, password, firstname, lastname, email, compa
   // return promise object
   return deferred.promise;
 }
-
-function createEvent(eventname,category, price, minage, maxage, description,provider,location){
+function createEvent(eventname,category, price, minage, maxage, tickets, description, provider, location){
   var deferred = $q.defer();
   console.log("here1")
   console.log(eventname)
@@ -340,8 +339,10 @@ function createEvent(eventname,category, price, minage, maxage, description,prov
   console.log(provider)
   console.log(location)
   $http.post('/event/createEvent',
-    {eventname:eventname,category: category, price:price, minage:minage, maxage:maxage, description:description,provider:provider,location:location})
+    {eventname:eventname,category: category, price:price, minage:minage, maxage:maxage, description:description,provider:provider,location:location,tickets:tickets})
   .success(function (status) {
+    console.log("yolo")
+    console.log(tickets)
     console.log("createEvent:success(200)")
     deferred.resolve();
   })
@@ -417,11 +418,60 @@ function updateParentData(username, what, value) {
       .success(function () {
           deferred.resolve();
 	  })
-        
 	  return deferred.promise;
 }
 
 
+function updateEventandUser(username,cost,notickets,eventname){
+  console.log(username)
+  console.log(cost)
+  console.log(notickets)
+  console.log(eventname)
+  var deferred=$q.defer();
+    httpPromise = $http.post('/user/eventbought',
+    {username:username,cost:cost,eventname:eventname})
+  .success(function(){
+    deferred.resolve();
+  })
+  httpPromise = $http.post('/event/updateTickets',
+    {eventname:eventname,notickets:notickets}).
+  success(function(){
+    deferred.resolve();
+  })
+  //deferred.resolve();
+  return deferred.promise;
+}
+
+
+function getPublicProviderDataByUsername(uname){
+	console.log('Public Provider Data Service')
+	console.log(uname)
+    var deferred = $q.defer();
+    req=$http.get('/provider/get_all_by_username/'+uname)
+    
+
+    req
+    .success(function (data,status) {
+        if(status === 200){
+          console.log('SERVICE: Success!')
+          console.dir(data)
+          deferred.resolve(data);
+        } else {
+          console.log('SERVICE: else')
+          console.log('SERVICE: status:'+status)
+          console.log('SERVICE: data:'+data)
+          deferred.resolve(data);
+        }
+      })
+    // handle error
+    .error(function (data) {
+      console.log('SERVICE: error')
+      deferred.reject();
+    });
+
+    // return promise object
+    return deferred.promise;
+  }
 
  //username=getUserName();
 
@@ -442,7 +492,9 @@ function updateParentData(username, what, value) {
   getAllEvents: getAllEvents,
   updateProviderData: updateProviderData,
   updateParentData: updateParentData,
-  getSingleEvent: getSingleEvent
+  getSingleEvent: getSingleEvent,
+  getPublicProviderDataByUsername: getPublicProviderDataByUsername,
+  updateEventandUser:updateEventandUser
 });
 }]);
 
