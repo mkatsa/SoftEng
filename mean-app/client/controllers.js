@@ -231,7 +231,7 @@ angular.module('myApp').controller('manipulateEventsController',
   // initial values
   $scope.error = false;
   $scope.disabled = true;
-
+  console.log($scope.eventForm.tickets)
   userdata = AuthService.getUserData()
     .then(function(userdata){
       console.dir(userdata)
@@ -239,7 +239,7 @@ angular.module('myApp').controller('manipulateEventsController',
     })
   // call register from service, with inputs from the html form
   AuthService.createEvent($scope.eventForm.eventname,$scope.eventForm.category,$scope.eventForm.price
-    ,$scope.eventForm.minage,$scope.eventForm.maxage
+    ,$scope.eventForm.minage,$scope.eventForm.maxage,$scope.eventForm.tickets
     ,$scope.eventForm.description,$scope.username)
   // handle success
   .then(function () {
@@ -257,10 +257,32 @@ angular.module('myApp').controller('manipulateEventsController',
     $scope.errorMessage = "Something went wrong!";
     $scope.disabled = false;
     $scope.registerForm = {};
-  });
-  
-  
-}
+  }); 
+};
+
+
+
+$scope.getPublicProviderDataByUsername = function(a) {			//what to update and the new value.
+	console.log("getPublicProviderDataByUsername Controller")
+	console.log(a)
+	
+	userdata = AuthService.getPublicProviderDataByUsername(a)
+	.then(function(userdata){
+    console.log('refresh user data after an update on profileController')
+    console.dir(userdata)
+    $scope.username = userdata.username;
+    $scope.firstname = userdata.firstname;
+    $scope.lastname = userdata.lastname;
+    $scope.email = userdata.email;
+    $scope.companyname = userdata.companyname;
+    $scope.TaxID = userdata.TaxID;
+    $scope.phone = userdata.phone;
+	$scope.description = userdata.description;
+    
+  })
+};
+
+
 
 $scope.getEventById = function (){
   console.log("getting single event")
@@ -272,6 +294,52 @@ $scope.getEventById = function (){
     console.error(error);
   })
 };
+
+
+$scope.init = function() {
+	console.log("getting single event")
+	AuthService.getSingleEvent($routeParams.id)
+	.then(function (response) {
+    $scope.event = response;
+	$scope.getPublicProviderDataByUsername($scope.event.provider);
+    console.log("i am here")
+  }, function (error) {
+    console.error(error);
+  })
+}
+
+
+
+
+$scope.buy = function(){
+  console.log($scope.event.price)
+  console.log($scope.notickets)
+  $scope.cost=parseInt($scope.event.price)*($scope.notickets);
+  userdata=AuthService.getUserData();
+  /*if($scope.cost>userdata.points){
+    $scope.suf="not enough money";
+  }else{
+    $scope.suf="enough money";
+  }*/
+
+}
+
+$scope.check = function(){
+  userdata=AuthService.getUserData()
+  .then(function(userdata){
+    //console.dir(userdata)
+    if($scope.cost>userdata.points){
+    alert("VALE LEFTA GAMW THN PANAGIA SOU");
+    }else{
+      AuthService.updateEventandUser(userdata.username,$scope.cost,$scope.notickets,$scope.event.eventname);
+    }
+  })
+  //$scope.test=userdata;
+  //console.log($scope.test)
+  //console.log(userdata.username)
+}
+
+
 
 }]);
 
@@ -332,7 +400,7 @@ function ($scope, $route, AuthService) {
   
   
   $scope.updateParent = function(what, value) {			//same as the above for parents
-	console.log("updateProvider Controler")
+	console.log("updateProvider Controller")
 	console.log(what)
 	console.log(value)
 	AuthService.updateParentData( $scope.username, what, value)		//username is unique so there is no need to find and update by _id
@@ -360,7 +428,6 @@ function ($scope, $route, AuthService) {
     }
   })
   }
-  
 }
 ]);
 

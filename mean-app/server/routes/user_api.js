@@ -163,7 +163,21 @@ router.get('/get_all',function(req,res){
   }
 });
 
-
+router.post('/eventbought', function(req,res){
+  console.log(req.user.username)
+  console.log(req.body.cost)
+  console.log(req.body.eventname)
+  User.findOne({username:req.user.username}, function(err,doc){
+      doc.points = doc.points - req.body.cost;
+      //doc.eventbought[0] = req.body.eventname;
+      //doc.events_bought.push(req.body.eventname);
+      doc.save();
+    });
+  //User.update({username:req.user.username},{ $push: {events_bought: req.body.eventname} });
+  User.update({username:req.user.username},{$push: {events_bought: req.body.eventname}},function(err,num){if(err){console.log("gamw thn mana sou thn 3ekwliara")}});
+  console.log(req.user.points)
+  console.log(req.user.events_bought)
+})
 
 
 

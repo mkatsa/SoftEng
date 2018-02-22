@@ -174,4 +174,27 @@ router.put('/update_provider', function(req,res){
 });
 
 
+
+
+router.get('/get_all_by_username/:username?',function(req,res){
+  
+  //console.log("Request for company name from");
+  console.dir(req.params.username)
+  
+  Provider.findOne({username:req.params.username}, function(err, status){
+    if (err)
+      res.send(err);
+    res.json(status);
+  });
+});
+
+
+
+
+
+
+
+
+
+
 module.exports = router;

@@ -30,6 +30,7 @@ var Event = new Schema({
     //end_time: {type: Date,  required: true},
 	minage: {type: String, default: '0'},
 	maxage: {type: String, default: '18'},
+	tickets: {type: Number, required: true},
 	//users_interested: {type:[String]},
   	//users_bought: {type:[String]},
   	//users_seen: {type:[String]}

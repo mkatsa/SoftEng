@@ -28,7 +28,7 @@ var User = new Schema({
   },              //wallet info about code of wallet and the remaining poi
   points: { type: Number,default: 0},
   img: { data: Buffer, contentType: String, default: '' },    //not sure about that...
-  events_bought: { type: [String]},
+  events_bought: [{type: String}],
   events_interested: {type: [String]}
 });
 
