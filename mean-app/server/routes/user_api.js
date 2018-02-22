@@ -163,7 +163,21 @@ router.get('/get_all',function(req,res){
   }
 });
 
-
+router.post('/eventbought', function(req,res){
+  console.log(req.user.username)
+  console.log(req.body.cost)
+  console.log(req.body.eventname)
+  User.findOne({username:req.user.username}, function(err,doc){
+      doc.points = doc.points - req.body.cost;
+      //doc.eventbought[0] = req.body.eventname;
+      //doc.events_bought.push(req.body.eventname);
+      doc.save();
+    });
+  //User.update({username:req.user.username},{ $push: {events_bought: req.body.eventname} });
+  User.update({username:req.user.username},{$push: {events_bought: req.body.eventname}},function(err,num){if(err){console.log("gamw thn mana sou thn 3ekwliara")}});
+  console.log(req.user.points)
+  console.log(req.user.events_bought)
+})
 
 
 
@@ -187,12 +201,34 @@ router.put('/update_parent', function(req,res){
 	})
 });
 
+router.get('/userLocation',function(req,res){
+  //If user is authenticated, return their location
+  if (req.isAuthenticated()){
+  return res.status(200).json({
+      userLocation: req.user.location
+    });
+  console.log(req.user.username)
+  console.log(req.user.location)
+  }
+  //If not, return this for debugging (this should never be returned)
+  else{
+  res.status(200).json({
+    username:"server_anonymous"
+  });
+  }
+});
 
+//update user location
+router.post('/locationUpdate', function(req, res){
+  console.log(req.body.location)
+  console.log(req.user.username)
+  User.findOne({username:req.user.username}, function(err,doc){
+    doc.location = req.body.location;
+    doc.save();
+  });
+  console.log(req.user.location)
 
-
-
-
-
+  });
 
 
 

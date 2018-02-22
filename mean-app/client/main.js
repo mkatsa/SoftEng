@@ -37,7 +37,7 @@ myApp.config(function ($routeProvider) {
     })
     .when('/events-location',{
       templateUrl:'partials/events-location.html',
-      controller:'eventsLocationController',
+      controller:'locationController',
       access:{restricted:true,admin:false}
     })
     .when('/terms',{
@@ -84,7 +84,17 @@ myApp.config(function ($routeProvider) {
       templateUrl:'partials/single_event.html',
       controller:'manipulateEventsController',
       access:{restricted:false, admin:false}
-    })    
+    })
+	.when('/public_profile',{
+      templateUrl:'partials/public_profile.html',
+      controller:'manipulateEventsController',
+      access:{restricted:false,admin:false}
+    })
+    .when('/buyticket:id?',{
+      templateUrl:'partials/buyticket.html',
+      controller:'manipulateEventsController',
+      access:{restricted:false, admin:false}
+    })   
     .otherwise({
       redirectTo: '/',
       access:{restricted:false, admin:false}

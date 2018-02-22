@@ -132,7 +132,8 @@ router.get('/get_all',function(req,res){
 	  companyname: req.user.companyname,
 	  email: req.user.email,
 	  phone: req.user.phone,
-	  TaxID: req.user.TaxID
+	  TaxID: req.user.TaxID,
+	  description: req.user.description
     });
   }
   //If not, return this for debugging (this should never be returned)
@@ -144,7 +145,8 @@ router.get('/get_all',function(req,res){
 	companyname:"Default Companyname",
 	email:"Default Email",
 	phone:"Default Phone",
-	TaxID:"Default ID"
+	TaxID:"Default ID",
+	description:"Default description"
   });
   }
 });
@@ -170,6 +172,25 @@ router.put('/update_provider', function(req,res){
         return res.json(status);			//status in fact is data, just for debugging
 	})
 });
+
+
+
+
+router.get('/get_all_by_username/:username?',function(req,res){
+  
+  //console.log("Request for company name from");
+  console.dir(req.params.username)
+  
+  Provider.findOne({username:req.params.username}, function(err, status){
+    if (err)
+      res.send(err);
+    res.json(status);
+  });
+});
+
+
+
+
 
 
 module.exports = router;
