@@ -15,6 +15,20 @@
 <div style="width: 100%">
   <header-nav-directive></header-nav-directive>
 </div>
+<script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq6gVXzKjVwYvc0Y6cB9LWJcngquAnsY4&language=el" async defer>
+</script> 
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+      height: 100%;
+    }
+</style>
 <div class="container">
   
   
@@ -49,6 +63,7 @@
         <br>
         <h4 style="color: azure">Όνομα εταιρείας  </h4>
         <input style="width: 100%" type="text" class="form-control"  value={{companyname}} readonly>
+        <br>
         
 
         </div>
@@ -83,6 +98,24 @@
         <input style="width: 100%" type="text" class="form-control"  value={{postalcode}} pattern="\d{6}"  >
         <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
         </form>
+        <br>
+
+
+        <form class="form" name="formb" ng-submit="">
+            <div class="form-group">
+              <label style="color: aqua">Αναζητήστε νέα τοποθεσία(Δεν λειτουργεί ακόμα)</label>
+                  <input type="text" class="form-control" ng-model="newphone" placeholder={{phone}}>
+            </div>
+            <button type="submit" class="btn btn-success">Αναζήτηση</button>
+            <br>
+            <br>
+            <div ng-controller="locationController">
+                <div id="map" align = "center"> </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success">Αποθήκευση νέας τοποθεσίας!!</button>
+        </form>
+
         <br>
       </div>
       <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
@@ -156,6 +189,17 @@
         <br>
         <br>
 		<button onclick="location.href='/#/transfer';" class="btn btn-success btn-lg">Εισαγωγή πόντων μέσω κάρτας <i class="fa fa-plus" ></i></button>
+      </div>
+      <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
+		<h2 style="color: lawngreen"> Η τοποθεσία μου</h2>
+        <br>
+        <input style="width: 100%" type="text"  class="form-control" value={{points}} readonly> 
+        <br>
+        <div ng-controller="locationController">
+            <div id="map" align = "center"> </div>
+        </div>
+        <br>
+		<button onclick="location.href='/#/transfer';" class="btn btn-success btn-lg">Ανανέωση Τοποθεσίας <i class="fa fa-plus" ></i></button>
       </div>
   </div><!-- /.navbar-collapse -->
   
