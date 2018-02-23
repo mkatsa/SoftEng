@@ -193,13 +193,15 @@
       <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
 		<h2 style="color: lawngreen"> Η τοποθεσία μου</h2>
         <br>
-        <input style="width: 100%" type="text"  class="form-control" value={{points}} readonly> 
-        <br>
+        <input style="width: 100%" type="text"  class="form-control" ng-model = "address" placeholder = "{{location.formatted_address}}"> 
         <div ng-controller="locationController">
+            <button ng-click="findLocation()" onclick class="btn btn-success">Εύρεση νέας τοποθεσίας</button>
+            <br>
+            <br>
             <div id="map" align = "center"> </div>
         </div>
         <br>
-		<button onclick="location.href='/#/transfer';" class="btn btn-success btn-lg">Ανανέωση Τοποθεσίας <i class="fa fa-plus" ></i></button>
+		<button ng-click="updateParent('location',{})" class="btn btn-success btn-lg">Ανανέωση Τοποθεσίας <i class="fa fa-plus" ></i></button>
       </div>
   </div><!-- /.navbar-collapse -->
   

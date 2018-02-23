@@ -281,12 +281,11 @@ $scope.getPublicProviderDataByUsername = function(a) {			//what to update and th
     $scope.TaxID = userdata.TaxID;
     $scope.phone = userdata.phone;
 	$scope.description = userdata.description;
-    
   })
 };
 
 
-
+	
 $scope.getEventById = function (){
   console.log("getting single event")
   AuthService.getSingleEvent($routeParams.id)
@@ -299,6 +298,19 @@ $scope.getEventById = function (){
   }, function (error) {
     console.error(error);
   })
+};
+
+
+$scope.init = function() {
+ 	console.log("getting single event")
+ 	AuthService.getSingleEvent($routeParams.id)
+ 	.then(function (response) {
+     $scope.event = response;
+ 	$scope.getPublicProviderDataByUsername($scope.event.provider);
+     console.log("i am here")
+   }, function (error) {
+     console.error(error);
+   })
 };
 
 $scope.initMap = function() { 
@@ -335,12 +347,22 @@ $scope.buy = function(){
 
 }
 
+$scope.changeloc= function(){
+  console.log($scope.event._id)
+  var l='/buyticket'
+  $location.path(l);
+}
+
+
+
 $scope.check = function(){
   userdata=AuthService.getUserData()
   .then(function(userdata){
     //console.dir(userdata)
     if($scope.cost>userdata.points){
     alert("VALE LEFTA GAMW THN PANAGIA SOU");
+    }else if($scope.event.tickets<$scope.notickets){
+    alert("DEN EXEI TOSA VRE VRWMIARH");  
     }else{
       AuthService.updateEventandUser(userdata.username,$scope.cost,$scope.notickets,$scope.event.eventname);
     }
@@ -353,8 +375,8 @@ $scope.check = function(){
 
 
 angular.module('myApp').controller('profileController',
-['$scope', '$route' ,'AuthService',
-function ($scope, $route, AuthService) {
+['$scope', '$route' ,'AuthService', 'sharedProperties',
+function ($scope, $route, AuthService,sharedProperties) {
 
   $scope.isProvider = AuthService.isProvider();
   userdata = AuthService.getUserData()
@@ -393,6 +415,7 @@ function ($scope, $route, AuthService) {
     $scope.firstname = userdata.firstname;
     $scope.lastname = userdata.lastname;
     $scope.email = userdata.email;
+    $scope.location = userdata.location;
     if($scope.isProvider){  
       $scope.companyname = userdata.companyname;
       $scope.TaxID = userdata.TaxID;
@@ -408,33 +431,37 @@ function ($scope, $route, AuthService) {
   
   
   $scope.updateParent = function(what, value) {			//same as the above for parents
-	console.log("updateProvider Controller")
-	console.log(what)
-	console.log(value)
-	AuthService.updateParentData( $scope.username, what, value)		//username is unique so there is no need to find and update by _id
-	
-	
-	//the code below is used to refresh page data in order of an update.same as the above.^
-	
-	userdata = AuthService.getUserData()
-	.then(function(userdata){
-    console.log('refresh user data after an update on profileController')
-    console.dir(userdata)
-    $scope.username = userdata.username;
-    $scope.firstname = userdata.firstname;
-    $scope.lastname = userdata.lastname;
-    $scope.email = userdata.email;
-    if($scope.isProvider){  
-      $scope.companyname = userdata.companyname;
-      $scope.TaxID = userdata.TaxID;
-      $scope.phone = userdata.phone;
-	  $scope.description = userdata.description;
+	  console.log("updateProvider Controller")
+	  console.log(what)
+    console.log(value)
+    if (what == "location"){
+      value = sharedProperties.getProperty();
     }
-    else{
-      $scope.mobile = userdata.mobile;
-      $scope.points = userdata.points;
-    }
-  })
+	  AuthService.updateParentData($scope.username, what, value)		//username is unique so there is no need to find and update by _id
+    
+    
+	  //the code below is used to refresh page data in order of an update.same as the above.^
+    
+	  userdata = AuthService.getUserData()
+	  .then(function(userdata){
+      console.log('refresh user data after an update on profileController')
+      console.dir(userdata)
+      $scope.username = userdata.username;
+      $scope.firstname = userdata.firstname;
+      $scope.lastname = userdata.lastname;
+      $scope.email = userdata.email;
+      $scope.location = userdata.location;
+      if($scope.isProvider){  
+        $scope.companyname = userdata.companyname;
+        $scope.TaxID = userdata.TaxID;
+        $scope.phone = userdata.phone;
+	    $scope.description = userdata.description;
+      }
+      else{
+        $scope.mobile = userdata.mobile;
+        $scope.points = userdata.points;
+      }
+    })
   }
 }
 ]);
@@ -612,7 +639,7 @@ angular.module('myApp').controller('locationController',
         //                      '</div>'+
         //                      '<h2 style="color:blue;" id="firstHeading" class="firstHeading">Location Found!</h2>'+
         //                    '</div>';
-        infoWindow.setContent('Η τοποθεσία μου:'+ $scope.options.extendedLocation.formatted_address);
+        infoWindow.setContent($scope.options.extendedLocation.formatted_address);
         infoWindow.open(map);
         sharedProperties.setProperty($scope.options.extendedLocation);
         //for(var i = 0; i < markers.length; i++){
