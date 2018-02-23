@@ -347,12 +347,22 @@ $scope.buy = function(){
 
 }
 
+$scope.changeloc= function(){
+  console.log($scope.event._id)
+  var l='/buyticket'
+  $location.path(l);
+}
+
+
+
 $scope.check = function(){
   userdata=AuthService.getUserData()
   .then(function(userdata){
     //console.dir(userdata)
     if($scope.cost>userdata.points){
     alert("VALE LEFTA GAMW THN PANAGIA SOU");
+    }else if($scope.event.tickets<$scope.notickets){
+    alert("DEN EXEI TOSA VRE VRWMIARH");  
     }else{
       AuthService.updateEventandUser(userdata.username,$scope.cost,$scope.notickets,$scope.event.eventname);
     }

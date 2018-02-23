@@ -87,9 +87,9 @@
 
           <div class="col-md-4 col-sm-4 col-xs-12"></div>
 
-          <div ng-controller="locationController" class = "text-right">
+          <div ng-controller="locationController" class = "text-right">s
               <div class = "input-append text-right">
-                <input type = "text" ng-model = "address"/>
+                <input type = "text" ng-model = "address" required/>
                 <button class = "btn" type = "button" ng-click="findLocation()" ng-disabled="search.length == 0" tittle = "address" >
                     &nbsp;<i class="icon-search"></i>Search Location
                 </button>
