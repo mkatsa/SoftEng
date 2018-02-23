@@ -50,8 +50,8 @@
                 
 			</div>
             <br/>
-            <div ng-controller="locationController" id="map"> </div>
-            <br/>
+            <div id="map"> </div>
+			<br/>
             <h1> Our Events</h1>
 
 			<div ng-repeat="event in eventsList" align="center">
@@ -62,15 +62,15 @@
                     	<h2>{{event.eventname}}</h2>
                     </div>
                     <div class="event-age-overlay">
-                    	<h2>ages:{{event.minage}}-{{event.maxage}}</h2>
+						<h2>ages:{{event.minage}}-{{event.maxage}}</h2>
                     </div>
-
-
+					
                     </a>
                    <!--  <a ng-href="./#/singleEvent" >
                         deite to
-                    </a> -->
-                </div>
+					</a> -->
+
+				</div>
             </div>
     </div>
 </div>
