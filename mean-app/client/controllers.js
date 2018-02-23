@@ -115,6 +115,8 @@ angular.module('myApp').controller('registerController',
         ,$scope.registerForm.email)
         // handle success
         .then(function () {
+		  //var Mail = new sendEmail();
+		  //Mail.sendEmail({from: "Heapsters Athens <heapsters@hotmail.com>", to: "m.katsaragakis@hotmail.com",subject: "Καλώς Ήρθατε στο FunActivities", text:"poutsa" });
           $scope.disabled = false;
           $scope.registerForm = {};
           console.log("CHANGING PATH")
@@ -130,7 +132,6 @@ angular.module('myApp').controller('registerController',
         });
 
       };
-
     }]);
 
 //Controller to handle provider registration
