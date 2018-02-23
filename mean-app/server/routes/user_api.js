@@ -193,7 +193,8 @@ router.get('/get_all',function(req,res){
     lastname: req.user.lastname,
     email: req.user.email,
     mobile: req.user.mobile,
-    points : req.user.points
+    points: req.user.points,
+    location: req.user.location
     });
   }
   //If not, return this for debugging (this should never be returned)

@@ -353,9 +353,9 @@ function createEvent(eventname,category, price, minage, maxage, tickets, descrip
 
 
 
-function getAllEvents() {
+function getAllEvents(qu) {
   var deferred = $q.defer(),
-  httpPromise = $http.get('event/findEvents');
+  httpPromise = $http.get('event/findEvents/'+qu);
 
   httpPromise.success(function (response) {
     deferred.resolve(response);
