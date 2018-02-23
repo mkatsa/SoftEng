@@ -181,6 +181,9 @@ angular.module('myApp').controller('registerProviderController',
 
 
 angular.module('myApp').controller('eventsController',
+  ['$scope', '$route', 'AuthService', '$routeParams' ,
+  function ($scope, $route, AuthService,$routeParams) {
+ /* $(document).ready(function(){
   ['$scope', '$route', 'AuthService',
   function ($scope, $route, AuthService) {
   $(document).ready(function(){
@@ -207,16 +210,18 @@ angular.module('myApp').controller('eventsController',
   }
   $(this).addClass("active");
   });
-
+  */
+  $scope.getAllEvents = function (){
 
   $scope.eventsList = {};
-  AuthService.getAllEvents()
+  AuthService.getAllEvents($scope.nameFilter)
   .then(function (response) {
     $scope.eventsList = response;
-    console.log("i am here")
+    console.log("getting events")
   }, function (error) {
     console.error(error);
   });
+};
   
 }]);
 
