@@ -6,7 +6,53 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
+
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
+var xoauth2 = require('xoauth2');
+
+
 var Provider = require('../models/provider.js');		//connection to database
+
+
+
+var transporter = nodemailer.createTransport({
+    service: "Gmail", // hostname
+    //secureConnection: false, // TLS requires secureConnection to be false
+    //port: 587, // port for secure SMTP		
+	auth: {
+		user: "heapstersmail@gmail.com",
+		pass: "FiS2zi92"
+	},
+    //tls: {
+      //  ciphers:'SSLv3'
+    //}
+});
+
+
+function sendEmail(receiver) {
+	console.log("I am going to send a fucking mail now!!")
+	var mailOptions = {
+		from: "Heapsters Athens <heapsters@hotmail.com>",
+		to: receiver,
+		subject: "Καλώς Ήρθατε στο FunActivities",
+		html: '<b>Καλως ήρθατε στη διαδικτυακή μας πλατφόρμα!! </b><br> Το e-mail που λαμβάνεται είναι αναγνωριστικό της εγγραφής σας στην πλατφόρμα μας <br>Σας ευχαριστούμε που επιλέξατε εμάς για να προωθήσετε τις δραστηριότητες που παρέχετε!<br> <p> Μεταβείτε στην <a href="https://localhost:3000/#/login">login</a> σελίδα μας για να χρησιμοποιείσετε τις υπηρεσίες μας</p><br>Με εκτίμηση,<br>Heapsters Team</a> '
+		//add attachments too in the end
+	};
+
+	transporter.sendMail(mailOptions, function(error, info){
+		if (error) {
+			console.log(error);
+		} else {
+			console.log('Email sent: ' + info.response);
+		}
+	});	
+}
+
+
+
+
+
 
 
 //Handle provider registration
@@ -36,6 +82,7 @@ router.post('/register_provider', function(req, res) {
     //if not error, authenticate provider
     
     passport.authenticate('provider')(req, res, function () {
+	  sendEmail(req.body.email);
       return res.status(200).json({
         status: 'Registration successful!'
       });

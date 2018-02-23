@@ -60,8 +60,6 @@ angular.module('myApp').factory('AuthService',
 
     }
 
-
-
     //Log in
     //First check if user login
     //If it fails check if provider login
