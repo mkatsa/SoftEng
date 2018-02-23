@@ -9,13 +9,14 @@
 			<h1>Βρες δραστηριότητα!</h1>
 			<br/>
 
+			<div ng-init="getAllEvents()"> </div>
+
 			<div class="container" style="align-items: center">
 				<div class="row">
 					<div class="col-md-6">
 						<div id="custom-search-input">
 							<div class="input-group col-md-12">
-								<!--import the ng-model ="nameFilter" in order to implement the plain text search-->
-								<input ng-model="nameFilter" type="text" class="form-control input-lg" placeholder="πχ. ποδόσφαιρο Παλαιό Φάληρο" />
+								<input ng-model="nameFilter" ng-change="getAllEvents(encodeURIComponent(nameFilter))" type="text" class="form-control input-lg" placeholder="πχ. ποδόσφαιρο Παλαιό Φάληρο" />
 								<span class="input-group-btn">
 									<button class="btn btn-info btn-lg" type="button">
 										<i class="glyphicon glyphicon-search"></i>
@@ -38,6 +39,8 @@
 			<br/>
             <h1> Our Events</h1>
             
+            
+
             <!--
                  opou uparxei stoixeio gia to event kanoume import auto pou exoume parei apo to query p.x: gia to eventname bazoume {{event.eventname}}
             -->
