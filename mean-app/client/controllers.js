@@ -182,8 +182,8 @@ angular.module('myApp').controller('registerProviderController',
 
 
 angular.module('myApp').controller('eventsController',
-  ['$scope', '$route', 'AuthService', '$routeParams' ,
-  function ($scope, $route, AuthService,$routeParams) {
+  ['$scope', '$route', '$timeout', 'AuthService', '$routeParams' ,
+  function ($scope, $route, $timeout, AuthService, $routeParams) {
  /* $(document).ready(function(){
   ['$scope', '$route', 'AuthService',
   function ($scope, $route, AuthService) {
@@ -212,12 +212,70 @@ angular.module('myApp').controller('eventsController',
   $(this).addClass("active");
   });
   */
-  $scope.getAllEvents = function (){
+  
+  var markersArray = [];
+  $scope.initMap = function() { 
+      $scope.options = {
+        zoom: 12,
+        center: {lat: 37.987823, lng: 23.731857},
+      }
+      
+      map = new google.maps.Map(document.getElementById('map'),$scope.options);
+      infoWindow = new google.maps.InfoWindow;
+      var center = $scope.userlocation.geometry.location;
+      map.setCenter(center);
+      infoWindow.setContent($scope.userlocation.formatted_address);
+      var marker = new google.maps.Marker({
+        position: center,
+        map: map,
+        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+      });
+      infoWindow.open(map, marker);
+  }
 
+  createMarker = function(location){
+    markersArray.push(new google.maps.Marker({
+      map: map,
+      position: location.geometry.location,
+      icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+    }));
+  }
+
+  deleteMarkers = function() {
+    $timeout(function() {
+      for (var i = 0; i < markersArray.length; i++) {
+        markersArray[i].setMap(null);
+      }
+      markersArray = [];
+    }, 800);
+  }
+
+  $timeout(function() {
+    $scope.initMap();
+  }, 800);
+
+  addMarkers = function(){
+    $timeout(function() {
+      for (var event in $scope.eventsList) {
+        //console.log(event, $scope.eventsList[event].location.geometry.location);
+        createMarker($scope.eventsList[event].location);
+      }
+    }, 800);
+  }
+
+  userdata = AuthService.getUserData()
+    .then(function(userdata){
+      $scope.userlocation = userdata.location;
+    })
+   
+$scope.getAllEvents = function (){
   $scope.eventsList = {};
   AuthService.getAllEvents($scope.nameFilter)
   .then(function (response) {
+    deleteMarkers();
     $scope.eventsList = response;
+    addMarkers();
+    console.log("i am here")
     console.log("getting events")
   }, function (error) {
     console.error(error);
@@ -483,8 +541,7 @@ angular.module('myApp')
             },
             setProperty: function(value) {
                 location = value;
-                console.dir('myLocObject:')
-                console.dir(location)
+
             }
         };
     });

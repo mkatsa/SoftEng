@@ -157,7 +157,7 @@ angular.module('myApp').factory('AuthService',
   } 
 
 
-  function refreshUserLocation(){
+function refreshUserLocation(){
       
     var deferred = $q.defer();
 
