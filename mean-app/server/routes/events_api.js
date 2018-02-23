@@ -5,15 +5,35 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var Event = require('../models/event.js');
+var Fuse = require('fuse.js');
+
+var options = {
+  shouldSort: true,
+  threshold: 0.6,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: [
+    "eventname",
+]
+};
 
 
 //handle user search
-router.get('/findEvents',function(req,res){
+router.get('/findEvents/:qu?',function(req,res){
    Event.find(function (err, events) {
       if (err)
         res.send(err);
- 
-      res.json(events);
+ 	  
+ 	  /*decodeURIComponent(req.params.qu);*/
+ 	  if (req.params.qu =="undefined" || req.params.qu == null  ) res.json(events);
+ 	  else
+ 	  {
+      var fuse = new Fuse(events, options); // "list" is the item array
+	  var result = fuse.search(req.params.qu);
+      res.json(result);
+  	  }
     });
 })	
 

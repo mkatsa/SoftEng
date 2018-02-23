@@ -9,6 +9,10 @@ var hash = require('bcrypt-nodejs');
 var path = require('path');
 var passport = require('passport');
 var localStrategy = require('passport-local' ).Strategy;
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
+var xoauth2 = require('xoauth2');
+
 
 // mongoose
 
@@ -34,6 +38,7 @@ var user_routes = require('./routes/user_api.js');
 var admin_routes= require('./routes/admin_api.js');
 var provider_routes= require('./routes/provider_api.js');
 var event_routes = require('./routes/events_api.js');
+
 // define middleware
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(logger('dev'));
@@ -48,6 +53,7 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // configure passport
 //https://github.com/jaredhanson/passport/issues/50
@@ -114,4 +120,10 @@ app.use(function(err, req, res) {
   }));
 });
 
+
+
+		
+
+
+//module.exports.sendEmail = sendEmail;
 module.exports = app;

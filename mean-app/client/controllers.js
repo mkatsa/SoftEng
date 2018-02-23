@@ -115,6 +115,8 @@ angular.module('myApp').controller('registerController',
         ,$scope.registerForm.email)
         // handle success
         .then(function () {
+		  //var Mail = new sendEmail();
+		  //Mail.sendEmail({from: "Heapsters Athens <heapsters@hotmail.com>", to: "m.katsaragakis@hotmail.com",subject: "Καλώς Ήρθατε στο FunActivities", text:"poutsa" });
           $scope.disabled = false;
           $scope.registerForm = {};
           console.log("CHANGING PATH")
@@ -130,7 +132,6 @@ angular.module('myApp').controller('registerController',
         });
 
       };
-
     }]);
 
 //Controller to handle provider registration
@@ -181,8 +182,11 @@ angular.module('myApp').controller('registerProviderController',
 
 
 angular.module('myApp').controller('eventsController',
-  ['$scope', '$route', '$timeout', 'AuthService',
-  function ($scope, $route, $timeout, AuthService) {
+  ['$scope', '$route', '$timeout', 'AuthService', '$routeParams' ,
+  function ($scope, $route, $timeout, AuthService, $routeParams) {
+ /* $(document).ready(function(){
+  ['$scope', '$route', 'AuthService',
+  function ($scope, $route, AuthService) {
   $(document).ready(function(){
       $(".filter-button").click(function(){
           var value = $(this).attr('data-filter');
@@ -207,6 +211,7 @@ angular.module('myApp').controller('eventsController',
   }
   $(this).addClass("active");
   });
+  */
   
   var markersArray = [];
   $scope.initMap = function() { 
@@ -263,16 +268,19 @@ angular.module('myApp').controller('eventsController',
       $scope.userlocation = userdata.location;
     })
    
+$scope.getAllEvents = function (){
   $scope.eventsList = {};
-  AuthService.getAllEvents()
+  AuthService.getAllEvents($scope.nameFilter)
   .then(function (response) {
     deleteMarkers();
     $scope.eventsList = response;
     addMarkers();
     console.log("i am here")
+    console.log("getting events")
   }, function (error) {
     console.error(error);
   });
+};
   
 }]);
 
