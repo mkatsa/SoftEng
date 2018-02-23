@@ -281,12 +281,11 @@ $scope.getPublicProviderDataByUsername = function(a) {			//what to update and th
     $scope.TaxID = userdata.TaxID;
     $scope.phone = userdata.phone;
 	$scope.description = userdata.description;
-    
   })
 };
 
 
-
+	
 $scope.getEventById = function (){
   console.log("getting single event")
   AuthService.getSingleEvent($routeParams.id)
@@ -299,6 +298,19 @@ $scope.getEventById = function (){
   }, function (error) {
     console.error(error);
   })
+};
+
+
+$scope.init = function() {
+ 	console.log("getting single event")
+ 	AuthService.getSingleEvent($routeParams.id)
+ 	.then(function (response) {
+     $scope.event = response;
+ 	$scope.getPublicProviderDataByUsername($scope.event.provider);
+     console.log("i am here")
+   }, function (error) {
+     console.error(error);
+   })
 };
 
 $scope.initMap = function() { 

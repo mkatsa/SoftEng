@@ -473,6 +473,10 @@ function getPublicProviderDataByUsername(uname){
     return deferred.promise;
   }
 
+
+
+  
+  
  //username=getUserName();
 
  return ({
