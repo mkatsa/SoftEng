@@ -1,17 +1,80 @@
-<div style="width: 100%">
-	<header-nav-directive></header-nav-directive>
 
-    <div ng-init = "getEventById()">
-    <div>
-        <!--to do : Display provider of event by adding field of provider in event.js -->
-        <h3>Ο πάροχος σας προσφέρει:</h3>
-        <br>
-        <b><h3>Όνομα Δραστηριότητας :{{event.eventname}}</h3></b>
-    </div>
-    <div>
-        <b><h3> Σύντομη Περιγραφη δραστηριότητας : {{event.description}}</h3></b>
-    </div>
-    <b><h3>Ηλικίες:{{event.minage}} - {{event.maxage}}</h3></b>
-    <b><h3>Τιμη:{{event.price}}</h3> <br></b>
     
+<div style="width:100%">
+  <header-nav-directive></header-nav-directive>
 </div>
+<script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq6gVXzKjVwYvc0Y6cB9LWJcngquAnsY4&language=el" async defer>
+</script> 
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+      height: 100%;
+    }
+</style>
+<div class="container-fluid bg" ng-init="getEventById()">
+  
+  <div class="row" >
+
+    <div class="col-md-4 col-sm-4 col-xs-12"></div>
+    <div class="col-md-4 col-sm-4 col-xs-12" >
+	    
+        <h3>O πάροχος <a href="./#/public_profile?id={{event._id}}">{{event.provider}}</a> σας προσφέρει: </h1>
+        <div class="form-group">
+            <h3>Όνομα δραστηριότητας:</h3>
+            <input type="text" class="form-control"  value={{event.eventname}} readonly>
+        </div>
+        <div class="form-group">
+            <h3>Σύντομη περιγραφή δραστηριότητας:</h3>
+            <textarea style="width: 100%" rows="3"  readonly  >{{event.description}}</textarea>
+        </div>
+          <div class="form-group">
+            <h3>Ηλικίες:</h3>
+            <input type="text" class="form-control" value={{event.minage}}-{{event.maxage}}  readonly>
+          </div>
+          <div class="form-group">
+            <h3>Τιμή εισιτηρίου</h3>
+            <input type="text" class="form-control" value={{event.price}}  readonly >
+          </div>
+          <div class="form-group">
+            <h3>Τοποθεσία:</h3>
+            <input type="text" class="form-control" value={{event.location.formatted_address}}  readonly >
+            <br/>
+            <div class = "text-right">
+                <div id="map" align = "center"> </div>
+            </div>
+  
+            <br/>
+          </div>
+         <div class="form-group">
+            <h3>Αριθμός διαθέσιμων εισιτηρίων:</h3>
+            <input type="text" class="form-control" value={{event.tickets}}  readonly >
+          </div>
+          <div class="row">
+
+        
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <!--div-->
+            <button type="submit" class="btn btn-success" ng-disabled="disabled" id="sub_but">Ενδιαφέρομαι! <i class="fa fa-thumbs-up"></i></button>
+            
+          <!--/div-->
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+          <form class="form" name="forms" ng-submit="changeloc()" >
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <button type="submit" class="btn btn-success">Αγορά εισιτηρίων  <i class="fa fa-plus"></i></button>
+          </div>
+        </form>
+          </div>
+       
+      </div>
+      <p style="height: 1000000px"></p>
+    </div>
+  </div>
+<div footer-directive></div>
+

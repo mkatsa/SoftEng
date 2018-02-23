@@ -1,0 +1,20 @@
+<div style="width:100%">
+  <header-nav-directive></header-nav-directive>
+</div>
+<div class="container-fluid bg" ng-init="getEventById()">
+<div class="row">
+	<h3>O πάροχος <a href=".#/publicprofile?id={{event._id}}">{{event.provider}}</a> σας προσφέρει: </h1>
+	<h3>Όνομα δραστηριότητας:{{event.eventname}}</h3>
+	<h3>Διαθέσιμα εισητήρια:{{event.tickets}}</h3>
+	<h3>Εισητήρια για αγορά:</h3>
+	<input type="number" class="form-control"  ng-model="notickets" value="0" required>
+	<form class="form" name="forms" ng-submit="buy()" >
+	<h3>{{cost}} {{suf}}</h3>
+	<button type="submit" class="btn btn-success"  >Υπολόγισε</button>
+	</form>
+	<form ng-submit="check()">
+	<button tupe="submit" name="panagia" > Αγορά </button>
+	</form>
+	</div>
+</div>
+<div footer-directive></div>

@@ -184,6 +184,9 @@ angular.module('myApp').controller('eventsController',
   ['$scope', '$route', 'AuthService', '$routeParams' ,
   function ($scope, $route, AuthService,$routeParams) {
  /* $(document).ready(function(){
+  ['$scope', '$route', 'AuthService',
+  function ($scope, $route, AuthService) {
+  $(document).ready(function(){
       $(".filter-button").click(function(){
           var value = $(this).attr('data-filter');
           
@@ -209,6 +212,7 @@ angular.module('myApp').controller('eventsController',
   });
   */
   $scope.getAllEvents = function (){
+
   $scope.eventsList = {};
   AuthService.getAllEvents($scope.nameFilter)
   .then(function (response) {
@@ -223,8 +227,8 @@ angular.module('myApp').controller('eventsController',
 
 //Controller for add remove or update event
 angular.module('myApp').controller('manipulateEventsController',
-  ['$scope', '$route','AuthService','$routeParams', '$location', 
-  function ($scope, $route, AuthService,$routeParams, $location) {
+  ['$scope', '$route','$timeout','AuthService','$routeParams', '$location', 'sharedProperties',
+  function ($scope, $route,$timeout, AuthService,$routeParams, $location, sharedProperties) {
 
  //Function to be called from html
  $scope.createEvent = function () {
@@ -232,11 +236,19 @@ angular.module('myApp').controller('manipulateEventsController',
   // initial values
   $scope.error = false;
   $scope.disabled = true;
+  $scope.location = sharedProperties.getProperty();
+
+  console.log($scope.eventForm.tickets)
+  userdata = AuthService.getUserData()
+    .then(function(userdata){
+      console.dir(userdata)
+      $scope.username = userdata.username;
+    })
 
   // call register from service, with inputs from the html form
-  AuthService.createEvent($scope.eventForm.eventname, $scope.eventForm.price
-    ,$scope.eventForm.minage,$scope.eventForm.maxage
-    ,$scope.eventForm.description)
+  AuthService.createEvent($scope.eventForm.eventname,$scope.eventForm.category,$scope.eventForm.price
+    ,$scope.eventForm.minage,$scope.eventForm.maxage,$scope.eventForm.tickets
+    ,$scope.eventForm.description,$scope.username,$scope.location)
   // handle success
   .then(function () {
     console.log("controller:events controller:THEN")
@@ -253,77 +265,409 @@ angular.module('myApp').controller('manipulateEventsController',
     $scope.errorMessage = "Something went wrong!";
     $scope.disabled = false;
     $scope.registerForm = {};
-  });
+  }); 
 };
 
+
+
+$scope.getPublicProviderDataByUsername = function(a) {			//what to update and the new value.
+	console.log("getPublicProviderDataByUsername Controller")
+	console.log(a)
+	
+	userdata = AuthService.getPublicProviderDataByUsername(a)
+	.then(function(userdata){
+    console.log('refresh user data after an update on profileController')
+    console.dir(userdata)
+    $scope.username = userdata.username;
+    $scope.firstname = userdata.firstname;
+    $scope.lastname = userdata.lastname;
+    $scope.email = userdata.email;
+    $scope.companyname = userdata.companyname;
+    $scope.TaxID = userdata.TaxID;
+    $scope.phone = userdata.phone;
+	$scope.description = userdata.description;
+  })
+};
+
+
+	
 $scope.getEventById = function (){
   console.log("getting single event")
   AuthService.getSingleEvent($routeParams.id)
   .then(function (response) {
+    console.log("got single event")
     $scope.event = response;
+    sharedProperties.setProperty($scope.event.location);
+    $scope.initMap();
     console.log("i am here")
   }, function (error) {
     console.error(error);
-  });
+  })
 };
 
+
+$scope.init = function() {
+ 	console.log("getting single event")
+ 	AuthService.getSingleEvent($routeParams.id)
+ 	.then(function (response) {
+     $scope.event = response;
+ 	$scope.getPublicProviderDataByUsername($scope.event.provider);
+     console.log("i am here")
+   }, function (error) {
+     console.error(error);
+   })
+};
+
+$scope.initMap = function() { 
+  //$scope.options.extendedLocation = $scope.userLocation;
+
+  // New Map
+  $timeout(function() {
+    //vm.pauseLoading=false;
+    $scope.options = {
+      zoom: 12,
+      center: {lat: 37.987823, lng: 23.731857},
+    }
+    map = new google.maps.Map(document.getElementById('map'),$scope.options);
+    infoWindow = new google.maps.InfoWindow;
+    var center = $scope.event.location.geometry.location;
+    map.setCenter(center);
+    infoWindow.setPosition(center);
+    infoWindow.setContent('Η τοποθεσία μου:'+ $scope.event.location.formatted_address);
+    infoWindow.open(map);
+  }, 700);
+}
+
+
+$scope.buy = function(){
+  console.log($scope.event.price)
+  console.log($scope.notickets)
+  $scope.cost=parseInt($scope.event.price)*($scope.notickets);
+  userdata=AuthService.getUserData();
+  /*if($scope.cost>userdata.points){
+    $scope.suf="not enough money";
+  }else{
+    $scope.suf="enough money";
+  }*/
+
+}
+
+$scope.changeloc= function(){
+  console.log($scope.event._id)
+  var l='/buyticket'
+  $location.path(l);
+}
+
+
+
+$scope.check = function(){
+  userdata=AuthService.getUserData()
+  .then(function(userdata){
+    //console.dir(userdata)
+    if($scope.cost>userdata.points){
+    alert("VALE LEFTA GAMW THN PANAGIA SOU");
+    }else if($scope.event.tickets<$scope.notickets){
+    alert("DEN EXEI TOSA VRE VRWMIARH");  
+    }else{
+      AuthService.updateEventandUser(userdata.username,$scope.cost,$scope.notickets,$scope.event.eventname);
+    }
+  })
+  //$scope.test=userdata;
+  //console.log($scope.test)
+  //console.log(userdata.username)
+}
 }]);
 
 
-
 angular.module('myApp').controller('profileController',
-  ['$scope', '$route' ,'AuthService',
-  function ($scope, $route, AuthService) {
+['$scope', '$route' ,'AuthService', 'sharedProperties',
+function ($scope, $route, AuthService,sharedProperties) {
 
-    $scope.isProvider = AuthService.isProvider();
-    userdata = AuthService.getUserData()
-    .then(function(userdata){
-      console.log('adsdas')
+  $scope.isProvider = AuthService.isProvider();
+  userdata = AuthService.getUserData()
+  .then(function(userdata){
+    console.log('display user data on profileController')
+    console.dir(userdata)
+    $scope.username = userdata.username;
+    $scope.firstname = userdata.firstname;
+    $scope.lastname = userdata.lastname;
+    $scope.email = userdata.email;
+    $scope.location = userdata.location;
+    if($scope.isProvider){  
+      $scope.companyname = userdata.companyname;
+      $scope.TaxID = userdata.TaxID;
+      $scope.phone = userdata.phone;
+	  $scope.description = userdata.description;
+    }
+    else{
+      $scope.mobile = userdata.mobile;
+      $scope.points = userdata.points;
+    }
+  })
+	
+  $scope.updateProvider = function(what, value) {			//what to update and the new value.
+	console.log("updateProvider Controler")
+	console.log(what)
+	console.log(value)
+	AuthService.updateProviderData( $scope.username, what, value)		//username is unique so there is no need to find and update by _id
+	//the code below is used to refresh page data in order of an update.same as the above.^
+	
+	userdata = AuthService.getUserData()
+	.then(function(userdata){
+    console.log('refresh user data after an update on profileController')
+    console.dir(userdata)
+    $scope.username = userdata.username;
+    $scope.firstname = userdata.firstname;
+    $scope.lastname = userdata.lastname;
+    $scope.email = userdata.email;
+    $scope.location = userdata.location;
+    if($scope.isProvider){  
+      $scope.companyname = userdata.companyname;
+      $scope.TaxID = userdata.TaxID;
+      $scope.phone = userdata.phone;
+	  $scope.description = userdata.description;
+    }
+    else{
+      $scope.mobile = userdata.mobile;
+      $scope.points = userdata.points;
+    }
+  })
+  }
+  
+  
+  $scope.updateParent = function(what, value) {			//same as the above for parents
+	  console.log("updateProvider Controller")
+	  console.log(what)
+    console.log(value)
+    if (what == "location"){
+      value = sharedProperties.getProperty();
+    }
+	  AuthService.updateParentData($scope.username, what, value)		//username is unique so there is no need to find and update by _id
+    
+    
+	  //the code below is used to refresh page data in order of an update.same as the above.^
+    
+	  userdata = AuthService.getUserData()
+	  .then(function(userdata){
+      console.log('refresh user data after an update on profileController')
       console.dir(userdata)
       $scope.username = userdata.username;
       $scope.firstname = userdata.firstname;
       $scope.lastname = userdata.lastname;
       $scope.email = userdata.email;
+      $scope.location = userdata.location;
       if($scope.isProvider){  
         $scope.companyname = userdata.companyname;
         $scope.TaxID = userdata.TaxID;
         $scope.phone = userdata.phone;
+	    $scope.description = userdata.description;
       }
       else{
         $scope.mobile = userdata.mobile;
         $scope.points = userdata.points;
       }
     })
-  }]);
+  }
+}
+]);
 
 
+angular.module('myApp')
+    .service('sharedProperties', function () {
+        var location = {};
+
+        return {
+            getProperty: function () {
+                return location;
+            },
+            setProperty: function(value) {
+                location = value;
+                console.dir('myLocObject:')
+                console.dir(location)
+            }
+        };
+    });
 
 //https://stackoverflow.com/questions/23185619/how-can-i-use-html5-geolocation-in-angularjs
-angular.module('myApp').controller('eventsLocationController',
-  ['$scope', '$route', 'AuthService', 'GeolocationService',
-  function ($scope, $route, AuthService,GeolocationService) {
-
-    var haveLoc=false;    
-    $scope.captureUserLocation = function() {
-      if (!haveLoc){
-        GeolocationService.getCurrentPosition()
-        .then(function(position){
-          haveLoc=true;
-          console.log("KOBLE");
-          showPosition(position);
-        });
-      }
+angular.module('myApp').controller('locationController',
+  ['$scope', '$route','$timeout', 'AuthService', 'GeolocationService', 'UserLocService', 'sharedProperties',
+  function ($scope, $route,$timeout, AuthService, GeolocationService, UserLocService, sharedProperties) {
+    // Map options
+    $scope.options = {
+      zoom: 12,
+      center: {lat: 37.987823, lng: 23.731857},
+      extendedLocation: null
     }
+    
+    console.dir('myLocObject:')
+    console.dir(sharedProperties.getProperty())
 
-    function showPosition(position) {
-      latlon = position.coords.latitude + "," + position.coords.longitude;
+    $timeout(function(){
+      AuthService.refreshUserLocation()
+      .then(function () {
+      //After service.username has been refreshed, get it and store it in the scope
+      //to be called from html
+      $scope.userLocation = AuthService.getUserLocation();
+      $scope.options.extendedLocation = $scope.userLocation;
+      });
+    },200);
 
-    //API key AIzaSyBpyJPBHwTbkAFdT8BBlc3p1i8OxMLR7pw
+    //$scope.map;
+    $scope.initMap = function() {
+  
+      //$scope.options.extendedLocation = $scope.userLocation;
 
-    img_url = "https://www.google.com/maps/embed/v1/view?key=AIzaSyBEe0-lSLxmJnc_X48luijRr17_yWrBAtA&zoom=14&center="+latlon;
-    document.getElementById("mapholder").innerHTML = "<iframe src='"+img_url+"'></iframe>";
-  }
-}]);
+      // New Map
+      map = new google.maps.Map(document.getElementById('map'),$scope.options);
+      infoWindow = new google.maps.InfoWindow;
+
+      // Listen for click on map
+      google.maps.event.addListener(map, 'click',
+      function(event){
+        // Add marker
+        addMarker({coords:event.latLng});
+      });
+
+        //Add Marker Function(for multiple markers)
+      if ($scope.options.extendedLocation == null) {
+        var markers = [
+          {
+            coords:{lat: 37.987823, lng: 23.731857},
+            content: '<h1 style="color:blue;">Ψάξτε τοποθεσία!</h1>'
+          }
+        ];
+
+        // Loop through markers
+        for(var i = 0; i < markers.length; i++){
+          // Add Marker
+          addMarker(markers[i]);
+        }
+
+      function addMarker(props){
+          var marker = new google.maps.Marker({
+            position: props.coords,
+            map: map
+          });
+
+          //Check for custom icon
+          if (props.iconImage){
+            //set icon image (or anything else)
+            marker.setIcon(props.iconImage);
+          }
+
+          if (props.content){
+
+            var infoWindow = new google.maps.InfoWindow({
+            //for some reason the text shows in white:p
+            content: props.content
+            });
+
+            marker.addListener('click', function(){
+              infoWindow.open(map,marker);
+            });
+          }
+        }
+      }
+      else {
+        showPosition();
+      }
+    }; 
+
+      $timeout(function() {
+        console.debug("Showing the map. The google maps api should load now.");
+        console.log("timeout");
+        $scope.initMap();
+        //vm.pauseLoading=false;
+      }, 900);     
+      $scope.captureUserLocation = function() {
+
+        if (navigator.geolocation) {
+          //find the current position (lat,lng) using geolocation
+          navigator.geolocation.getCurrentPosition(function(position) {
+            //if succesfull then use reverse geocoding to find extended user location
+            var infowindow = new google.maps.InfoWindow;
+            var geocoder = new google.maps.Geocoder();
+            var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            geocoder.geocode({'location':userLatLng}, function(results, status) {
+              if (status === 'OK') {
+                if (results[0]) {
+                  $scope.options.extendedLocation = results[0];
+                  showPosition();
+                } else {
+                  window.alert('No results found');
+                }
+              } else {
+                window.alert('Geocoder failed due to: ' + status);
+              }
+            });
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition($scope.options.center);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }  
+
+      $scope.findLocation = function() {
+        var address = $scope.address;
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode(
+          {'address': address, 
+            componentRestrictions: {locality: 'Athens', country: 'Greece'}    //rules about locality will not be enforced! see: https://developers.google.com/maps/documentation/geocoding/intro#Viewports
+          },
+      function(results, status) {
+          if (status === 'OK') {
+            $scope.options.extendedLocation = results[0];
+            showPosition();
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      };
+
+      function showPosition() {
+        var center = $scope.options.extendedLocation.geometry.location;
+        map.setCenter(center);
+        infoWindow.setPosition(center);
+        //for marker checkk google api 's (reverse geocoding etc... beautify)
+        //var contentString = '<div id="content">'+
+        //                      '<div id="siteNotice">'+
+        //                      '</div>'+
+        //                      '<h2 style="color:blue;" id="firstHeading" class="firstHeading">Location Found!</h2>'+
+        //                    '</div>';
+        infoWindow.setContent($scope.options.extendedLocation.formatted_address);
+        infoWindow.open(map);
+        sharedProperties.setProperty($scope.options.extendedLocation);
+        //for(var i = 0; i < markers.length; i++){
+          // Add Marker
+        //marker.setMap(null);
+        //}
+        //markers = [];
+      };
+      
+      $scope.saveLocation = function() {
+        //map.setCenter({lat: 12.32, lng:12.33});
+        UserLocService.update($scope.options.extendedLocation).
+        then(function () {
+          console.log("CHANGING PATH")
+        })
+        .catch(function () {
+          $scope.error = true;
+          $scope.errorMessage = "Something went wrong!";
+          $scope.disabled = false;
+          $scope.registerForm = {};
+        });
+      };      
+  }]);
 
 angular.module('myApp').controller('transferController',
   ['$scope', 'TransferService',

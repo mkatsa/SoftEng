@@ -12,6 +12,7 @@ angular.module('myApp').factory('AuthService',
       var user = null; //User is true if any type of user is logged in
       var provider=false; //Provider is true if provider is logged in
       var username="anonymous";
+      var userLocation = {};
     }
 
     //Returns true if user is logged in
@@ -152,12 +153,46 @@ angular.module('myApp').factory('AuthService',
     return deferred.promise;
   }
 
-
-
-    //Returns user's username  
-    function getUserName(){
+  //Returns user's username  
+  function getUserName(){
       return username;
-    }  
+  } 
+
+
+  function refreshUserLocation(){
+      
+    var deferred = $q.defer();
+
+    // send a post request to the server
+    $http.get('/user/userLocation')
+    // handle success
+    .success(function (data,status) {
+    if(status === 200 && data.userLocation){
+      console.log('SERVICE: Success!')
+      userLocation=data.userLocation;
+      deferred.resolve();
+    } else {
+      console.log('SERVICE: else')
+      console.log('SERVICE: status:'+status)
+      console.log('SERVICE: data:'+data)
+      deferred.reject();
+    }
+  })
+  // handle error
+    .error(function (data) {
+    console.log('SERVICE: error')
+    deferred.reject();
+  });
+
+  // return promise object
+  return deferred.promise;
+}
+
+  //Returns users's location
+  function getUserLocation(){
+      console.log('asked for user location')
+      return userLocation;
+    } 
 
 
 
@@ -292,8 +327,7 @@ function register_provider(username, password, firstname, lastname, email, compa
   // return promise object
   return deferred.promise;
 }
-
-function createEvent(eventname, price, minage, maxage, description){
+function createEvent(eventname,category, price, minage, maxage, tickets, description, provider, location){
   var deferred = $q.defer();
   console.log("here1")
   console.log(eventname)
@@ -301,9 +335,14 @@ function createEvent(eventname, price, minage, maxage, description){
   console.log(minage)
   console.log(maxage)
   console.log(description)
+  console.log(category)
+  console.log(provider)
+  console.log(location)
   $http.post('/event/createEvent',
-    {eventname:eventname, price:price, minage:minage, maxage:maxage, description:description})
+    {eventname:eventname,category: category, price:price, minage:minage, maxage:maxage, description:description,provider:provider,location:location,tickets:tickets})
   .success(function (status) {
+    console.log("yolo")
+    console.log(tickets)
     console.log("createEvent:success(200)")
     deferred.resolve();
   })
@@ -343,6 +382,101 @@ function getSingleEvent(id) {
 }
 
 
+
+//this service is about updating a provider's data
+//username is the username of the provider we want to update
+//what is the field we want to cheng and the value has the new value to be put in mongo
+function updateProviderData(username, what, value) {
+	console.log( "I am on updateProviderData service")
+	console.log(username)
+	console.log(what)
+	console.log(value)
+	var deferred = $q.defer(),
+	httpPromise = $http.put('/provider/update_provider',
+        {username: username,what: what, value: value})
+      // handle success
+      .success(function () {
+          deferred.resolve();
+	  })
+        
+	  return deferred.promise;
+}
+
+
+//this service is about updating a parent's data
+//username is the username of the provider we want to update
+//what is the field we want to cheng and the value has the new value to be put in mongo
+function updateParentData(username, what, value) {
+	console.log( "I am on updateProviderData service")
+	console.log(username)
+	console.log(what)
+	console.log(value)
+	var deferred = $q.defer(),
+	httpPromise = $http.put('/user/update_parent',
+        {username: username,what: what, value: value})
+      // handle success
+      .success(function () {
+          deferred.resolve();
+	  })
+	  return deferred.promise;
+}
+
+
+function updateEventandUser(username,cost,notickets,eventname){
+  console.log(username)
+  console.log(cost)
+  console.log(notickets)
+  console.log(eventname)
+  var deferred=$q.defer();
+    httpPromise = $http.post('/user/eventbought',
+    {username:username,cost:cost,eventname:eventname})
+  .success(function(){
+    deferred.resolve();
+  })
+  httpPromise = $http.post('/event/updateTickets',
+    {eventname:eventname,notickets:notickets}).
+  success(function(){
+    deferred.resolve();
+  })
+  //deferred.resolve();
+  return deferred.promise;
+}
+
+
+function getPublicProviderDataByUsername(uname){
+	console.log('Public Provider Data Service')
+	console.log(uname)
+    var deferred = $q.defer();
+    req=$http.get('/provider/get_all_by_username/'+uname)
+    
+
+    req
+    .success(function (data,status) {
+        if(status === 200){
+          console.log('SERVICE: Success!')
+          console.dir(data)
+          deferred.resolve(data);
+        } else {
+          console.log('SERVICE: else')
+          console.log('SERVICE: status:'+status)
+          console.log('SERVICE: data:'+data)
+          deferred.resolve(data);
+        }
+      })
+    // handle error
+    .error(function (data) {
+      console.log('SERVICE: error')
+      deferred.reject();
+    });
+
+    // return promise object
+    return deferred.promise;
+  }
+
+
+
+  
+  
  //username=getUserName();
 
  return ({
@@ -350,6 +484,8 @@ function getSingleEvent(id) {
   getUserStatus: getUserStatus,
   getUserName: getUserName,
   refreshUserName: refreshUserName,
+  getUserLocation: getUserLocation,
+  refreshUserLocation: refreshUserLocation,
   login: login,
   logout: logout,
   register: register,
@@ -358,7 +494,11 @@ function getSingleEvent(id) {
   isProvider: isProvider,
   createEvent: createEvent,
   getAllEvents: getAllEvents,
-  getSingleEvent: getSingleEvent
+  updateProviderData: updateProviderData,
+  updateParentData: updateParentData,
+  getSingleEvent: getSingleEvent,
+  getPublicProviderDataByUsername: getPublicProviderDataByUsername,
+  updateEventandUser:updateEventandUser
 });
 }]);
 
@@ -392,6 +532,26 @@ angular.module('myApp').factory('GeolocationService', ['$q', '$window', function
   return {
     getCurrentPosition: getCurrentPosition
   };
+}]);
+
+// Service Handling User Location Update
+  angular.module('myApp').factory('UserLocService',['$q','$http',
+    function($q,$http){
+
+      function update(location){
+        var deferred = $q.defer();
+      console.log('123');
+      $http.post('/user/locationUpdate',{location:location}).success(function () {  
+        console.log('456')        
+        deferred.resolve();
+        
+      });
+      return deferred.promise;
+    }
+    
+    return{
+      update:update
+    };
 }]);
 
 
