@@ -9,9 +9,12 @@ var hash = require('bcrypt-nodejs');
 var path = require('path');
 var passport = require('passport');
 var localStrategy = require('passport-local' ).Strategy;
+
+//------about auto email service 
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var xoauth2 = require('xoauth2');
+
 
 
 // mongoose
@@ -120,9 +123,6 @@ app.use(function(err, req, res) {
   }));
 });
 
-
-
-		
 
 
 //module.exports.sendEmail = sendEmail;

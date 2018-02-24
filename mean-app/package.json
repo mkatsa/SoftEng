@@ -11,9 +11,12 @@
     "express": "^4.13.4",
     "express-jwt": "^5.3.0",
     "express-session": "^1.13.0",
+    "fs": "0.0.1-security",
     "fuse-js-latest": "^3.1.0",
     "fuse.js": "^3.2.0",
+    "greek-utils": "^1.2.1",
     "heapster_watermark": "^1.0.0",
+    "html-pdf": "^2.2.0",
     "mongoose": "^4.4.5",
     "mongoose-double": "0.0.1",
     "mongoose-type-email": "^1.0.5",
@@ -23,6 +26,8 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.0.0",
+    "pdfkit": "^0.8.3",
+    "pdfmake": "^0.1.35",
     "sendmail": "^1.2.0",
     "xoauth2": "^1.2.0"
   }
