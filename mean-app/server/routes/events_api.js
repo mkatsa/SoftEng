@@ -53,18 +53,21 @@ router.post("/createEvent", function(req, res) {
     console.log(req.body.description)
     console.log(req.body.minage)
     console.log(req.body.maxage)
-    console.log(t)
     console.log(req.body.provider)
+    console.log(req.body.start_time)
+    console.log(req.body.end_time)
     var ev = new Event({
         eventname: req.body.eventname,
         category: req.body.category,
-		price: req.body.price,
-		description: req.body.description,
-		minage: req.body.minage,
-		maxage: req.body.maxage,
-    provider:req.body.provider,
-    location:req.body.location,
-    tickets: req.body.tickets
+		    price: req.body.price,
+		    description: req.body.description,
+		    minage: req.body.minage,
+		    maxage: req.body.maxage,
+        provider:req.body.provider,
+        location:req.body.location,
+        tickets: req.body.tickets,
+        start_time: req.body.start_time,
+        end_time: req.body.end_time
     });
 
     ev.save(function(err, status) {

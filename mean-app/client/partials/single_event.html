@@ -24,14 +24,14 @@
     <div class="col-md-4 col-sm-4 col-xs-12"></div>
     <div class="col-md-4 col-sm-4 col-xs-12" >
 	    
-        <h3>O πάροχος <a href="./#/public_profile?id={{event._id}}">{{event.provider}}</a> σας προσφέρει: </h1>
+        <h3>O πάροχος<strong> <a href="./#/public_profile?id={{event._id}}">{{event.provider}}</a></strong> σας προσφέρει: </h1>
         <div class="form-group">
             <h3>Όνομα δραστηριότητας:</h3>
             <input type="text" class="form-control"  value={{event.eventname}} readonly>
         </div>
         <div class="form-group">
             <h3>Σύντομη περιγραφή δραστηριότητας:</h3>
-            <textarea style="width: 100%" rows="3"  readonly  >{{event.description}}</textarea>
+            <textarea style="width: 100%" rows="3" class="form-control" readonly  >{{event.description}}</textarea>
         </div>
           <div class="form-group">
             <h3>Ηλικίες:</h3>
@@ -56,20 +56,11 @@
             <input type="text" class="form-control" value={{event.tickets}}  readonly >
           </div>
           <div class="row">
-
-        
-          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-          <!--div-->
-            <button type="submit" class="btn btn-success" ng-disabled="disabled" id="sub_but">Ενδιαφέρομαι! <i class="fa fa-thumbs-up"></i></button>
-            
-          <!--/div-->
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
           <form class="form" name="forms" ng-submit="changeloc()" >
-          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <button type="submit" class="btn btn-success">Αγορά εισιτηρίων  <i class="fa fa-plus"></i></button>
+          <div style="text-align: center" >
+            <button type="submit" class="btn btn-success btn-lg">Αγορά εισιτηρίων  <i class="fa fa-thumbs-up"></i></button>
           </div>
-        </form>
+          </form>
           </div>
        
       </div>

@@ -26,9 +26,9 @@ var Event = new Schema({
 	img: {data: Buffer, contentType: String, default: ''},		//not sure about that...
 	description: { type: String, default:''},			//we ask for a short description of the event
 	//users_interested: {type:[String]},
-	//date: {type: Date, default: Date.now},
-	//start_time: {type: Date, required: true},
-    //end_time: {type: Date,  required: true},
+	//date: {type: String, default: Date.now},
+	start_time: {type: String, required: true},
+    end_time: {type: String,  required: true},
 	minage: {type: String, default: '0'},
 	maxage: {type: String, default: '18'},
 	tickets: {type: Number, required: true},

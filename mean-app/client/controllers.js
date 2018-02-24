@@ -316,6 +316,7 @@ angular.module('myApp').controller('manipulateEventsController',
   $scope.disabled = true;
   $scope.location = sharedProperties.getProperty();
 
+  console.log($scope.eventForm.category)
   console.log($scope.eventForm.tickets)
   userdata = AuthService.getUserData()
     .then(function(userdata){
@@ -326,7 +327,7 @@ angular.module('myApp').controller('manipulateEventsController',
   // call register from service, with inputs from the html form
   AuthService.createEvent($scope.eventForm.eventname,$scope.eventForm.category,$scope.eventForm.price
     ,$scope.eventForm.minage,$scope.eventForm.maxage,$scope.eventForm.tickets
-    ,$scope.eventForm.description,$scope.username,$scope.location)
+    ,$scope.eventForm.description,$scope.username,$scope.location,$scope.eventForm.start_time,$scope.eventForm.end_time)
   // handle success
   .then(function () {
     console.log("controller:events controller:THEN")

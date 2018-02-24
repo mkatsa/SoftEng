@@ -1,44 +1,50 @@
 <div style="width: 100%">
   <header-nav-directive></header-nav-directive>
 </div>
-<div class="container-fluid bg">
+<!--<div class="card_visible"></div>-->
+<div class="container-fluid bg ">
   
-  <div class="row">
+  <div class="row" >
 
     <div class="col-md-4 col-sm-4 col-xs-12"></div>
-    <div class="col-md-4 col-sm-4 col-xs-12">
-      <h1>Σύνδεση</h1>
-      <h6>*Αν δεν έχετε λογαριασμό κάντε <a href="./#/register">εγγραφή</a></h6>
+<!--    <div class="col-md-4 col-sm-4 col-xs-12  card">-->
+
+    <div class="col-md-4 col-sm-4 col-xs-12  ">
+      <h1 style="color: black" >Σύνδεση</h1>
+      <h6 style="color: black">*Αν δεν έχετε λογαριασμό κάντε <a href="./#/register" >εγγραφή</a></h6>
       <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
       <!--enter form -->
       <!--form class="form-container" method="post" action="first_page.html"-->
       <form class="form" ng-submit="login()">
  
           <div class="form-group">
-            <label for="exampleLastName1"><strong>Όνομα χρήστη</strong></label>
+
+            <label for="exampleLastName1"><h3 style="color: black" ><strong>Όνομα χρήστη</strong></h3></label>
             <!--input type="text" class="form-control" id="exampleLastName1" placeholder="Όνομα χρήστη"-->
             <input type="text" class="form-control" name="username" ng-model="loginForm.username" required>
 
           </div>
           
           <div class="form-group">
-            <label for="exampleInputPassword1"><strong>Κωδικός</strong></label>
+            <label for="exampleInputPassword1"><h3 style="color: black" ><strong>Κωδικός</strong></h3></label>
             <!--input type="password" class="form-control" id="exampleInputPassword1" placeholder="Κωδικός"-->
             <input type="password" class="form-control" name="password" ng-model="loginForm.password" required>
 
           </div>
-          <h6><a href="">Ξέχασα το όνομα χρήστη ή/και τον κωδικό μου</a></h6>
+          <a href=""><h6><strong>Ξέχασα το όνομα χρήστη ή/και τον κωδικό μου</h6></strong></a>
           <!--button type="submit" class="btn btn-success btn-block">Submit</button-->
           <button type="submit" class="btn btn-default" ng-disabled="disabled">Σύνδεση</button>
           
       </form>
 
     </div-->
-      
+       <p style="height: 100px"></p>
 
     </div>
   </div>
 </div>
+
+
 <footer-directive></footer-directive>
 <!--script type="text/javascript" src="signup.js"></script>
 </body>
