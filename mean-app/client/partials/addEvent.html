@@ -42,61 +42,54 @@
         <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
         <form class="form" ng-submit="createEvent()" style="margin-bottom: 35%;">
           <div class="form-group">
-            <label><h3><b>Όνομα Δραστηριότητας:</h3></b></label>
+            <label><h3><b>Όνομα Δραστηριότητας:*</h3></b></label>
             <input type="text" class="form-control" name="eventname" ng-model="eventForm.eventname" placeholder="π.χ Ποδόσφαιρο" required>
           </div>
           <div class="form-group">
-            <label><h3><b>Τιμή:</h3></b></label>
+            <label><h3><b>Τιμή:*</h3></b></label>
             <input type="text" class="form-control" name="price" ng-model="eventForm.price" required>
           </div>
           
-          <div class="btn-group" data-toggle="buttons" >
-            <h3>Κατηγορία δραστηριότητας:</h3>
+          <div class="radio">
+            <label><h3><b>Κατηγορία Δραστηριότητας:*</h3></b></label>
             <br>  
-            <label class="btn btn-primary active" style="font-size: 20px; color: green">    
+            <label class="radio-inline" style="font-size: 20px; color: green">    
                 <input type="radio"  name="category" value="sports" ng-model="eventForm.category"> Αθλήματα
             </label>
-            <label class="btn btn-primary active" style="font-size: 20px; color: red">     
+            <label class="radio-inline" style="font-size: 20px; color: red">     
                 <input type="radio"  name="category" value="art" ng-model="eventForm.category"> Τέχνη
             </label>
-            <label class="btn btn-primary active" style="font-size: 20px; color: blue">     
+            <label class="radio-inline" style="font-size: 20px; color: blue">     
                 <input type="radio"  name="category" value="science" ng-model="eventForm.category"> Επιστήμη
             </label>
-            <label class="btn btn-primary active" style="font-size: 20px; color: gold"> 
+            <label class="radio-inline" style="font-size: 20px; color: gold"> 
                 <input type="radio"  name="category" value="fun" ng-model="eventForm.category"> Ψυχαγωγία
             </label>
                   
           </div>
+
           <div class="form-group">
-            <label><h3><b>Για παιδιά ηλικίας από :</h3></b></label>
+            <label><h3><b>Για παιδιά ηλικίας από:*</h3></b></label>
             <input type="text" class="form-control" name="minage" ng-model="eventForm.minage" required>
           </div>
           <div class="form-group">
-            <label><h3><b>Έως:</h3></b></label>
+            <label><h3><b>Για παιδιά ηλικίας εως:*</h3></b></label>
             <input type="text" class="form-control" name="maxage" ng-model="eventForm.maxage" required>
           </div>
           <div class="form-group">
-            <label><h3><b>Αριθμός διαθέσιμων εισιτηρίων:</h3></b></label>
+            <label><h3><b>Ημερομηνία και ώρα έναρξης δραστηριότητας:*</h3></b></label>
+            <input id="datetime" type="datetime-local" name="start_time" ng-model="eventForm.start_time" style="width: 470px;" required>
+          </div>
+            <div class="form-group">
+            <label><h3><b>Ημερομηνία και ώρα λήξης δραστηριότητας:*</h3></b></label>
+            <input id="datetime" type="datetime-local" name="end_time" ng-model="eventForm.end_time" style="width: 470px;" required>
+          </div>
+          <div class="form-group">
+            <label><h3><b>Αριθμός διαθέσιμων εισιτηρίων:*</h3></b></label>
             <input type="number" class="form-control" name="tickets" ng-model="eventForm.tickets" required>
           </div>
           <div class="form-group">
-            <label><h3><b>Ημερομηνία διεξαγωγής δραστηριότητας:</h3></b></label>
-            <input type="date" class="form-control" name="tickets" ng-model="eventForm.date" required>
-          </div>
-            <div class="form-group">
-            <label><h3><b>Ώρα έναρξης:</h3></b></label>
-            <input type="time" class="form-control" name="start_time" ng-model="eventForm.tickets" required>
-          </div>
-            <div class="form-group">
-            <label><h3><b>Ώρα λήξης:</h3></b></label>
-            <input type="time" class="form-control" name="end_time" ng-model="eventForm.tickets" required>
-          </div>
-          <div class="form-group">
-            <label><h3><b>Αριθμός διαθέσιμων εισιτηρίων:</h3></b></label>
-            <input type="number" class="form-control" name="tickets" ng-model="eventForm.tickets" required>
-          </div>
-          <div class="form-group">
-            <label><h3><b>Σύντομη περιγραφή δραστηριότητας :</h3></b></label>
+            <label><h3><b>Σύντομη περιγραφή δραστηριότητας:*</h3></b></label>
               <textarea rows="4" class="form-control" name="description" ng-model="eventForm.description" required></textarea>  
           </div>
           <div class="row">
@@ -118,6 +111,7 @@
           <div id="map" align = "center"> </div>
 
           <br/>
+          <div class="form-group"><label><h3><b>Τα πεδία με (*) είναι απαραίτητα</h3></b></label></div>
           <div class="col-md-4 col-sm-4 col-xs-12">
           <!--div-->
             <button type="submit" class="btn btn-success" ng-disabled="disabled" id="sub_but">Προσθήκη</button>
