@@ -11,12 +11,35 @@ var smtpTransport = require('nodemailer-smtp-transport');
 var xoauth2 = require('xoauth2');
 
 
+var PDFDocument = require('pdfkit');
+var fs = require('fs');
+
 var User = require('../models/user.js');
 
 
+//about pdf ticket creation. Found on http://pdfkit.org/index.html and http://www.codeblocq.com/2016/05/PDF-Generation-with-Node-JS/
+function createTicket(eventName, userName, ticketName){
+	console.log("Creating Ticket")
+	var doc = new PDFDocument;
+	doc.pipe(fs.createWriteStream(ticketName));
+	
+	var txt = "This is your ticket for the event. We recommend you to have this ticket in order to enter the event.\nScan the barcode in the entrance!The barcode is unique";
+	// Set a title and pass the X and Y coordinates
+	doc.fontSize(15).text('Electronic Ticket', 50, 50);
+	// Set the paragraph width and align direction
+	doc.text(txt, {
+		width: 410,
+		align: 'left'
+	});
+
+	doc.image('download.png', 50, 150, {width: 110});
+	doc.end();
+	console.log("Ticket Created Successfully")
+}
 
 
 
+//about autoemail
 var transporter = nodemailer.createTransport({
     service: "Gmail", // hostname
     //secureConnection: false, // TLS requires secureConnection to be false
@@ -30,9 +53,9 @@ var transporter = nodemailer.createTransport({
     //}
 });
 
-
+//about autoemail on registration
 function sendEmail(receiver) {
-	console.log("I am going to send a fucking mail now!!")
+	console.log("Sending registration mail")
 	var mailOptions = {
 		from: "Heapsters Athens <heapsters@hotmail.com>",
 		to: receiver,
@@ -45,11 +68,34 @@ function sendEmail(receiver) {
 		if (error) {
 			console.log(error);
 		} else {
-			console.log('Email sent: ' + info.response);
+			console.log('Registration mail sent: ' + info.response);
 		}
 	});	
 }
 
+
+//about autoemail on registration
+function sendTicketviaEmail(receiver,eventName,attachment) {
+	console.log("Sending ticket!!")
+	console.log(receiver)
+	console.log(eventName)
+	console.log(attachment)
+	var mailOptions = {
+		from: "Heapsters Athens <heapsters@hotmail.com>",
+		to: receiver,
+		subject: "Ηλεκτρονικό Εισιτήριο για το event \""+eventName+"\"",
+		html: 'Σας ευχαριστούμε που εμπιστευτήκατε την FunActivities για την ψυχαγωγία των παιδιών σας! Παρακάτω επισυνάπτεται το εισιτήριό σας για το event<br>Παρακαλείστε να προσκομίσετε το παρόν ηλεκτρονικό εισιτήριο ή φωτοτυπία αυτού κατά την άφιξή σας στην εκδήλωση! <br>Με εκτίμηση,<br>Heapsters Team',
+		attachments: [{filename: attachment, path:attachment, contentType: 'application/pdf'}]
+	};
+
+	transporter.sendMail(mailOptions, function(error, info){
+		if (error) {
+			console.log(error);
+		} else {
+			console.log('Ticket sent: ' + info.response);
+		}
+	});	
+}
 
 
 
@@ -209,6 +255,8 @@ router.get('/get_all',function(req,res){
   }
 });
 
+
+var x = 0;
 router.post('/eventbought', function(req,res){
   console.log(req.user.username)
   console.log(req.body.cost)
@@ -223,6 +271,14 @@ router.post('/eventbought', function(req,res){
   User.update({username:req.user.username},{$push: {events_bought: req.body.eventname}},function(err,num){if(err){console.log("gamw thn mana sou thn 3ekwliara")}});
   console.log(req.user.points)
   console.log(req.user.events_bought)
+  
+  
+  console.log(req.user.email)
+  
+  var ticketname =  'output_'+x+'.pdf';
+  x++;
+  createTicket(req.body.eventname, req.user.username, ticketname);
+  sendTicketviaEmail(req.user.email,req.body.eventname,ticketname); 	  
 })
 
 
