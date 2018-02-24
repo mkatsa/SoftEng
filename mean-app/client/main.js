@@ -68,7 +68,7 @@ myApp.config(function ($routeProvider) {
     .when('/admin',{
       templateUrl:'partials/admin.html',
       controller:'adminController',
-      access:{restricted:false, admin:true}
+      access:{restricted:true, admin:true}
     })
     .when('/addEvent',{
       templateUrl:'partials/addEvent.html',

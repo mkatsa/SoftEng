@@ -796,10 +796,56 @@ angular.module('myApp').controller('adminController',['$scope','$route','AdminSe
   function($scope,$route,AdminService){
     $scope.got_users=false;
 
+
     var examples_per_page=10;
 
+    $scope.button_text="Πάροχοι"
+    $scope.button_funct=$scope.providers
+    $scope.title_text="Γονείς"
+    $scope.mode=AdminService.getMode()
+
+
+    $scope.providers = function(){
+    $scope.button_text="Γονείς"
+    $scope.button_funct=$scope.getAllUsers
+    $scope.title_text="Πάροχοι"
+    $scope.mode="provider"
+      AdminService.getAllProviders()
+      .then(function(data){
+        console.dir(data)
+        $scope.page=1;
+        $scope.pages=[];
+        $scope.users=data.providers;
+        $scope.got_users=true;
+        $scope.num_users=data.providers.length;
+        $scope.num_pages=Math.ceil($scope.num_users/examples_per_page);
+        for(var i=1;i<$scope.num_pages+1;i++){
+          $scope.pages.push(i);
+        }
+        $scope.pages=$scope.pages.reverse();
+        $scope.setPage(1);
+      })
+    }
+
+    $scope.isAdmin = function(){
+      AdminService.isAdmin()
+      .then(function(data){
+        if (data.status){
+          $scope.admin=true;
+        }
+        else{
+          $scope.admin=false;
+        }
+      })
+    } 
 
     $scope.getAllUsers = function(){
+      $scope.button_text="Πάροχοι"
+      $scope.button_funct=$scope.providers
+      $scope.title_text="Γονείς"
+      $scope.mode="parent"
+      //console.log("ADMIN SERVICE IS")
+      //console.dir(AdminService)
       AdminService.getAllUsers()
       .then(function(data){
         $scope.page=1;
@@ -818,6 +864,25 @@ angular.module('myApp').controller('adminController',['$scope','$route','AdminSe
       })
     }
 
+    $scope.deleteUser=function(u){
+      console.log("U is:"+JSON.stringify(u))
+      if ($scope.mode=="parent"){
+      AdminService.deleteUser(u._id)
+      .then(function(){
+        console.log("inside then")
+        $route.reload();
+        console.log("User successfully deleted")
+      });
+      }
+      else{
+        AdminService.deleteProvider(u._id)
+        .then(function(){
+          $route.reload();
+        })
+      }
+
+    }
+
     $scope.setPage=function(pagenum){
       $scope.page=pagenum;
     //Index of first user of the page
@@ -834,7 +899,13 @@ angular.module('myApp').controller('adminController',['$scope','$route','AdminSe
 
 
   var init=function(){
+    console.log("adminservice Mode is:"+AdminService.getMode())
+    if (AdminService.getMode()=="provider"){
+      $scope.providers();
+    }
+    else{
     $scope.getAllUsers();
   }
+}
   init();
 }])
