@@ -471,6 +471,19 @@ function getPublicProviderDataByUsername(uname){
     return deferred.promise;
   }
 
+  function getHistory(id) {
+  var deferred = $q.defer(),
+  httpPromise = $http.get('provider/getHistory/'+id);
+
+  httpPromise.success(function (response) {
+    deferred.resolve(response);
+  })
+  .error(function (error) {
+    console.error(error);
+  }); 
+  return deferred.promise;
+}
+
 
 
   
@@ -496,7 +509,8 @@ function getPublicProviderDataByUsername(uname){
   updateParentData: updateParentData,
   getSingleEvent: getSingleEvent,
   getPublicProviderDataByUsername: getPublicProviderDataByUsername,
-  updateEventandUser:updateEventandUser
+  updateEventandUser:updateEventandUser,
+  getHistory:getHistory
 });
 }]);
 
