@@ -1,77 +1,78 @@
 
-<html>
+
 
 <div style="width: 100%">
   <header-nav-directive></header-nav-directive>
 </div>
-<div class="container">
+<div class="container" style="width: 100%">
+    <h2 style="color: aquamarine; text-align: center" >Καλώς ήρθατε στο προφίλ του παρόχου {{event.provider}}</h2>
+    <p style="height: 15px"></p>
+    <div  class="container" style="text-align: center;width: 100%;" ng-init="init()">
     
-	
-	
-	<div class="container-fluid bg" ng-init="init()">
-	
-   <h1 style="text-align: center" >Καλώς ήρθατε στο προφίλ του παρόχου {{event.provider}}</h1>
-   
-   
-  
-  
-  <div  class="container" style="text-align: center;width: 100%;">
-    <div style="width: 100%;text-align: center;" class="row"  >
-    <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
-        <div id="synopsis" style="color: aliceblue" >
-        <br>
-        <br>
-		<h4 style="color: azure">Όνομα Παρόχου</h4>
-        <input style="width: 100%" type="text" class="form-control"  value={{firstname}} readonly>
-        <br>
-        <h4 style="color: azure">Επώνυμο Παρόχου </h4>
-        <input style="width: 100%" type="text" class="form-control"  value={{lastname}} readonly>
-        <br>
-        <h4 style="color: azure">Όνομα εταιρείας  </h4>
-        <input style="width: 100%" type="text" class="form-control"  value={{companyname}} readonly>
-        </div>
-      </div>
-			
-	
-          <div class="form-group">
-            <label style="color: aqua">Ηλεκτρονική Διεύθυνση</label>
-				<input type="email" class="form-control" ng-model="email" value={{email}} readonly>
-          </div>
-   
 
-		
-		
-          <div class="form-group">
-            <label style="color: aqua">Τηλέφωνο Επικοινωνίας</label>
-				<input type="text" class="form-control" ng-model="phone" value={{phone}} readonly>
-          </div>
-		
-		
-
-        <br>
+   <div style="width: 100%;text-align: center;" class="row" >
+   <div class="col-md-6 col-sm-4 col-lg-6 xs-4">
+        <table  style="width: 100%" >
+            <tr class="info">
+                <td><h4>Όνομα παρόχου  :</h4></td>
+                <td><input type="text" class="form-control"  value={{firstname}} readonly></td>
+            </tr>
+            <tr class="info">
+                <td><h4>Επώνυμο παρόχου  :</h4></td>
+                <td><input type="text" class="form-control"  value={{lastname}} readonly></td>
+            </tr>
+            <tr class="info">
+                <td><h4>Όνομα εταιρείας  :</h4></td>
+                <td><input type="text" class="form-control"  value={{companyname}} readonly></td>
+            </tr>
+            <tr class="info">
+                <td><h4>Ηλεκτρονική διεύθυνση  :</h4></td>
+                <td><input type="email" class="form-control"  value={{email}} readonly></td>
+            </tr>
+            <tr class="info">
+                <td><h4>Τηλέφωνο επικοινωνίας  :</h4></td>
+                <td><input type="text" class="form-control"  value={{phone}} readonly></td>
+            </tr>
+            
+       </table>
       </div>
-      <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
+      <div class="col-md-6 col-sm-4 col-lg-6 xs-4">
         <br>
         <br>
-        <h3 ><strong>Λίγα λόγια για τον πάροχο</strong></h3>
-			<textarea name="description" cols="60" rows="7" ng-model="description" value={{description}} readonly></textarea>
-        </form>
+        <h3>image - provider</h3>   
         
       </div>
   </div><!-- /.navbar-collapse -->
-  
-  
+   <div style="width: 100%;text-align: center;" class="row">    
+        <h3 ><strong>Λίγα λόγια για τον πάροχο</strong></h3>
+        <textarea name="description" class="form-control" cols="60" rows="7" ng-model="description" value={{description}} readonly></textarea>
+  </div>
+   <div style="width: 100%;text-align: center;" class="row">
+            <h2 style="color: azure" >Οι δραστηριότητες μας:</h2>
+            <div ng-repeat="event in eventsList" align="center">
+                <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter {{event.category}}">
+                    <a ng-href="./#/singleEvent?id={{event._id}}">
+                    <img src="http://www.femalefirst.co.uk/image-library/partners/rivals/square/500/l/lionel-messi-f012b0-rv.jpg" class="img-responsive" ng-href="event/single_event/?parameter={{event._id}}" >
+                    <div class="event-title-overlay">
+                    	<h2 style="color: blue">{{event.eventname}}</h2>
+                    </div>
+                    <div class="event-age-overlay">
+						<h2 style="color: blue">ηλικίες:{{event.minage}}-{{event.maxage}}</h2>
+                    </div>
+					
+                    </a>
+                   <!--  <a ng-href="./#/singleEvent" >
+                        deite to
+					</a> -->
+
+				</div>
+            </div>
       
       <!--end form-->
     </div>  
       
       <!--end form-->
-    </div>
+</div>
+</div>
 
     
-  
-
-
-<!--script type="text/javascript" src="signup.js"></script>
-</body>
-</html!>

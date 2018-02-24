@@ -7,17 +7,7 @@ var passport = require('passport');
 var Event = require('../models/event.js');
 var Fuse = require('fuse.js');
 
-var options = {
-  shouldSort: true,
-  threshold: 0.6,
-  location: 0,
-  distance: 100,
-  maxPatternLength: 32,
-  minMatchCharLength: 1,
-  keys: [
-    "eventname",
-]
-};
+
 
 
 //handle user search
@@ -30,6 +20,23 @@ router.get('/findEvents/:qu?',function(req,res){
  	  if (req.params.qu =="undefined" || req.params.qu == null  ) res.json(events);
  	  else
  	  {
+ 	  	var options = {
+  	caseSensitive: true,
+  	shouldSort: true,
+  	tokenize: true,
+  	matchAllTokens: true,
+  	threshold: 0.6,
+  	location: 0,
+  	distance: 100,
+  	maxPatternLength: 32,
+  	minMatchCharLength: 5,
+  	keys: [
+    "eventname",
+    "description",
+    "location.formatted_address",
+    "category",
+	]
+	};
       var fuse = new Fuse(events, options); // "list" is the item array
 	  var result = fuse.search(req.params.qu);
       res.json(result);
@@ -46,18 +53,21 @@ router.post("/createEvent", function(req, res) {
     console.log(req.body.description)
     console.log(req.body.minage)
     console.log(req.body.maxage)
-    console.log(t)
     console.log(req.body.provider)
+    console.log(req.body.start_time)
+    console.log(req.body.end_time)
     var ev = new Event({
         eventname: req.body.eventname,
         category: req.body.category,
-		price: req.body.price,
-		description: req.body.description,
-		minage: req.body.minage,
-		maxage: req.body.maxage,
-    provider:req.body.provider,
-    location:req.body.location,
-    tickets: req.body.tickets
+		    price: req.body.price,
+		    description: req.body.description,
+		    minage: req.body.minage,
+		    maxage: req.body.maxage,
+        provider:req.body.provider,
+        location:req.body.location,
+        tickets: req.body.tickets,
+        start_time: req.body.start_time,
+        end_time: req.body.end_time
     });
 
     ev.save(function(err, status) {
