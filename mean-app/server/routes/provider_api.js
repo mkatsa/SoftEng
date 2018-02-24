@@ -13,7 +13,7 @@ var xoauth2 = require('xoauth2');
 
 
 var Provider = require('../models/provider.js');		//connection to database
-
+var Event = require('../models/event.js');
 
 
 var transporter = nodemailer.createTransport({
@@ -48,12 +48,6 @@ function sendEmail(receiver) {
 		}
 	});	
 }
-
-
-
-
-
-
 
 //Handle provider registration
 router.post('/register_provider', function(req, res) {
@@ -129,6 +123,17 @@ router.get('/logout', function(req, res) {
     status: 'Bye!'
   });
 });
+
+//Handle history
+router.get('/getHistory/:id?', function(req, res) {
+   Event.find({provider:req.params.id}, function(err,events){
+      
+      if (err) res.send(err);
+
+      res.json(events);
+    });
+});
+
 
 //Handle status. Returns {"status":"true"} if provider is logged in
 router.get('/status', function(req, res) {
