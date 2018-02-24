@@ -233,12 +233,31 @@ angular.module('myApp').controller('eventsController',
       infoWindow.open(map, marker);
   }
 
-  createMarker = function(location){
-    markersArray.push(new google.maps.Marker({
+  createMarker = function(event){
+
+    var marker = new google.maps.Marker({
       map: map,
-      position: location.geometry.location,
+      position: event.location.geometry.location,
       icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-    }));
+    });
+
+    var contentString = '<div class = "container" id="content">'+
+                          '<h2 style="color:blue;" id="firstHeading" class="firstHeading">'+event.eventname+'</h2>'+
+                          '<p>'+event.description+'</p>'+
+                          '<p>Πάροχος:'+ event.provider +'  ,δείτε περισσότερα <a href = "./#/singleEvent?id='+event._id+'">εδώ!</a>'+
+                          '</p>'+
+                        '</div>';
+
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString,
+      //maxWidth: 400                           //we need to see what an infowindow will include
+    });
+
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+
+    markersArray.push(marker);
   }
 
   deleteMarkers = function() {
@@ -258,7 +277,7 @@ angular.module('myApp').controller('eventsController',
     $timeout(function() {
       for (var event in $scope.eventsList) {
         //console.log(event, $scope.eventsList[event].location.geometry.location);
-        createMarker($scope.eventsList[event].location);
+        createMarker($scope.eventsList[event]);
       }
     }, 800);
   }
@@ -696,7 +715,6 @@ angular.module('myApp').controller('locationController',
         var center = $scope.options.extendedLocation.geometry.location;
         map.setCenter(center);
         infoWindow.setPosition(center);
-        //for marker checkk google api 's (reverse geocoding etc... beautify)
         //var contentString = '<div id="content">'+
         //                      '<div id="siteNotice">'+
         //                      '</div>'+
