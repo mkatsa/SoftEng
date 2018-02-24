@@ -42,7 +42,7 @@
   <div  class="container" style="text-align: center;width: 100%;" ng-if=isProvider>
     <div style="width: 100%;text-align: center;" class="row"  >
     <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
-      	 		
+      	 <p style="height: 30px"></p>		
         <div id="synopsis" style="color: aliceblue" >
         <button onclick="location.href='/#/stats';" class="btn btn-success btn-lg">Προβολή στατιστικών <i class="fa fa-book"></i></button>
         <br>
@@ -79,7 +79,7 @@
             <label style="color: aqua">Ηλεκτρονική Διεύθυνση</label>
 				<input type="email" class="form-control" ng-model="newemail" placeholder={{email}}>
           </div>
-          <button type="submit" class="btn btn-success">Αποθήκευση αλλαγών!</button>
+          <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών!  <i class="fa fa-check" ></i></button>
         </form>
 		
 		
@@ -88,7 +88,7 @@
             <label style="color: aqua">Νέο Τηλέφωνο Επικοινωνίας</label>
 				<input type="text" class="form-control" ng-model="newphone" placeholder={{phone}}>
           </div>
-        <button type="submit" class="btn btn-success">Αποθήκευση αλλαγών!</button>
+        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών!  <i class="fa fa-check" ></i></button>
 		</form>
 		
 		
@@ -96,7 +96,7 @@
         <h4 style="color: blue">Ταχυδρομικός κώδικας(δεν είναι φτιαγμένο για update ακόμα) </h4>
         <form class="form-inline">
         <input style="width: 100%" type="text" class="form-control"  value={{postalcode}} pattern="\d{6}"  >
-        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
+        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών <i class="fa fa-check" ></i></button>
         </form>
         <br>
 

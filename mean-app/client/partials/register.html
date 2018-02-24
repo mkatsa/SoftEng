@@ -1,3 +1,5 @@
+
+
 <div style="width:100%">
   <header-nav-directive></header-nav-directive>
 </div>
@@ -24,27 +26,29 @@ $('#password, #confirm_password').on('keyup', function () {
         <!--<form class="form" ng-submit="register()" style="margin-bottom: 35%;overflow: scroll;">-->
         <form class="form" ng-submit="register()" style="margin-bottom: 35%;">
           <div class="form-group">
-            <label><h3><b>Όνομα</h3></b></label>
+
+              <label><h3 style="color: black" ><strong>Όνομα</strong></h3></label>
             <input type="text" class="form-control" name="firstname" ng-model="registerForm.firstname" placeholder="Όνομα" required>
           </div>
           <div class="form-group">
-            <label><h3><b>Επώνυμο</h3></b></label>
+              <label><h3 style="color: black"><strong>Επώνυμο</strong></h3></label>
             <input type="text" class="form-control" name="lastname" ng-model="registerForm.lastname" placeholder="Επώνυμο" required>
           </div>
           <div class="form-group">
-            <label><h3><b>Όνομα χρήστη</h3></b></label>
+              <label><h3 style="color: black"><strong>Όνομα χρήστη</strong></h3></label>
             <input type="text" class="form-control" name="username" ng-model="registerForm.username" placeholder="Όνομα χρήστη" required>
           </div>
           <div class="form-group">
-            <label><h3><b>Ηλεκτρονική Διεύθυνση</h3></b></label>
+              <label><h3 style="color: black" ><strong>Ηλεκτρονική Διεύθυνση</strong></h3></label>
             <input type="email" class="form-control" name="email" ng-model="registerForm.email" placeholder="example@email.abc" required>
           </div>
           <div class="form-group">
-            <label><h3><b>Κωδικός</h3></b></label>
+              <label><h3 style="color: black" ><strong>Κωδικός</strong></h3></label>
             <input type="password" class="form-control" name="password" ng-model="registerForm.password" id ="password" placeholder="********" required>
           </div>
           <div class="form-group">
-            <label><h3><b>Επανάληψη κωδικού</h3></b></label>
+              <label><h3 style="color: black" ><strong>Επανάληψη κωδικού</strong></h3></label>
+
             <input type="password" class="form-control" name="password_repeat" ng-model="registerForm.password_repeat" id="confirm_password" placeholder="********" required><span id="message"></span>
           </div>
           <h4 style="color:aqua" >Διαβάστε προσεκτικά τους όρους, όπως παρουσιάζονται στον παρακάτω σύνδεσμο. Σε περίπτωση που τους αποδέχεστε <strong>εγγραφείτε</strong></h4>
