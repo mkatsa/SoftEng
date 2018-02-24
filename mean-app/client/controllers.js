@@ -364,7 +364,7 @@ $scope.getPublicProviderDataByUsername = function(a) {			//what to update and th
     $scope.companyname = userdata.companyname;
     $scope.TaxID = userdata.TaxID;
     $scope.phone = userdata.phone;
-	$scope.description = userdata.description;
+	  $scope.description = userdata.description;
   })
 };
 
@@ -419,12 +419,23 @@ $scope.initMap = function() {
       center: {lat: 37.987823, lng: 23.731857},
     }
     map = new google.maps.Map(document.getElementById('map'),$scope.options);
-    infoWindow = new google.maps.InfoWindow;
     var center = $scope.event.location.geometry.location;
     map.setCenter(center);
-    infoWindow.setPosition(center);
-    infoWindow.setContent('Η τοποθεσία μου:'+ $scope.event.location.formatted_address);
-    infoWindow.open(map);
+
+    var marker = new google.maps.Marker({
+      map: map,
+      position: center
+    });
+
+    var contentString = $scope.event.location.formatted_address;
+
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
   }, 700);
 }
 
@@ -498,7 +509,10 @@ function ($scope, $route, AuthService,sharedProperties) {
   $scope.updateProvider = function(what, value) {			//what to update and the new value.
 	console.log("updateProvider Controler")
 	console.log(what)
-	console.log(value)
+  console.log(value)
+  if (what == "location"){
+    value = sharedProperties.getProperty();
+  }
 	AuthService.updateProviderData( $scope.username, what, value)		//username is unique so there is no need to find and update by _id
 	//the code below is used to refresh page data in order of an update.same as the above.^
 	
@@ -526,7 +540,7 @@ function ($scope, $route, AuthService,sharedProperties) {
   
   
   $scope.updateParent = function(what, value) {			//same as the above for parents
-	  console.log("updateProvider Controller")
+	  console.log("updateParent Controller")
 	  console.log(what)
     console.log(value)
     if (what == "location"){
@@ -611,54 +625,52 @@ angular.module('myApp').controller('locationController',
       infoWindow = new google.maps.InfoWindow;
 
       // Listen for click on map
-      google.maps.event.addListener(map, 'click',
-      function(event){
-        // Add marker
-        addMarker({coords:event.latLng});
-      });
+      //google.maps.event.addListener(map, 'click',
+      //function(event){
+      //  // Add marker
+      //  addMarker({coords:event.latLng});
+      //});
 
         //Add Marker Function(for multiple markers)
-      if ($scope.options.extendedLocation == null) {
-        var markers = [
-          {
-            coords:{lat: 37.987823, lng: 23.731857},
-            content: '<h1 style="color:blue;">Ψάξτε τοποθεσία!</h1>'
-          }
-        ];
-
-        // Loop through markers
-        for(var i = 0; i < markers.length; i++){
-          // Add Marker
-          addMarker(markers[i]);
-        }
-
-      function addMarker(props){
-          var marker = new google.maps.Marker({
-            position: props.coords,
-            map: map
-          });
-
-          //Check for custom icon
-          if (props.iconImage){
-            //set icon image (or anything else)
-            marker.setIcon(props.iconImage);
-          }
-
-          if (props.content){
-
-            var infoWindow = new google.maps.InfoWindow({
-            //for some reason the text shows in white:p
-            content: props.content
-            });
-
-            marker.addListener('click', function(){
-              infoWindow.open(map,marker);
-            });
-          }
-        }
-      }
-      else {
+      if ($scope.options.extendedLocation != null) {
         showPosition();
+        //var markers = [
+        //  {
+        //    coords:{lat: 37.987823, lng: 23.731857},
+        //    content: '<h1 style="color:blue;">Ψάξτε τοποθεσία!</h1>'
+        //  }
+        //];
+        //
+        //// Loop through markers
+        //for(var i = 0; i < markers.length; i++){
+        //  // Add Marker
+        //  addMarker(markers[i]);
+        //}
+
+        //function addMarker(props){
+        //    var marker = new google.maps.Marker({
+        //      position: props.coords,
+        //      map: map
+        //    });
+        //
+        //    //Check for custom icon
+        //    if (props.iconImage){
+        //      //set icon image (or anything else)
+        //      marker.setIcon(props.iconImage);
+        //    }
+        //
+        //    if (props.content){
+        //
+        //      var infoWindow = new google.maps.InfoWindow({
+        //      //for some reason the text shows in white:p
+        //      content: props.content
+        //      });
+        //
+        //      marker.addListener('click', function(){
+        //        infoWindow.open(map,marker);
+        //      });
+        //    }
+        //  }
       }
     }; 
 
@@ -724,22 +736,25 @@ angular.module('myApp').controller('locationController',
       };
 
       function showPosition() {
+        sharedProperties.setProperty($scope.options.extendedLocation);
         var center = $scope.options.extendedLocation.geometry.location;
         map.setCenter(center);
-        infoWindow.setPosition(center);
-        //var contentString = '<div id="content">'+
-        //                      '<div id="siteNotice">'+
-        //                      '</div>'+
-        //                      '<h2 style="color:blue;" id="firstHeading" class="firstHeading">Location Found!</h2>'+
-        //                    '</div>';
-        infoWindow.setContent($scope.options.extendedLocation.formatted_address);
-        infoWindow.open(map);
-        sharedProperties.setProperty($scope.options.extendedLocation);
-        //for(var i = 0; i < markers.length; i++){
-          // Add Marker
-        //marker.setMap(null);
-        //}
-        //markers = [];
+        var marker = new google.maps.Marker({
+          map: map,
+          position: center
+        });
+    
+        var contentString = $scope.options.extendedLocation.formatted_address;
+    
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString,
+          //maxWidth: 400                           //we need to see what an infowindow will include
+        });
+    
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+
       };
       
       $scope.saveLocation = function() {

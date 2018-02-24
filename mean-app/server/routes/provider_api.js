@@ -59,8 +59,8 @@ router.post('/register_provider', function(req, res) {
     lastname:req.body.lastname,						// last name of the provider
     username: req.body.username,					// user name of the provider - user names must be unique as you can see on provider.js
     email:req.body.email,							// email of the provider - email must be unique as you can see on provider.js
-	companyname: req.body.companyname,				// company name - company name must be unique as you can see on provider.js
-	TaxID: req.body.TaxID							// Tax ID - tax id must be unique as you can see on provider.js
+	  companyname: req.body.companyname,				// company name - company name must be unique as you can see on provider.js
+	  TaxID: req.body.TaxID							// Tax ID - tax id must be unique as you can see on provider.js
   }), req.body.password, function(err, account) {
     console.log("IN regprov callback:");
     console.log("ERR:"+err);
@@ -178,14 +178,15 @@ router.get('/get_all',function(req,res){
   //console.log("Request for company name from");
   //console.dir(req);
   return res.status(200).json({
-      username: req.user.username,
+    username: req.user.username,
 	  firstname: req.user.firstname,
 	  lastname: req.user.lastname,
 	  companyname: req.user.companyname,
 	  email: req.user.email,
 	  phone: req.user.phone,
 	  TaxID: req.user.TaxID,
-	  description: req.user.description
+    description: req.user.description,
+    location: req.user.location
     });
   }
   //If not, return this for debugging (this should never be returned)
@@ -198,7 +199,8 @@ router.get('/get_all',function(req,res){
 	email:"Default Email",
 	phone:"Default Phone",
 	TaxID:"Default ID",
-	description:"Default description"
+  description:"Default description",
+  location:{}
   });
   }
 });

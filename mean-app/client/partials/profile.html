@@ -104,17 +104,17 @@
 
         <form class="form" name="formb" ng-submit="">
             <div class="form-group">
-              <label style="color: aqua">Αναζητήστε νέα τοποθεσία(Δεν λειτουργεί ακόμα)</label>
-                  <input type="text" class="form-control" ng-model="newphone" placeholder={{phone}}>
+              <label style="color: aqua">Αναζητήστε νέα τοποθεσία</label>
+                  <input type="text" class="form-control" ng-model = "address" placeholder="{{location.formatted_address}}">
             </div>
-            <button type="submit" class="btn btn-success">Αναζήτηση</button>
-            <br>
-            <br>
             <div ng-controller="locationController">
+                <button ng-click="findLocation()" onclick class="btn btn-info">Εύρεση νέας τοποθεσίας  <i class="fa fa-search"></i> </button>
+                <br>
+                <br>
                 <div id="map" align = "center"> </div>
             </div>
             <br>
-            <button type="submit" class="btn btn-success">Αποθήκευση νέας τοποθεσίας!!</button>
+            <button ng-click="updateProvider('location',{})" type="submit" class="btn btn-primary mb-2">Αποθήκευση νέας τοποθεσίας!<i class="fa fa-check" ></i></button>
         </form>
 
         <br>
