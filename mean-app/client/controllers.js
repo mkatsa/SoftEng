@@ -315,6 +315,7 @@ angular.module('myApp').controller('manipulateEventsController',
   $scope.error = false;
   $scope.disabled = true;
   $scope.location = sharedProperties.getProperty();
+  $scope.isProvider = AuthService.isProvider();
 
   console.log($scope.eventForm.category)
   console.log($scope.eventForm.tickets)
