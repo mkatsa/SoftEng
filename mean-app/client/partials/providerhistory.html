@@ -1,0 +1,46 @@
+<div style="width: 100%">
+	<header-nav-directive></header-nav-directive>
+</div>
+<script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq6gVXzKjVwYvc0Y6cB9LWJcngquAnsY4&language=el" async defer>
+</script>
+ <style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+      height: 100%;
+    }
+</style>
+<!--https://bootsnipp.com/snippets/featured/portfolio-gallery-with-filtering-category-->
+<div class="container" align="center">
+	<div class="row" align="center">
+		<div class="content col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+            <h2 style="color: aliceblue">Οι δραστηριότητες που δημιουργησες : </h2>
+            <p style="height: 30px"></p>
+            
+     		<div ng-init="getHistory()"></div>
+			<div ng-repeat="event in list" align="center">
+                <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter {{event.category}}">
+                    <a ng-href="./#/singleEvent?id={{event._id}}">
+                    <img src="http://www.femalefirst.co.uk/image-library/partners/rivals/square/500/l/lionel-messi-f012b0-rv.jpg" class="img-responsive" ng-href="event/single_event/?parameter={{event._id}}" >
+                    <div class="event-title-overlay">
+                    	<h2 style="color: blue">{{event.eventname}}</h2>
+                    </div>
+                    <div class="event-age-overlay">
+						<h2 style="color: blue">ηλικίες:{{event.minage}}-{{event.maxage}}</h2>
+                    </div>
+					
+                    </a>
+                   <!--  <a ng-href="./#/singleEvent" >
+                        deite to
+					</a> -->
+
+				</div>
+            </div>
+    </div>
+</div>
+</section>
