@@ -19,7 +19,7 @@ $('#password, #confirm_password').on('keyup', function () {
     <div class="col-md-4 col-sm-4 col-xs-12"></div>
     <div class="col-md-4 col-sm-4 col-xs-12">
 
-        <h1>Εγγραφή ως πάροχος</h1>
+        <h1 style="color: black">Εγγραφή ως πάροχος</h1>
         <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
         <!--<form class="form" ng-submit="register()" style="margin-bottom: 35%;overflow: scroll;">-->
         <form class="form" ng-submit="register_provider()" style="margin-bottom: 35%;">
@@ -45,15 +45,15 @@ $('#password, #confirm_password').on('keyup', function () {
           </div>
 		  <div class="form-group">
             <label><h3 style="color: black" ><strong>Αριθμός φορολογικού μητρώου(Α.Φ.Μ.)</strong></h3></label>
-            <input type="text" class="form-control" name="TaxID" ng-model="registerForm.TaxID" placeholder="Α.Φ.Μ." required>
+            <input type="text" class="form-control" name="TaxID" ng-model="registerForm.TaxID" placeholder="Α.Φ.Μ." maxlength="11" pattern="\d{11}" required>
           </div>
           <div class="form-group">
             <label><h3 style="color: black" ><strong>Κωδικός</label></h3></strong>
-            <input type="password" class="form-control" name="password" ng-model="registerForm.password" placeholder="********" id ="password" required>
+            <input type="password" class="form-control" name="password" ng-model="registerForm.password" placeholder="********" id ="password" minlength="1" required>
           </div>
           <div class="form-group">
             <label><h3 style="color: black" ><strong>Επανάληψη Κωδικού</label></h3></strong>
-            <input type="password" class="form-control" name="password_repeat" ng-model="registerForm.password_repeat" placeholder ="********"id="confirm_password" required><span id="message"></span>
+            <input type="password" class="form-control" name="password_repeat" ng-model="registerForm.password_repeat" placeholder ="********" id="confirm_password" minlength="1" required><span id="message"></span>
           </div>
           <h4 style="color:aqua" >Διαβάστε προσεκτικά τους όρους, όπως παρουσιάζονται στον παρακάτω σύνδεσμο. Σε περίπτωση που τους αποδέχεστε <strong>εγγραφείτε</strong></h4>
           <div>
