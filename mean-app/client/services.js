@@ -407,7 +407,7 @@ function updateProviderData(username, what, value) {
 //username is the username of the provider we want to update
 //what is the field we want to cheng and the value has the new value to be put in mongo
 function updateParentData(username, what, value) {
-	console.log( "I am on updateProviderData service")
+	console.log( "I am on updateParentData service")
 	console.log(username)
 	console.log(what)
 	console.log(value)
