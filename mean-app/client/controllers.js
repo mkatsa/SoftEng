@@ -383,6 +383,17 @@ $scope.getEventById = function (){
   })
 };
 
+$scope.getHistory = function(){
+  console.log("getting histtory")
+  $scope.username = AuthService.getUserName();
+  AuthService.getHistory($scope.username)
+  .then(function(response){
+    $scope.list = response;
+  },function (error){
+    console.error(error);
+  })
+};
+
 
 $scope.init = function() {
  	console.log("getting single event")
