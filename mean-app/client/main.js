@@ -94,6 +94,11 @@ myApp.config(function ($routeProvider) {
       templateUrl:'partials/buyticket.html',
       controller:'manipulateEventsController',
       access:{restricted:false, admin:false}
+    })
+    .when('/providerhistory',{
+      templateUrl:'partials/providerhistory.html',
+      controller:"manipulateEventsController",
+      access:{restricted:false, admin:false}
     })   
     .otherwise({
       redirectTo: '/',
