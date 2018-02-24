@@ -385,3 +385,70 @@ a.socialIcon:hover, .socialHoverClass {
   transition: all 0.8s;
 }
 
+.segmented-control {
+   
+    width: 100%;
+    margin: 2em 0;
+    padding: 0;
+}
+
+.segmented-control__option {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.segmented-control__input {
+    position: absolute;
+ 
+}
+
+.segmented-control__label {
+    display: block;
+    margin: 0 -4px -1px 0; /* -1px margin removes double-thickness borders between items */
+    padding: 1em .25em;
+    border: 1px solid #ddd;
+    font: 14px/1.5 sans-serif; 
+    text-align: center;  
+	width:283px;
+    cursor: pointer;
+	background:#444;
+}
+
+.segmented-control__label:hover {
+    background: #E71348;
+    color: #fff;
+	text-decoration:underline;
+	font-weight:bold;
+}
+
+.segmented-control__input:checked + .segmented-control__label {
+    background: #E71348;
+    color: #fff;
+	text-decoration:underline;
+}
+
+.segmented-control__input:focus + .segmented-control__label {
+    background: #E71348;
+    color: #fff;
+	text-decoration:underline;
+	font-weight:bold;
+}
+
+.visually-hidden { /*https://developer.yahoo.com/blogs/ydn/clip-hidden-content-better-accessibility-53456.html*/
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    padding:0 !important;
+    border:0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden;
+}
+body:hover .visually-hidden a, body:hover .visually-hidden input, body:hover .visually-hidden button { display: none !important; }
+
+fieldset
+{
+	border:0;
+}
