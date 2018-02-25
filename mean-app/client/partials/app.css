@@ -253,7 +253,11 @@ h3{
 #custom-search-input{
     position: relative;
     top: 50%;
-    left: 50%;
+    text-align: center;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    min-width: 180px;
     padding: 3px;
     border: solid 1px #E4E4E4;
     border-radius: 6px;
