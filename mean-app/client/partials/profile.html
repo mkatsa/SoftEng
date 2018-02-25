@@ -44,13 +44,11 @@
   
   <div  class="container" style="text-align: center;width: 100%;" ng-if=isProvider>
     <div style="width: 100%;text-align: center;" class="row"  >
-    <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
-      	 <p style="height: 30px"></p>		
-        <div id="synopsis" style="color: aliceblue" >
-        <button onclick="location.href='/#/stats';" class="btn btn-success btn-lg">Προβολή στατιστικών <i class="fa fa-book"></i></button>
-        <button onclick="location.href='/#/providerhistory'" class="btn btn-success btn-lg">Δείτε το Ιστορικό σας<i class="fa fa-book"></i></button>
-        <br>
-        <br>
+    <div class="col-md-4 col-sm-12 col-lg-4 col-xs-12">
+        <button id="synopsis_btn" class="btn btn-info btn-lg" onclick="myFunction()" >Στοιχεία του λογαριασμού μου  <i class="fa fa-info-circle"></i></button>		
+  	 	
+        <div id="synopsis" style="color: aliceblue;display: none" >
+        
         <h4 style="color: azure">Εικόνα προφίλ</strong></h4>
     	<br>
     	<input type='file' onchange="readURL(this);" ng-file-select="onFileSelect($files)" />
@@ -68,17 +66,9 @@
         <h4 style="color: azure">Όνομα εταιρείας  </h4>
         <input style="width: 100%" type="text" class="form-control"  value={{companyname}} readonly>
         <br>
-        
-
-        </div>
-      </div>
-        
-      <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
         <h5 style="color: brown">*Συμπληρώστε τα στοιχεία επικοινωνίας. </h6>
         <br>
-            
-		
-		<form class="form" name="forma" ng-submit="updateProvider('email',newemail)">
+        <form class="form" name="forma" ng-submit="updateProvider('email',newemail)">
           <div class="form-group">
             <label style="color: aqua">Ηλεκτρονική Διεύθυνση</label>
 				<input type="email" class="form-control" ng-model="newemail" placeholder={{email}}>
@@ -102,10 +92,30 @@
         <input style="width: 100%" type="text" class="form-control"  value={{postalcode}} pattern="\d{6}"  >
         <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών <i class="fa fa-check" ></i></button>
         </form>
-        <br>
 
+        </div>
+      </div>
+        
+      <div class="col-md-4 col-sm-12 col-lg-4 col-xs-12">
+        <button onclick="location.href='/#/stats';" class="btn btn-success btn-lg">Προβολή στατιστικών <i class="fa fa-book"></i></button>
+        <button onclick="location.href='/#/providerhistory'" class="btn btn-success btn-lg">Δείτε το Ιστορικό σας <i class="fa fa-database"></i></button>
+        <p style="height: 40px"></p>
+        <button id="des_btn" class="btn btn-info btn-lg" onclick="myFunction_des()" >Επεξεργασία περιγραφής παρόχου <i class="fa fa-info"></i></button>  
+        <div id="prov_des" style="display: none">  
+        <h3 ><strong>Περιγράψτε τις υπηρεσίες σας</strong></h3>
+        <form class="form-inline" ng-submit="updateProvider('description',newdescription)">
+			<textarea name="description" cols="60" rows="7" ng-model="newdescription" placeholder={{description}}></textarea>
+			<button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών  <i class="fa fa-check" ></i></button>
+        </form>
+        </div>    
+      </div>
 
+      <div class="col-md-4 col-sm-12 col-lg-4 col-xs-12">
+            
+         <button id="loc_btn" class="btn btn-primary btn-lg" onclick="myFunction_loc()" >Η τοποθεσία μου  <i class="fa fa-map-marker"></i></button>  
+        <div id="display_loc" style="display: none">
         <form class="form" name="formb" ng-submit="">
+            
             <div class="form-group">
               <label style="color: aqua">Αναζητήστε νέα τοποθεσία</label>
                   <input type="text" class="form-control" ng-model = "address" placeholder="{{location.formatted_address}}">
@@ -119,18 +129,9 @@
             <br>
             <button ng-click="updateProvider('location',{})"  type="submit" class="btn btn-primary mb-2">Αποθήκευση νέας τοποθεσίας!<i class="fa fa-check" ></i></button>
         </form>
-
-        <br>
-      </div>
-      <div class="col-md-4 col-sm-4 col-lg-4 xs-4">
-        <br>
-        <br>
-        <h3 ><strong>Περιγράψτε τις υπηρεσίες σας</strong></h3>
-        <form class="form-inline" ng-submit="updateProvider('description',newdescription)">
-			<textarea name="description" cols="60" rows="7" ng-model="newdescription" placeholder={{description}}></textarea>
-			<button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών<i class="fa fa-check" ></i></button>
-        </form>
         
+        
+          </div>
       </div>
   </div><!-- /.navbar-collapse -->
   
@@ -232,6 +233,14 @@ function myFunction_points() {
 }
 function myFunction_loc() {
     var x = document.getElementById("display_loc");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+function myFunction_des() {
+    var x = document.getElementById("prov_des");
     if (x.style.display === "none") {
         x.style.display = "block";
     } else {
