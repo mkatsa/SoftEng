@@ -847,6 +847,10 @@ angular.module('myApp').controller('adminController',['$scope','$route','AdminSe
       })
     } 
 
+    $scope.resetPassword = function(u){
+      AdminService.resetPassword(u._id);
+    }
+
     $scope.getAllUsers = function(){
       $scope.button_text="Πάροχοι"
       $scope.button_funct=$scope.providers
@@ -917,3 +921,17 @@ angular.module('myApp').controller('adminController',['$scope','$route','AdminSe
 }
   init();
 }])
+
+
+angular.module('myApp').controller('resetController',
+  ['$scope', '$route','$routeParams' ,'AuthService',
+  function ($scope, $route,$routeParams, AuthService) {
+
+    $scope.reset=function(){
+      console.log("CTRL:running reset")
+      $scope.uID=$routeParams.uID
+      $scope.newPass=$scope.resetForm.password
+      AuthService.setPassword($scope.uID,$scope.newPass)
+    }
+    
+  }]);

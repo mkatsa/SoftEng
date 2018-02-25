@@ -30,7 +30,7 @@
                   <tbody>
                           <tr ng-repeat="u in pageusers">
                             <td align="center">
-                              <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
+                              <a class="btn btn-default" ng-click="resetPassword(u)"><em class="fa fa-pencil"></em></a>
                               <a class="btn btn-danger" ng-click="deleteUser(u)"><em class="fa fa-trash"></em></a>
                             </td>
                             <td>{{u.username}}</td>

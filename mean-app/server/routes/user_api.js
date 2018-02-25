@@ -125,7 +125,34 @@ router.post('/register', function(req, res) {
   });
 });
 
+router.post('/set_pass',function(req,res){
 
+  User.findOne({'_id':req.body.uID},function(err,data){
+
+    if (data){
+
+      if (data.reset_password=="TRUE")
+      {
+        console.log("RESET PASSWORD WAS TRUE")
+        data.reset_password="FALSE";
+        data.setPassword(req.body.password,function(){
+
+        data.save();
+        res.status(200).json({message: 'password reset successful'});
+      })
+      }
+      else{
+        console.log("RESET PASSWORD WAS FALSE/nonexistant")
+        res.status(500).json({err:'Not flagged for reset'})
+      }
+    }
+    else{
+      console.log("COULD NOT FIND USER")
+      res.status(500).json({err:'Invalid user'})
+    }
+
+  })
+})
 //Handle user login
 router.post('/login', function(req, res, next) {
   //Try to auhtenticate user

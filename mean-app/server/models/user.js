@@ -29,7 +29,8 @@ var User = new Schema({
   points: { type: Number,default: 0},
   img: { data: Buffer, contentType: String, default: '' },    //not sure about that...
   events_bought: [{type: String}],
-  events_interested: {type: [String]}
+  events_interested: {type: [String]},
+  reset_password: {type:String}
 });
 
 User.plugin(passportLocalMongoose);
