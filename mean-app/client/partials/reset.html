@@ -1,11 +1,32 @@
+<div class="container">
+<div class="row">
+<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>
+<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">    
 <form class="form" ng-submit="reset()" style="margin-bottom: 35%;">
 	<div class="form-group">
 		<label><h3 style="color: black" ><strong>Νέος Κωδικός</strong></h3></label>
-		<input type="password" class="form-control" name="password" ng-model="resetForm.password" id ="password" placeholder="********" required>
+		<input type="password" class="form-control" name="password" ng-model="resetForm.password" id ="password_reset" placeholder="********" required>
 	</div>
 	<div class="form-group">
 		<label><h3 style="color: black" ><strong>Επανάληψη κωδικού</strong></h3></label>
-		<input type="password" class="form-control" name="password_repeat" ng-model="resetForm.password_repeat" id="confirm_password" placeholder="********" required><span id="message"></span>
+		<input type="password" class="form-control" name="password_repeat" ng-model="resetForm.password_repeat" id="confirm_password_reset" placeholder="********" required><span id="message"></span>
 	</div>
-<button type="submit" class="btn btn-success"  id="sub_but">SET</button>
-</form>
+<div style="text-align: center" id="sub_but_reset">    
+<button type="submit" class="btn btn-success"   >Επαναφορά κωδικού</button>
+    </div>
+    </form>
+    </div>
+<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>    
+</div>    
+</div>    
+<script type="text/javascript">
+$('#password_reset, #confirm_password_reset').on('keyup', function () {
+  if ($('#password_reset').val() == $('#confirm_password_reset').val()) {
+    $('#message').html('Ταιριάζει').css('color', 'green');
+    $('#sub_but_reset').css('display', 'block')
+  } else {
+    $('#message').html('Δεν ταιριάζει').css('color', 'red');
+    $('#sub_but_reset').css('display', 'none')
+  }
+});
+</script>
