@@ -18,12 +18,14 @@ var User = require('../models/user.js');
 
 
 //about pdf ticket creation. Found on http://pdfkit.org/index.html and http://www.codeblocq.com/2016/05/PDF-Generation-with-Node-JS/
-function createTicket(eventName, userName, ticketName){
+//bug with greek characters. Idk how to fix it...
+
+function createTicket(eventName, userName, ticketName, notickets){
 	console.log("Creating Ticket")
 	var doc = new PDFDocument;
 	doc.pipe(fs.createWriteStream(ticketName));
 	
-	var txt = "This is your ticket for the event. We recommend you to have this ticket in order to enter the event.\nScan the barcode in the entrance!The barcode is unique";
+	var txt = "Event:    "+eventName+"\nOwner:    "+userName+"\nNumber of persons: "+notickets+"\nIn order to enter the event you need to show this ticket or a photocopy of it in the entrance of the event.\nYou need to scan the barcode below in order to enter the event"
 	// Set a title and pass the X and Y coordinates
 	doc.fontSize(15).text('Electronic Ticket', 50, 50);
 	// Set the paragraph width and align direction
@@ -32,7 +34,7 @@ function createTicket(eventName, userName, ticketName){
 		align: 'left'
 	});
 
-	doc.image('download.png', 50, 150, {width: 110});
+	doc.image('download.png', 50, 250, {width: 200});
 	doc.end();
 	console.log("Ticket Created Successfully")
 }
@@ -288,6 +290,7 @@ router.post('/eventbought', function(req,res){
   console.log(req.user.username)
   console.log(req.body.cost)
   console.log(req.body.eventname)
+  console.log(req.body.notickets)
   User.findOne({username:req.user.username}, function(err,doc){
       doc.points = doc.points - req.body.cost;
       //doc.eventbought[0] = req.body.eventname;
@@ -302,10 +305,10 @@ router.post('/eventbought', function(req,res){
   
   console.log(req.user.email)
   
-  var ticketname =  'output_'+x+'.pdf';
+  var ticketname =  'ticket_'+x+'.pdf';
   x++;
-  createTicket(req.body.eventname, req.user.username, ticketname);
-  sendTicketviaEmail(req.user.email,req.body.eventname,ticketname); 	  
+  createTicket(req.body.eventname, req.user.username, ticketname, req.body.notickets);
+  sendTicketviaEmail(req.user.email,req.body.eventname,ticketname);
 })
 
 
