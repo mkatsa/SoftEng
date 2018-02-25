@@ -296,6 +296,23 @@ function refreshUserLocation(){
 }
 
 
+function setPassword(uID,pass){
+  console.log("SRVC: setPassword")
+  console.log("UID:"+uID)
+  var deferred=$q.defer();
+  $http.post('/user/set_pass',{uID:uID,password:pass})
+  .success(function(data,status){
+    if (status==200){
+      console.log("reset pass success")
+      deferred.resolve();
+    }
+    else{
+      deferred.reject();
+    }
+  })
+  return deferred.promise;
+}
+
 function register_provider(username, password, firstname, lastname, email, companyname, TaxID) {
 
       // create a new instance of deferred
@@ -512,7 +529,8 @@ function getPublicProviderDataByUsername(uname){
   getSingleEvent: getSingleEvent,
   getPublicProviderDataByUsername: getPublicProviderDataByUsername,
   updateEventandUser:updateEventandUser,
-  getHistory:getHistory
+  getHistory:getHistory,
+  setPassword:setPassword
 });
 }]);
 
@@ -646,13 +664,26 @@ angular.module('myApp').factory('AdminService',['$q','$http',
       return deferred.promise;
     }
 
+    function resetPassword(uID){
+      var deferred=$q.defer();
+      $http.post('/admin/resetPassword/'+uID)
+      .success(function(data){
+        deferred.resolve(data);
+      })
+      .error(function(err){
+        deferred.reject(err)
+      });
+      return deferred.promise;
+    }
+
     return{
       isAdmin:isAdmin,
       getMode:getMode,
       deleteUser:deleteUser,
       deleteProvider:deleteProvider,
       getAllUsers:getAllUsers,
-      getAllProviders:getAllProviders
+      getAllProviders:getAllProviders,
+      resetPassword:resetPassword
     };
   }]);
 

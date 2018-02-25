@@ -89,8 +89,8 @@ angular.module('myApp').controller('headerController',
       .then(function () {
           //$location.path('/');
           $route.reload();
+          $location.path('/#/');
         });
-
     };
 
   }]);
@@ -184,6 +184,9 @@ angular.module('myApp').controller('registerProviderController',
 angular.module('myApp').controller('eventsController',
   ['$scope', '$route', '$timeout', 'AuthService', '$routeParams' ,
   function ($scope, $route, $timeout, AuthService, $routeParams) {
+
+
+
  /* $(document).ready(function(){
   ['$scope', '$route', 'AuthService',
   function ($scope, $route, AuthService) {
@@ -315,7 +318,6 @@ angular.module('myApp').controller('manipulateEventsController',
   $scope.error = false;
   $scope.disabled = true;
   $scope.location = sharedProperties.getProperty();
-  $scope.isProvider = AuthService.isProvider();
 
   console.log($scope.eventForm.category)
   console.log($scope.eventForm.tickets)
@@ -372,6 +374,12 @@ $scope.getPublicProviderDataByUsername = function(a) {			//what to update and th
 
 	
 $scope.getEventById = function (){
+
+  $scope.isProvider = AuthService.isProvider();
+  $scope.isLoggedIn = AuthService.isLoggedIn();
+
+
+  console.log("GAMW TI PANAGIA")
   console.log("getting single event")
   AuthService.getSingleEvent($routeParams.id)
   .then(function (response) {
@@ -839,6 +847,10 @@ angular.module('myApp').controller('adminController',['$scope','$route','AdminSe
       })
     } 
 
+    $scope.resetPassword = function(u){
+      AdminService.resetPassword(u._id);
+    }
+
     $scope.getAllUsers = function(){
       $scope.button_text="Πάροχοι"
       $scope.button_funct=$scope.providers
@@ -909,3 +921,17 @@ angular.module('myApp').controller('adminController',['$scope','$route','AdminSe
 }
   init();
 }])
+
+
+angular.module('myApp').controller('resetController',
+  ['$scope', '$route','$routeParams' ,'AuthService',
+  function ($scope, $route,$routeParams, AuthService) {
+
+    $scope.reset=function(){
+      console.log("CTRL:running reset")
+      $scope.uID=$routeParams.uID
+      $scope.newPass=$scope.resetForm.password
+      AuthService.setPassword($scope.uID,$scope.newPass)
+    }
+    
+  }]);
