@@ -25,13 +25,10 @@
                 
                 
                    
-                    <li ng-if="isLoggedIn" role="separator" class="divider"></li>
-	               <li ng-if="isLoggedIn && !isProvider"><a href="./#/">Οι δραστηριότητές μου</a></li>
-                    
-	               <li ng-if="isLoggedIn && !isProvider"><a href="./#/"> Ιστορικό των δραστηριοτήτων</a></li>
-                   <li ng-if="isLoggedIn && isProvider"><a href="./#/">Δημιουργία δραστηριότητας</a></li>
-                    <li ng-if="isLoggedIn && isProvider"><a href="./#/">Επεξεργασία δραστηριότητας</a></li>
-	               <li ng-if="isLoggedIn && isProvider"><a href="./#/"> Προβολή δραστηριοτήτων</a></li>
+                   <li ng-if="isLoggedIn" role="separator" class="divider"></li>
+                   <li ng-if="isLoggedIn && isProvider"><a href="./#/addEvent">Δημιουργία δραστηριότητας</a></li>
+                   <li ng-if="isLoggedIn && isProvider"><a href="./#/providerhistory"> Οι δραστηριότητές μου</a></li>
+	               
                    
             </ul>
 	        </li>
@@ -74,4 +71,4 @@
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
-	</nav>
+	</nav>-

@@ -67,6 +67,7 @@ angular.module('myApp').controller('headerController',
     else{
       //Check if user is logged in
       $scope.isLoggedIn = AuthService.isLoggedIn();
+      $scope.isProvider = AuthService.isProvider();
       
       if($scope.isLoggedIn)
       {
