@@ -45,11 +45,11 @@ $('#password, #confirm_password').on('keyup', function () {
           </div>
 		  <div class="form-group">
             <label><h3 style="color: black" ><strong>Αριθμός φορολογικού μητρώου(Α.Φ.Μ.)</strong></h3></label>
-            <input type="text" class="form-control" name="TaxID" ng-model="registerForm.TaxID" placeholder="Α.Φ.Μ." maxlength="11" pattern="\d{11}" required>
+            <input type="text" class="form-control" name="TaxID" ng-model="registerForm.TaxID" placeholder="Α.Φ.Μ."  pattern="\d{11}" title="Το Α.Φ.Μ. πρέπει να περιέχει 11 αριθμητικούς χαρακτήρες" required>
           </div>
           <div class="form-group">
             <label><h3 style="color: black" ><strong>Κωδικός</label></h3></strong>
-            <input type="password" class="form-control" name="password" ng-model="registerForm.password" placeholder="********" id ="password" minlength="1" required>
+            <input type="password" class="form-control" name="password" ng-model="registerForm.password" placeholder="********" id ="password" minlength="1" title="Ο κωδικός πρέπει να περιέχει τουλάχιτον 1 χαρακτήρα" required>
           </div>
           <div class="form-group">
             <label><h3 style="color: black" ><strong>Επανάληψη Κωδικού</label></h3></strong>

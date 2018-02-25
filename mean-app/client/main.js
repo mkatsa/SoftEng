@@ -68,7 +68,7 @@ myApp.config(function ($routeProvider) {
     .when('/admin',{
       templateUrl:'partials/admin.html',
       controller:'adminController',
-      access:{restricted:false, admin:true}
+      access:{restricted:true, admin:true}
     })
     .when('/addEvent',{
       templateUrl:'partials/addEvent.html',
@@ -99,6 +99,11 @@ myApp.config(function ($routeProvider) {
       templateUrl:'partials/providerhistory.html',
       controller:"manipulateEventsController",
       access:{restricted:false, admin:false}
+    })
+    .when('/reset/:uID',{
+      templateUrl:'partials/reset.html',
+      controller:"resetController",
+      access:{restricted:false,admin:false}
     })   
     .otherwise({
       redirectTo: '/',

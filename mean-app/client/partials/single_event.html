@@ -17,33 +17,31 @@
       height: 100%;
     }
 </style>
+  <center><label><h1 style="color: black"><strong>O πάροχος<strong> <a href="./#/public_profile?id={{event._id}}">{{event.provider}}</a></strong> σας προσφέρει: </strong></h1></label></center>
+  <center><label><h2 style="color: black"><strong>{{event.eventname}}</strong></h2></label></center>
+
 <div class="container-fluid bg" ng-init="getEventById()">
   
   <div class="row" >
 
     <div class="col-md-4 col-sm-4 col-xs-12"></div>
     <div class="col-md-4 col-sm-4 col-xs-12" >
-	    
-        <h3>O πάροχος<strong> <a href="./#/public_profile?id={{event._id}}">{{event.provider}}</a></strong> σας προσφέρει: </h1>
+
         <div class="form-group">
-            <h3>Όνομα δραστηριότητας:</h3>
-            <input type="text" class="form-control"  value={{event.eventname}} readonly>
-        </div>
-        <div class="form-group">
-            <h3>Σύντομη περιγραφή δραστηριότητας:</h3>
-            <textarea style="width: 100%" rows="3" class="form-control" readonly  >{{event.description}}</textarea>
+            <label><h4 style="color: black"><strong>Σύντομη περιγραφή δραστηριότητας:</strong></h4></label>
+            <strong><textarea style="width: 100%" rows="3" class="form-control" readonly  >{{event.description}}</textarea></strong>
         </div>
           <div class="form-group">
-            <h3>Ηλικίες:</h3>
-            <input type="text" class="form-control" value={{event.minage}}-{{event.maxage}}  readonly>
+            <label><h4 style="color: black"><strong>Ηλικίες:</strong></h4></label>
+            <strong><input type="text" class="form-control" value={{event.minage}}-{{event.maxage}}  readonly></strong>
           </div>
           <div class="form-group">
-            <h3>Τιμή εισιτηρίου</h3>
-            <input type="text" class="form-control" value={{event.price}}  readonly >
+            <<label><h4 style="color: black"><strong>Τιμή εισιτηρίου:</strong></h4></label>
+            <strong><input type="text" class="form-control" value={{event.price}}  readonly></strong>
           </div>
           <div class="form-group">
-            <h3>Τοποθεσία:</h3>
-            <input type="text" class="form-control" value={{event.location.formatted_address}}  readonly >
+            <label><h4 style="color: black"><strong>Τοποθεσία:</strong></h4></label>
+            <strong><input type="text" class="form-control" value={{event.location.formatted_address}}  readonly></strong>
             <br/>
             <div class = "text-right">
                 <div id="map" align = "center"> </div>
@@ -51,18 +49,27 @@
   
             <br/>
           </div>
+
          <div class="form-group">
-            <h3>Αριθμός διαθέσιμων εισιτηρίων:</h3>
-            <input type="text" class="form-control" value={{event.tickets}}  readonly >
+            <label><h4 style="color: black"><strong>Αριθμός διαθέσιμων εισιτηρίων:</strong></h4></label>
+            <strong><input type="text" class="form-control" value={{event.tickets}}  readonly></strong>
           </div>
           <div class="row">
           <form class="form" name="forms" ng-submit="changeloc()" >
           <div style="text-align: center" >
-            <button type="submit" class="btn btn-success btn-lg">Αγορά εισιτηρίων  <i class="fa fa-thumbs-up"></i></button>
+            <div ng-if="isLoggedIn && !isProvider">
+              <button type="submit" class="btn btn-success btn-lg">Αγορά εισιτηρίων <i class="fa fa-thumbs-up"></i></button>
+            </div>
+            </div>
           </div>
           </form>
           </div>
-       
+          </div>
+
+
+
+      
+
       </div>
       <p style="height: 1000000px"></p>
     </div>

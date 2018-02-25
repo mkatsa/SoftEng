@@ -67,6 +67,7 @@ angular.module('myApp').controller('headerController',
     else{
       //Check if user is logged in
       $scope.isLoggedIn = AuthService.isLoggedIn();
+      $scope.isProvider = AuthService.isProvider();
       
       if($scope.isLoggedIn)
       {
@@ -89,8 +90,8 @@ angular.module('myApp').controller('headerController',
       .then(function () {
           //$location.path('/');
           $route.reload();
+          $location.path('/#/');
         });
-
     };
 
   }]);
@@ -182,8 +183,11 @@ angular.module('myApp').controller('registerProviderController',
 
 
 angular.module('myApp').controller('eventsController',
-  ['$scope', '$q', '$route', '$timeout', 'AuthService', '$routeParams' ,
-  function ($scope, $q, $route, $timeout, AuthService, $routeParams) {
+  ['$scope', '$route', '$timeout', 'AuthService', '$routeParams' ,
+  function ($scope, $route, $timeout, AuthService, $routeParams) {
+
+
+
  /* $(document).ready(function(){
   ['$scope', '$route', 'AuthService',
   function ($scope, $route, AuthService) {
@@ -287,6 +291,16 @@ angular.module('myApp').controller('eventsController',
   
   $scope.distances = [];
   $scope.eventsList = [];
+  
+  var slider = document.getElementById("myRange");
+  var output = document.getElementById("demo");
+  output.innerHTML = slider.value; // Display the default slider value
+  slider.oninput = function() {
+    output.innerHTML = this.value;
+    searchDistance = this.value*1000;
+    $scope.getAllEvents();
+  } 
+
   $scope.getAllEvents = function (){
     //$scope.eventsList = {};
     AuthService.getAllEvents($scope.nameFilter)
@@ -295,7 +309,7 @@ angular.module('myApp').controller('eventsController',
       for (var event in response){
         AuthService.calculateDistance($scope.userlocation, response[event])
           .then(function(promisedEvent){
-            if (promisedEvent.distance < 100000){
+            if (promisedEvent.distance < searchDistance){
               //console.log('found event with distance: '+ promisedEvent.distance + promisedEvent.eventname)
               $scope.eventsList.push(promisedEvent);
             }
@@ -309,6 +323,20 @@ angular.module('myApp').controller('eventsController',
       console.error(error);
     });
   };
+
+  $scope.getAllEventsDelay = function() {
+    AuthService.getAllEvents($scope.nameFilter)
+    .then(function (response) {
+      deleteMarkers();
+      $scope.eventsList = response;
+      addMarkers();
+      console.log("i am here")
+      console.log("getting events")
+    }, function (error) {
+      console.error(error);
+    });
+  }
+
 }]);
 
 //Controller for add remove or update event
@@ -379,6 +407,12 @@ $scope.getPublicProviderDataByUsername = function(a) {			//what to update and th
 
 	
 $scope.getEventById = function (){
+
+  $scope.isProvider = AuthService.isProvider();
+  $scope.isLoggedIn = AuthService.isLoggedIn();
+
+
+  console.log("GAMW TI PANAGIA")
   console.log("getting single event")
   AuthService.getSingleEvent($routeParams.id)
   .then(function (response) {
@@ -803,10 +837,60 @@ angular.module('myApp').controller('adminController',['$scope','$route','AdminSe
   function($scope,$route,AdminService){
     $scope.got_users=false;
 
+
     var examples_per_page=10;
 
+    $scope.button_text="Πάροχοι"
+    $scope.button_funct=$scope.providers
+    $scope.title_text="Γονείς"
+    $scope.mode=AdminService.getMode()
+
+
+    $scope.providers = function(){
+    $scope.button_text="Γονείς"
+    $scope.button_funct=$scope.getAllUsers
+    $scope.title_text="Πάροχοι"
+    $scope.mode="provider"
+      AdminService.getAllProviders()
+      .then(function(data){
+        console.dir(data)
+        $scope.page=1;
+        $scope.pages=[];
+        $scope.users=data.providers;
+        $scope.got_users=true;
+        $scope.num_users=data.providers.length;
+        $scope.num_pages=Math.ceil($scope.num_users/examples_per_page);
+        for(var i=1;i<$scope.num_pages+1;i++){
+          $scope.pages.push(i);
+        }
+        $scope.pages=$scope.pages.reverse();
+        $scope.setPage(1);
+      })
+    }
+
+    $scope.isAdmin = function(){
+      AdminService.isAdmin()
+      .then(function(data){
+        if (data.status){
+          $scope.admin=true;
+        }
+        else{
+          $scope.admin=false;
+        }
+      })
+    } 
+
+    $scope.resetPassword = function(u){
+      AdminService.resetPassword(u._id);
+    }
 
     $scope.getAllUsers = function(){
+      $scope.button_text="Πάροχοι"
+      $scope.button_funct=$scope.providers
+      $scope.title_text="Γονείς"
+      $scope.mode="parent"
+      //console.log("ADMIN SERVICE IS")
+      //console.dir(AdminService)
       AdminService.getAllUsers()
       .then(function(data){
         $scope.page=1;
@@ -825,6 +909,25 @@ angular.module('myApp').controller('adminController',['$scope','$route','AdminSe
       })
     }
 
+    $scope.deleteUser=function(u){
+      console.log("U is:"+JSON.stringify(u))
+      if ($scope.mode=="parent"){
+      AdminService.deleteUser(u._id)
+      .then(function(){
+        console.log("inside then")
+        $route.reload();
+        console.log("User successfully deleted")
+      });
+      }
+      else{
+        AdminService.deleteProvider(u._id)
+        .then(function(){
+          $route.reload();
+        })
+      }
+
+    }
+
     $scope.setPage=function(pagenum){
       $scope.page=pagenum;
     //Index of first user of the page
@@ -841,7 +944,27 @@ angular.module('myApp').controller('adminController',['$scope','$route','AdminSe
 
 
   var init=function(){
+    console.log("adminservice Mode is:"+AdminService.getMode())
+    if (AdminService.getMode()=="provider"){
+      $scope.providers();
+    }
+    else{
     $scope.getAllUsers();
   }
+}
   init();
 }])
+
+
+angular.module('myApp').controller('resetController',
+  ['$scope', '$route','$routeParams' ,'AuthService',
+  function ($scope, $route,$routeParams, AuthService) {
+
+    $scope.reset=function(){
+      console.log("CTRL:running reset")
+      $scope.uID=$routeParams.uID
+      $scope.newPass=$scope.resetForm.password
+      AuthService.setPassword($scope.uID,$scope.newPass)
+    }
+    
+  }]);

@@ -296,6 +296,23 @@ function refreshUserLocation(){
 }
 
 
+function setPassword(uID,pass){
+  console.log("SRVC: setPassword")
+  console.log("UID:"+uID)
+  var deferred=$q.defer();
+  $http.post('/user/set_pass',{uID:uID,password:pass})
+  .success(function(data,status){
+    if (status==200){
+      console.log("reset pass success")
+      deferred.resolve();
+    }
+    else{
+      deferred.reject();
+    }
+  })
+  return deferred.promise;
+}
+
 function register_provider(username, password, firstname, lastname, email, companyname, TaxID) {
 
       // create a new instance of deferred
@@ -551,7 +568,8 @@ function callback(response, status) {
   getPublicProviderDataByUsername: getPublicProviderDataByUsername,
   updateEventandUser:updateEventandUser,
   getHistory:getHistory,
-  calculateDistance: calculateDistance
+  calculateDistance: calculateDistance,
+  setPassword:setPassword
 });
 }]);
 
@@ -657,8 +675,26 @@ function calculateDistance(origin,destination) {
 angular.module('myApp').factory('AdminService',['$q','$http',
   function($q,$http){
 
+    var mode="parent"
+
+    function getMode(){
+      return mode
+    }
+
+    function isAdmin(){
+      var deferred=$q.defer();
+      $http.get('/admin/isAdmin')
+      .success(function(data){
+        deferred.resolve(data);
+      })
+      .error(function(err){
+        deferred.reject(data);
+      });
+      return deferred.promise;
+    }
+
     function getAllUsers(){
-      console.log("GETTING USERS")
+      mode="parent"
       var deferred=$q.defer();
       $http.get('/admin/all_users')
       .success(function(data){
@@ -670,10 +706,70 @@ angular.module('myApp').factory('AdminService',['$q','$http',
       return deferred.promise;
     }
 
+    function getAllProviders(){
+      mode="provider"
+      var deferred=$q.defer();
+      $http.get('/admin/all_providers')
+      .success(function(data){
+        deferred.resolve(data);
+      })
+      .error(function(err){
+        deferred.reject(err)
+      });
+      return deferred.promise;
+    }
+
+    function deleteUser(uID){
+      mode="parent"
+      var deferred=$q.defer();
+      $http.delete('/admin/user/'+uID)
+      .success(function(data){
+        console.log("deleteUser success")
+        deferred.resolve(data);
+      })
+      .error(function(err){
+        console.log("deleteUser fail")
+        deferred.reject(err)
+        });
+      return deferred.promise;
+      }
+    
+    function deleteProvider(pID){
+      mode="provider"
+      var deferred=$q.defer();
+      $http.delete('/admin/provider/'+pID)
+      .success(function(data){
+        deferred.resolve(data);
+      })
+      .error(function(err){
+        deferred.reject(err)
+      });
+      return deferred.promise;
+    }
+
+    function resetPassword(uID){
+      var deferred=$q.defer();
+      $http.post('/admin/resetPassword/'+uID)
+      .success(function(data){
+        deferred.resolve(data);
+      })
+      .error(function(err){
+        deferred.reject(err)
+      });
+      return deferred.promise;
+    }
+
     return{
-      getAllUsers:getAllUsers
+      isAdmin:isAdmin,
+      getMode:getMode,
+      deleteUser:deleteUser,
+      deleteProvider:deleteProvider,
+      getAllUsers:getAllUsers,
+      getAllProviders:getAllProviders,
+      resetPassword:resetPassword
     };
   }]);
+
 
 
   

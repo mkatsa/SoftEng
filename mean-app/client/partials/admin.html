@@ -9,12 +9,10 @@
               <div class="panel-heading">
                 <div class="row">
                   <div class="col col-xs-6">
-                    <h3 class="panel-title">Γονείς (πλήθος {{num_users}})</h3>
+                    <h3 class="panel-title">{{title_text}} (πλήθος {{num_users}})</h3>
                   </div>
                   <div class="col col-xs-6 text-right">
-                    <button type="button" class="btn btn-sm btn-primary">Πάροχοι</button>
-		            <button type="button" class="btn btn-sm btn-primary">Δραστηριότητες</button>
-
+                    <button type="button" ng-click="button_funct()" class="btn btn-sm btn-primary">{{button_text}}</button>
                   </div>
                 </div>
               </div>
@@ -32,8 +30,8 @@
                   <tbody>
                           <tr ng-repeat="u in pageusers">
                             <td align="center">
-                              <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                              <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                              <a class="btn btn-default" ng-click="resetPassword(u)"><em class="fa fa-pencil"></em></a>
+                              <a class="btn btn-danger" ng-click="deleteUser(u)"><em class="fa fa-trash"></em></a>
                             </td>
                             <td>{{u.username}}</td>
                             <td class="hidden-xs">{{u._id}}</td>
