@@ -540,13 +540,17 @@ function ($scope, $route, AuthService,sharedProperties) {
       $scope.companyname = userdata.companyname;
       $scope.TaxID = userdata.TaxID;
       $scope.phone = userdata.phone;
-	  $scope.description = userdata.description;
+	    $scope.description = userdata.description;
     }
     else{
       $scope.mobile = userdata.mobile;
       $scope.points = userdata.points;
     }
   })
+
+
+
+
 	
   $scope.updateProvider = function(what, value) {			//what to update and the new value.
 	console.log("updateProvider Controler")
