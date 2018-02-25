@@ -1,0 +1,11 @@
+<form class="form" ng-submit="reset()" style="margin-bottom: 35%;">
+	<div class="form-group">
+		<label><h3 style="color: black" ><strong>Νέος Κωδικός</strong></h3></label>
+		<input type="password" class="form-control" name="password" ng-model="resetForm.password" id ="password" placeholder="********" required>
+	</div>
+	<div class="form-group">
+		<label><h3 style="color: black" ><strong>Επανάληψη κωδικού</strong></h3></label>
+		<input type="password" class="form-control" name="password_repeat" ng-model="resetForm.password_repeat" id="confirm_password" placeholder="********" required><span id="message"></span>
+	</div>
+<button type="submit" class="btn btn-success"  id="sub_but">SET</button>
+</form>

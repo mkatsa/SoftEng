@@ -99,6 +99,11 @@ myApp.config(function ($routeProvider) {
       templateUrl:'partials/providerhistory.html',
       controller:"manipulateEventsController",
       access:{restricted:false, admin:false}
+    })
+    .when('/reset/:uID',{
+      templateUrl:'partials/reset.html',
+      controller:"resetController",
+      access:{restricted:false,admin:false}
     })   
     .otherwise({
       redirectTo: '/',
