@@ -182,8 +182,8 @@ angular.module('myApp').controller('registerProviderController',
 
 
 angular.module('myApp').controller('eventsController',
-  ['$scope', '$route', '$timeout', 'AuthService', '$routeParams' ,
-  function ($scope, $route, $timeout, AuthService, $routeParams) {
+  ['$scope', '$q', '$route', '$timeout', 'AuthService', '$routeParams' ,
+  function ($scope, $q, $route, $timeout, AuthService, $routeParams) {
  /* $(document).ready(function(){
   ['$scope', '$route', 'AuthService',
   function ($scope, $route, AuthService) {
@@ -228,7 +228,7 @@ angular.module('myApp').controller('eventsController',
       var marker = new google.maps.Marker({
         position: center,
         map: map,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
       });
       infoWindow.open(map, marker);
   }
@@ -238,7 +238,7 @@ angular.module('myApp').controller('eventsController',
     var marker = new google.maps.Marker({
       map: map,
       position: event.location.geometry.location,
-      icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+      icon: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png'
     });
 
     var contentString = '<div class = "container" id="content">'+
@@ -259,7 +259,14 @@ angular.module('myApp').controller('eventsController',
 
     markersArray.push(marker);
   }
-
+  addMarkers = function(){
+    $timeout(function() {
+      for (var event in $scope.eventsList) {
+        //console.log(event, $scope.eventsList[event].location.geometry.location);
+        createMarker($scope.eventsList[event]);
+      }
+    }, 800);
+  }
   deleteMarkers = function() {
     $timeout(function() {
       for (var i = 0; i < markersArray.length; i++) {
@@ -273,34 +280,35 @@ angular.module('myApp').controller('eventsController',
     $scope.initMap();
   }, 800);
 
-  addMarkers = function(){
-    $timeout(function() {
-      for (var event in $scope.eventsList) {
-        //console.log(event, $scope.eventsList[event].location.geometry.location);
-        createMarker($scope.eventsList[event]);
-      }
-    }, 800);
-  }
-
   userdata = AuthService.getUserData()
     .then(function(userdata){
       $scope.userlocation = userdata.location;
     })
-   
-$scope.getAllEvents = function (){
-  $scope.eventsList = {};
-  AuthService.getAllEvents($scope.nameFilter)
-  .then(function (response) {
-    deleteMarkers();
-    $scope.eventsList = response;
-    addMarkers();
-    console.log("i am here")
-    console.log("getting events")
-  }, function (error) {
-    console.error(error);
-  });
-};
   
+  $scope.distances = [];
+  $scope.eventsList = [];
+  $scope.getAllEvents = function (){
+    //$scope.eventsList = {};
+    AuthService.getAllEvents($scope.nameFilter)
+    .then(function (response) {
+      deleteMarkers();
+      for (var event in response){
+        AuthService.calculateDistance($scope.userlocation, response[event])
+          .then(function(promisedEvent){
+            if (promisedEvent.distance < 100000){
+              //console.log('found event with distance: '+ promisedEvent.distance + promisedEvent.eventname)
+              $scope.eventsList.push(promisedEvent);
+            }
+          })
+      }
+      addMarkers();
+      $scope.eventsList = [];
+      console.log("i am here")
+      console.log("getting events")
+    }, function (error) {
+      console.error(error);
+    });
+  };
 }]);
 
 //Controller for add remove or update event
