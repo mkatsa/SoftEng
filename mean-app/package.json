@@ -21,6 +21,7 @@
     "mongoose-double": "0.0.1",
     "mongoose-type-email": "^1.0.5",
     "morgan": "^1.7.0",
+    "ng-file-upload": "^12.2.13",
     "nodemailer": "^4.6.0",
     "nodemailer-smtp-transport": "^2.7.4",
     "passport": "^0.3.2",
