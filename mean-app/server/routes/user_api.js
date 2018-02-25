@@ -107,7 +107,7 @@ router.post('/register', function(req, res) {
     username: req.body.username,
     email:req.body.email,
     firstname:req.body.firstname,
-    lastname:req.body.lastname 
+    lastname:req.body.lastname
   }), req.body.password, function(err, account) {
     //if error respond error  
     if (err) {
@@ -267,7 +267,7 @@ router.get('/get_all',function(req,res){
     email: req.user.email,
     mobile: req.user.mobile,
     points: req.user.points,
-    location: req.user.location
+    location: req.user.location,
     });
   }
   //If not, return this for debugging (this should never be returned)

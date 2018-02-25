@@ -503,9 +503,47 @@ function getPublicProviderDataByUsername(uname){
   return deferred.promise;
 }
 
-
-
+function calculateDistance(origin,destination) {
   
+  var origin1 = origin.geometry.location;
+  var destinations = [destination.location.geometry.location]
+  var service = new google.maps.DistanceMatrixService();
+  
+  var deferred = $q.defer();
+  var distancePromise = service.getDistanceMatrix(
+    {
+      origins: [origin1],
+      destinations: destinations,
+      travelMode: 'DRIVING',
+      avoidHighways: false,
+      avoidTolls: false,
+    }, callback);
+
+    
+function callback(response, status) {
+    if (status == 'OK') {
+      var origins = response.originAddresses;
+      var destinations = response.destinationAddresses;
+  
+      for (var i = 0; i < origins.length; i++) {
+        var results = response.rows[i].elements;
+        for (var j = 0; j < results.length; j++) {
+          var element = results[j];
+          var distance = element.distance.text;
+          var duration = element.duration.text;
+          var from = origins[i];
+          var to = destinations[j];
+          //console.log('from '+ from +' to '+ to +' distance: '+ element.distance.value)
+          destination.distance = element.distance.value;
+          deferred.resolve(destination);
+          //console.log(destination)
+        }
+      }
+    }    
+  }
+  return deferred.promise;
+}
+
   
  //username=getUserName();
 
@@ -530,6 +568,7 @@ function getPublicProviderDataByUsername(uname){
   getPublicProviderDataByUsername: getPublicProviderDataByUsername,
   updateEventandUser:updateEventandUser,
   getHistory:getHistory,
+  calculateDistance: calculateDistance,
   setPassword:setPassword
 });
 }]);
@@ -544,7 +583,7 @@ angular.module('myApp').factory('GeolocationService', ['$q', '$window', function
 
   'use strict';
 
-  function getCurrentPosition() {
+function getCurrentPosition() {
     var deferred = $q.defer();
     if (!$window.navigator.geolocation) {
       deferred.reject('Geolocation not supported.');
@@ -559,10 +598,54 @@ angular.module('myApp').factory('GeolocationService', ['$q', '$window', function
     }
 
     return deferred.promise;
+  } 
+
+function calculateDistance(origin,destination) {
+    var deferred = $q.defer();
+    var origin1 = origin.geometry.location;
+    var destinations = [destination.geometry.location]
+    var service = new google.maps.DistanceMatrixService();
+    
+    distancePromise = service.getDistanceMatrix(
+      {
+        origins: [origin1],
+        destinations: destinations,
+        travelMode: 'DRIVING',
+        avoidHighways: false,
+        avoidTolls: false,
+      }, callback);
+      
+  function callback(response, status) {
+      if (status == 'OK') {
+        var origins = response.originAddresses;
+        var destinations = response.destinationAddresses;
+    
+        for (var i = 0; i < origins.length; i++) {
+          var results = response.rows[i].elements;
+          for (var j = 0; j < results.length; j++) {
+            var element = results[j];
+            var distance = element.distance.text;
+            var duration = element.duration.text;
+            var from = origins[i];
+            var to = destinations[j];
+            console.log('from '+ from +' to '+ to +' distance: '+ element.distance.value)
+            return(element.distance.value);
+          }
+        }
+      }    
+    }
+    distancePromise.success(function (response) {
+      deferred.resolve(response);
+    })
+    .error(function (error) {
+      console.error(error);
+    }); 
+    return deferred.promise;
   }
 
   return {
-    getCurrentPosition: getCurrentPosition
+    getCurrentPosition: getCurrentPosition,
+    calculateDistance: calculateDistance
   };
 }]);
 
