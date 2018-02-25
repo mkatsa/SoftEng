@@ -294,6 +294,7 @@ angular.module('myApp').controller('eventsController',
   
   var slider = document.getElementById("myRange");
   var output = document.getElementById("demo");
+  var searchDistance = 16000;
   output.innerHTML = slider.value; // Display the default slider value
   slider.oninput = function() {
     output.innerHTML = this.value;
