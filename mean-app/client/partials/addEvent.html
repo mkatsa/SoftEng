@@ -3,17 +3,17 @@
 <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq6gVXzKjVwYvc0Y6cB9LWJcngquAnsY4&language=el" async defer>
 </script>  
 <head>
-	
-	<title>Heapsters Project</title>
+  
+  <title>Heapsters Project</title>
 
-	
-	<link rel="stylesheet" href="./partials/app.css">
-	<!--<link rel="stylesheet" type="text/css" href="jquery-3.2.1.min.js">-->
+  
+  <link rel="stylesheet" href="./partials/app.css">
+  <!--<link rel="stylesheet" type="text/css" href="jquery-3.2.1.min.js">-->
 </head>
 
 <style>
     /* Always set the map height explicitly to define the size of the div
-    * element that contains the map. */
+     * element that contains the map. */
     #map {
       height: 400px;
       width: 100%;
@@ -22,33 +22,32 @@
     html, body {
       height: 100%;
     }
-  </style>
+</style>
 
-  <body style="width: 100%">
+<body style="width: 100%">
 
-    <div style="width: 100%">
-     <header-nav-directive></header-nav-directive>
-   </div>
+<div style="width: 100%">
+  <header-nav-directive></header-nav-directive>
+</div>
 
 
-   <div class="container-fluid bg">
+<div class="container-fluid bg">
+  
+  <div class="row" >
 
-    <div class="row" >
-
-      <div class="col-md-4 col-sm-4 col-xs-12"></div>
-      <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="col-md-4 col-sm-4 col-xs-12"></div>
+    <div class="col-md-4 col-sm-4 col-xs-12">
 
         <h1 style="color: black">Δημιουργία Δραστηριότητας</h1>
         <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
         <form class="form" ng-submit="createEvent()" style="margin-bottom: 35%;">
 
           <div class="form-group">
-           <label><h3 style="color: black"><b>Φωτογραφία Δραστηριότητας:*</h3></b></label>
+            <label><h3 style="color: black"><b>Φωτογραφία Δραστηριότητας:*</h3></b></label>
             <div class="text-center">
               <input filepicker type="filepicker" data-fp-services="computer" on-success="onSuccess(event.fpfile)" data-fp-button-class="btn btn-success" />
-          </div>
+            </div>
 
-          <div class="form-group">
             <label><h3 style="color: black"><b>Όνομα Δραστηριότητας:*</h3></b></label>
             <input type="text" class="form-control" name="eventname" ng-model="eventForm.eventname" placeholder="π.χ Ποδόσφαιρο" required>
           </div>
@@ -61,78 +60,246 @@
             <h3 style="color: black"><b>Κατηγορία Δραστηριότητας:*</h3></b>
             <br>  
             <label class="radio-inline" style="font-size: 20px; color: green">    
-              <input type="radio"  name="category" value="sports" ng-model="eventForm.category"> Αθλήματα
+                <input type="radio"  name="category" value="sports" ng-model="eventForm.category"> Αθλήματα
             </label>
             <label class="radio-inline" style="font-size: 20px; color: red">     
-              <input type="radio"  name="category" value="art" ng-model="eventForm.category"> Τέχνη
+                <input type="radio"  name="category" value="art" ng-model="eventForm.category"> Τέχνη
             </label>
             <label class="radio-inline" style="font-size: 20px; color: blue">     
-              <input type="radio"  name="category" value="science" ng-model="eventForm.category"> Επιστήμη
+                <input type="radio"  name="category" value="science" ng-model="eventForm.category"> Επιστήμη
             </label>
             <label class="radio-inline" style="font-size: 20px; color: gold"> 
-              <input type="radio"  name="category" value="fun" ng-model="eventForm.category"> Ψυχαγωγία
+                <input type="radio"  name="category" value="fun" ng-model="eventForm.category"> Ψυχαγωγία
             </label>
-
+                  
           </div>
 
           <div class="form-group">
             <label><h3 style="color: black"><b>Για παιδιά ηλικίας από:*</h3></b></label>
-            <input type="text" class="form-control" name="minage" ng-model="eventForm.minage" required>
+            <input type="text" class="form-control" name="minage" ng-model="eventForm.minage" id="age_min" required>
           </div>
           <div class="form-group">
             <label><h3 style="color: black"><b>Για παιδιά ηλικίας εως:*</h3></b></label>
-            <input type="text" class="form-control" name="maxage" ng-model="eventForm.maxage" required>
+            <input type="text" class="form-control" name="maxage" ng-model="eventForm.maxage" id="age_max" required><span id="message_age"></span>
           </div>
           <div class="form-group">
             <label><h3 style="color: black"><b>Ημερομηνία και ώρα έναρξης δραστηριότητας:*</h3></b></label>
-            <input id="datetime" type="datetime-local" name="start_time" ng-model="eventForm.start_time" style="width: 470px;" required>
+            <input id="datetime_start" type="datetime-local" name="start_time" ng-model="eventForm.start_time" style="width: 470px;" required>
           </div>
-          <div class="form-group">
+            <div class="form-group">
             <label><h3 style="color: black"><b>Ημερομηνία και ώρα λήξης δραστηριότητας:*</h3></b></label>
-            <input id="datetime" type="datetime-local" name="end_time" ng-model="eventForm.end_time" style="width: 470px;" required>
+            <input id="datetime_end" type="datetime-local" name="end_time" ng-model="eventForm.end_time" style="width: 470px;" required><span id="message_time"></span>
           </div>
           <div class="form-group">
             <label><h3 style="color: black"><b>Αριθμός διαθέσιμων εισιτηρίων:*</h3></b></label>
-            <input type="number" class="form-control" name="tickets" ng-model="eventForm.tickets" required>
+            <input type="number" class="form-control" name="tickets" ng-model="eventForm.tickets" min="0" required>
           </div>
           <div class="form-group">
             <label><h3 style="color: black"><b>Σύντομη περιγραφή δραστηριότητας:*</h3></b></label>
-            <textarea rows="4" class="form-control" name="description" ng-model="eventForm.description" required></textarea>  
+              <textarea rows="4" class="form-control" name="description" ng-model="eventForm.description" required></textarea>  
           </div>
           <div class="row">
 
-            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+          <div class="col-md-4 col-sm-4 col-xs-12"></div>
 
-            <h3 style="color: black"><b>Τοποθεσία του event:*</h3></b>
-            <div ng-controller="locationController" class = "text-right">
+          <h3 style="color: black"><b>Τοποθεσία του event:*</h3></b>
+          <div ng-controller="locationController" class = "text-right">
               <div class = "input-append text-right">
                 <input type = "text" ng-model = "address" required/>
                 <button class = "btn" type = "button" ng-click="findLocation()" ng-disabled="search.length == 0" tittle = "address" >
-                  &nbsp;<i class="icon-search"></i>Search Location
+                    &nbsp;<i class="icon-search"></i>Search Location
                 </button>
                 <button class = "btn" type = "button" ng-click="captureUserLocation()" ng-disabled="search.length == 0" tittle = "current location" >
-                  &nbsp;<i class="icon-search"></i>My Location
+                    &nbsp;<i class="icon-search"></i>My Location
                 </button>
               </div>
-            </div>
+          </div>
+          
+          <div id="map" align = "center"> </div>
 
-            <div id="map" align = "center"> </div>
-
-            <br/>
-            <div class="form-group"><label><h3 style="color: black"><b>Τα πεδία με (*) είναι απαραίτητα</h3></b></label></div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <!--div-->
-              <button type="submit" class="btn btn-success" ng-disabled="disabled" id="sub_but">Προσθήκη</button>
-              <!--button type="submit" class="btn btn-success"></button-->
-              <!--/div-->
-            </div>
+          <br/>
+          <div class="form-group"><label><h3 style="color: black"><b>Τα πεδία με (*) είναι απαραίτητα</h3></b></label></div>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+          <!--div-->
+            <button type="submit" class="btn btn-success" ng-disabled="disabled" id="sub_but">Προσθήκη</button>
+            <!--button type="submit" class="btn btn-success"></button-->
+          <!--/div-->
+          </div>
           </div>
         </form>
       </div>
     </div>
   </div>
-
-
-</body>
+<script type="text/javascript">
+        $('#age_min, #age_max').on('keyup', function () {
+        if (parseInt($('#age_min').val()) <= parseInt($('#age_max').val())) {
+            $('#message_age').html('Έγκυρη εισαγωγή ηλικιών.').css('color', 'green');
+            $('#sub_but').css('display', 'block')
+        } 
+        else {
+            console.log(parseInt($('#age_min').val()))
+            $('#message_age').html('Η μέγιστη ηλικία είναι μικρότερη από την ελάχιστη ηλικία').css('color', 'red');
+            $('#sub_but').css('display', 'none')
+        }
+        });
+       
+</script>
+<script>
+     $('#datetime_start, #datetime_end').on('click', function () {
+        console.log($('#datetime_start').val())
+        //console.log($('#datetime_start').val().charAt(0)) 
+        //console.log($('#datetime_start').val().charAt(5)) 
+        var start_year = parseInt($('#datetime_start').val().charAt(0))*1000+parseInt($('#datetime_start').val().charAt(1))*100+parseInt($('#datetime_start').val().charAt(2))*10+parseInt($('#datetime_start').val().charAt(3))
+        var end_year = parseInt($('#datetime_end').val().charAt(0))*1000+parseInt($('#datetime_end').val().charAt(1))*100+parseInt($('#datetime_end').val().charAt(2))*10+parseInt($('#datetime_end').val().charAt(3))
+        var start_month = parseInt($('#datetime_start').val().charAt(5))*10+parseInt($('#datetime_start').val().charAt(6))
+        var end_month = parseInt($('#datetime_end').val().charAt(5))*10+parseInt($('#datetime_end').val().charAt(6))
+        
+        var start_day = parseInt($('#datetime_start').val().charAt(8))*10+parseInt($('#datetime_start').val().charAt(9))
+        var end_day = parseInt($('#datetime_end').val().charAt(8))*10+parseInt($('#datetime_end').val().charAt(9))
+        
+        var start_hours = parseInt($('#datetime_start').val().charAt(11))*10+parseInt($('#datetime_start').val().charAt(12))
+        var end_hours = parseInt($('#datetime_end').val().charAt(11))*10+parseInt($('#datetime_end').val().charAt(12))
+        
+        var start_mins = parseInt($('#datetime_start').val().charAt(14))*10+parseInt($('#datetime_start').val().charAt(15))
+        var end_mins = parseInt($('#datetime_end').val().charAt(14))*10+parseInt($('#datetime_end').val().charAt(15))
+        console.log($('#datetime_start').val())
+        //console.log(end_month) 
+        //if ((start_year<=end_year)&&(start_month<=end_month)&&(start_day<=end_day)&&(start_hours<=end_hours)&&(start_mins<=end_mins)) 
+        if (start_year>end_year) {
+            $('#message_time').html('Πρέπει η ημερομηνία λήξης να είναι πιο μετά από την ημερομηνία έναρξης.').css('color', 'red');
+            $('#sub_but').css('display', 'none')
+        } 
+        else if(start_year<end_year) 
+        {
+            $('#message_time').html('Ταιριάζει').css('color', 'green');
+            $('#sub_but').css('display', 'block')
+        }
+        else{
+            if (start_month>end_month) {
+                $('#message_time').html('Πρέπει η ημερομηνία λήξης να είναι πιο μετά από την ημερομηνία έναρξης.').css('color', 'red');
+                $('#sub_but').css('display', 'none')
+            } 
+            else if(start_month<end_month) 
+            {
+                $('#message_time').html('Ταιριάζει').css('color', 'green');
+                $('#sub_but').css('display', 'block')
+            }
+            else{
+                if (start_day>end_day) {
+                    $('#message_time').html('Πρέπει η ημερομηνία λήξης να είναι πιο μετά από την ημερομηνία έναρξης.').css('color', 'red');
+                    $('#sub_but').css('display', 'none')
+                } 
+                else if(start_day<end_day) 
+                 {
+                    $('#message_time').html('Ταιριάζει').css('color', 'green');
+                    $('#sub_but').css('display', 'block')
+                }
+                else{
+                    if (start_hours>end_hours) {
+                        $('#message_time').html('Πρέπει η ημερομηνία λήξης να είναι πιο μετά από την ημερομηνία έναρξης.').css('color', 'red');
+                        $('#sub_but').css('display', 'none')
+                    } 
+                    else if(start_hours<end_hours) 
+                    {
+                        $('#message_time').html('Ταιριάζει').css('color', 'green');
+                        $('#sub_but').css('display', 'block')
+                    }
+                    else {
+                        if (start_mins>end_mins) {
+                            $('#message_time').html('Πρέπει η ημερομηνία λήξης να είναι πιο μετά από την ημερομηνία έναρξης.').css('color', 'red');
+                            $('#sub_but').css('display', 'none')
+                        } 
+                        else if(start_mins<end_mins) 
+                        {
+                            $('#message_time').html('Ταιριάζει').css('color', 'green');
+                            $('#sub_but').css('display', 'block')
+                        }
+                    }
+                }
+                
+            }
+        } 
+        });
+    
+</script>
+<script>
+     $('#datetime_start, #datetime_end').on('keyup', function () {
+        console.log($('#datetime_start').val())
+        //console.log($('#datetime_start').val().charAt(0)) 
+        //console.log($('#datetime_start').val().charAt(5)) 
+        var start_year = parseInt($('#datetime_start').val().charAt(0))*1000+parseInt($('#datetime_start').val().charAt(1))*100+parseInt($('#datetime_start').val().charAt(2))*10+parseInt($('#datetime_start').val().charAt(3))
+        var end_year = parseInt($('#datetime_end').val().charAt(0))*1000+parseInt($('#datetime_end').val().charAt(1))*100+parseInt($('#datetime_end').val().charAt(2))*10+parseInt($('#datetime_end').val().charAt(3))
+        var start_month = parseInt($('#datetime_start').val().charAt(5))*10+parseInt($('#datetime_start').val().charAt(6))
+        var end_month = parseInt($('#datetime_end').val().charAt(5))*10+parseInt($('#datetime_end').val().charAt(6))
+        
+        var start_day = parseInt($('#datetime_start').val().charAt(8))*10+parseInt($('#datetime_start').val().charAt(9))
+        var end_day = parseInt($('#datetime_end').val().charAt(8))*10+parseInt($('#datetime_end').val().charAt(9))
+        
+        var start_hours = parseInt($('#datetime_start').val().charAt(11))*10+parseInt($('#datetime_start').val().charAt(12))
+        var end_hours = parseInt($('#datetime_end').val().charAt(11))*10+parseInt($('#datetime_end').val().charAt(12))
+        
+        var start_mins = parseInt($('#datetime_start').val().charAt(14))*10+parseInt($('#datetime_start').val().charAt(15))
+        var end_mins = parseInt($('#datetime_end').val().charAt(14))*10+parseInt($('#datetime_end').val().charAt(15))
+        console.log($('#datetime_start').val())
+        //console.log(end_month) 
+        //if ((start_year<=end_year)&&(start_month<=end_month)&&(start_day<=end_day)&&(start_hours<=end_hours)&&(start_mins<=end_mins)) 
+        if (start_year>end_year) {
+            $('#message_time').html('Πρέπει η ημερομηνία λήξης να είναι πιο μετά από την ημερομηνία έναρξης.').css('color', 'red');
+            $('#sub_but').css('display', 'none')
+        } 
+        else if(start_year<end_year) 
+        {
+            $('#message_time').html('Ταιριάζει').css('color', 'green');
+            $('#sub_but').css('display', 'block')
+        }
+        else{
+            if (start_month>end_month) {
+                $('#message_time').html('Πρέπει η ημερομηνία λήξης να είναι πιο μετά από την ημερομηνία έναρξης.').css('color', 'red');
+                $('#sub_but').css('display', 'none')
+            } 
+            else if(start_month<end_month) 
+            {
+                $('#message_time').html('Ταιριάζει').css('color', 'green');
+                $('#sub_but').css('display', 'block')
+            }
+            else{
+                if (start_day>end_day) {
+                    $('#message_time').html('Πρέπει η ημερομηνία λήξης να είναι πιο μετά από την ημερομηνία έναρξης.').css('color', 'red');
+                    $('#sub_but').css('display', 'none')
+                } 
+                else if(start_day<end_day) 
+                 {
+                    $('#message_time').html('Ταιριάζει').css('color', 'green');
+                    $('#sub_but').css('display', 'block')
+                }
+                else{
+                    if (start_hours>end_hours) {
+                        $('#message_time').html('Πρέπει η ημερομηνία λήξης να είναι πιο μετά από την ημερομηνία έναρξης.').css('color', 'red');
+                        $('#sub_but').css('display', 'none')
+                    } 
+                    else if(start_hours<end_hours) 
+                    {
+                        $('#message_time').html('Ταιριάζει').css('color', 'green');
+                        $('#sub_but').css('display', 'block')
+                    }
+                    else {
+                        if (start_mins>end_mins) {
+                            $('#message_time').html('Πρέπει η ημερομηνία λήξης να είναι πιο μετά από την ημερομηνία έναρξης.').css('color', 'red');
+                            $('#sub_but').css('display', 'none')
+                        } 
+                        else if(start_mins<end_mins) 
+                        {
+                            $('#message_time').html('Ταιριάζει').css('color', 'green');
+                            $('#sub_but').css('display', 'block')
+                        }
+                    }
+                }
+                
+            }
+        } 
+        });
+    
+</script> 
+  </body>
 
 </html>

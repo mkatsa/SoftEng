@@ -75,7 +75,7 @@ function drawChart() {
         <div class="row" align="center">
                 <div class="gallery_product col-lg-12 col-md-12 col-sm-12 col-xs-12 filter {{event.category}}">
                     <a ng-href="./#/singleEvent?id={{event._id}}">
-                    <img src="http://www.femalefirst.co.uk/image-library/partners/rivals/square/500/l/lionel-messi-f012b0-rv.jpg" class="img-responsive" ng-href="event/single_event/?parameter={{event._id}}" >
+                    <img src="{{event.picture}}"  height="360" width="360" ng-href="event/single_event/?parameter={{event._id}}" >
                     <div class="event-title-overlay">
                     	<h2 style="color: blue">{{event.eventname}}</h2>
                     </div>
