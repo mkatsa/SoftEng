@@ -220,15 +220,26 @@ angular.module('myApp').controller('eventsController',
   $(this).addClass("active");
   });
   */
+ userdata = AuthService.getUserData()
+    .then(function(userdata){
+      if (userdata.username == "Default Username" || userdata.location.available == false){
+        $scope.userlocation = null;
+      }
+      else{
+        console.log(userdata.location.available)
+        $scope.userlocation = userdata.location;
+      }
+    })
   
   var markersArray = [];
   $scope.initMap = function() { 
-      $scope.options = {
-        zoom: 12,
-        center: {lat: 37.987823, lng: 23.731857},
-      }
-      
-      map = new google.maps.Map(document.getElementById('map'),$scope.options);
+    $scope.options = {
+      zoom: 12,
+      center: {lat: 37.987823, lng: 23.731857},
+    }
+    
+    map = new google.maps.Map(document.getElementById('map'),$scope.options);
+    if ($scope.userlocation != null){
       infoWindow = new google.maps.InfoWindow;
       var center = $scope.userlocation.geometry.location;
       map.setCenter(center);
@@ -239,6 +250,7 @@ angular.module('myApp').controller('eventsController',
         icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
       });
       infoWindow.open(map, marker);
+    }
   }
 
   createMarker = function(event){
@@ -287,11 +299,6 @@ angular.module('myApp').controller('eventsController',
   $timeout(function() {
     $scope.initMap();
   }, 800);
-
-  userdata = AuthService.getUserData()
-    .then(function(userdata){
-      $scope.userlocation = userdata.location;
-    })
   
   $scope.distances = [];
   $scope.eventsList = [];
@@ -311,17 +318,25 @@ angular.module('myApp').controller('eventsController',
     AuthService.getAllEvents($scope.nameFilter)
     .then(function (response) {
       deleteMarkers();
-      for (var event in response){
-        AuthService.calculateDistance($scope.userlocation, response[event])
-          .then(function(promisedEvent){
-            if (promisedEvent.distance < searchDistance){
-              //console.log('found event with distance: '+ promisedEvent.distance + promisedEvent.eventname)
-              $scope.eventsList.push(promisedEvent);
-            }
-          })
+      if ($scope.userlocation){
+        console.log('userhaslocation')
+        for (var event in response){
+          AuthService.calculateDistance($scope.userlocation, response[event])
+            .then(function(promisedEvent){
+              if (promisedEvent.distance < searchDistance){
+                //console.log('found event with distance: '+ promisedEvent.distance + promisedEvent.eventname)
+                $scope.eventsList.push(promisedEvent);
+              }
+            })
+        }
+        addMarkers();
+        $scope.eventsList = [];
       }
-      addMarkers();
-      $scope.eventsList = [];
+      else{
+        console.log('userhasNOlocation')
+        $scope.eventsList = response;
+        addMarkers();
+      }
       console.log("i am here")
       console.log("getting events")
     }, function (error) {
