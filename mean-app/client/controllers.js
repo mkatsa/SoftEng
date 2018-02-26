@@ -220,6 +220,7 @@ angular.module('myApp').controller('eventsController',
   $(this).addClass("active");
   });
   */
+
  userdata = AuthService.getUserData()
     .then(function(userdata){
       if (userdata.username == "Default Username" || userdata.location.available == false){
@@ -345,6 +346,7 @@ angular.module('myApp').controller('eventsController',
   };
 
   $scope.getAllEventsDelay = function() {
+    $scope.as = AuthService.isLoggedIn();
     AuthService.getAllEvents($scope.nameFilter)
     .then(function (response) {
       deleteMarkers();
