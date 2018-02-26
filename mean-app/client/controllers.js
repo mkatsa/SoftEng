@@ -11,10 +11,6 @@ angular.module('myApp').controller('loginController',
         $location.path(RedirectToUrlAfterLogin.url);
       }
     })
-
-    $scope.reset=function(){
-      AuthService.flagForReset($scope.loginForm.username)
-    }
     
     //Define function login in the scope (to be called from html)
     $scope.login = function () {
@@ -120,8 +116,8 @@ angular.module('myApp').controller('registerController',
         ,$scope.registerForm.email)
         // handle success
         .then(function () {
-      //var Mail = new sendEmail();
-      //Mail.sendEmail({from: "Heapsters Athens <heapsters@hotmail.com>", to: "m.katsaragakis@hotmail.com",subject: "Καλώς Ήρθατε στο FunActivities", text:"poutsa" });
+		  //var Mail = new sendEmail();
+		  //Mail.sendEmail({from: "Heapsters Athens <heapsters@hotmail.com>", to: "m.katsaragakis@hotmail.com",subject: "Καλώς Ήρθατε στο FunActivities", text:"poutsa" });
           $scope.disabled = false;
           $scope.registerForm = {};
           console.log("CHANGING PATH")
@@ -190,9 +186,9 @@ angular.module('myApp').controller('eventsController',
   ['$scope', '$route', '$timeout', 'AuthService', '$routeParams' ,
   function ($scope, $route, $timeout, AuthService, $routeParams) {
 
-
-
- /* $(document).ready(function(){
+    
+/*
+ $(document).ready(function(){
   ['$scope', '$route', 'AuthService',
   function ($scope, $route, AuthService) {
   $(document).ready(function(){
@@ -219,6 +215,7 @@ angular.module('myApp').controller('eventsController',
   }
   $(this).addClass("active");
   });
+}]});
   */
  userdata = AuthService.getUserData()
     .then(function(userdata){
@@ -230,7 +227,7 @@ angular.module('myApp').controller('eventsController',
         $scope.userlocation = userdata.location;
       }
     })
-  
+    
   var markersArray = [];
   $scope.initMap = function() { 
     $scope.options = {
@@ -262,10 +259,16 @@ angular.module('myApp').controller('eventsController',
     });
 
     var contentString = '<div class = "container" id="content">'+
+                          '<div class = "form-inline">'+
+                          '<div class="form-group mb-2">'+
+                          '<img src="http://www.femalefirst.co.uk/image-library/partners/rivals/square/500/l/lionel-messi-f012b0-rv.jpg" height="100">'+
+                          '</div>'+
+                          '<div class="form-group mb-2">'+
                           '<h2 style="color:blue;" id="firstHeading" class="firstHeading">'+event.eventname+'</h2>'+
-                          '<p>'+event.description+'</p>'+
                           '<p>Πάροχος:'+ event.provider +'  ,δείτε περισσότερα <a href = "./#/singleEvent?id='+event._id+'">εδώ!</a>'+
                           '</p>'+
+                          '</div>'+
+                          '</div>'+
                         '</div>';
 
     var infowindow = new google.maps.InfoWindow({
@@ -305,7 +308,7 @@ angular.module('myApp').controller('eventsController',
   
   var slider = document.getElementById("myRange");
   var output = document.getElementById("demo");
-  var searchDistance = 16000;
+  var searchDistance = 51000;
   output.innerHTML = slider.value; // Display the default slider value
   slider.oninput = function() {
     output.innerHTML = this.value;
@@ -313,9 +316,18 @@ angular.module('myApp').controller('eventsController',
     $scope.getAllEvents();
   } 
 
+  $scope.nameFilter = "";
+  var query = "";
+  $scope.addFilter = function (filter){
+    query = filter;
+    console.log('added filter'+ query)
+    //$scope.nameFilter = query;
+    $scope.getAllEvents();
+  }
   $scope.getAllEvents = function (){
     //$scope.eventsList = {};
-    AuthService.getAllEvents($scope.nameFilter)
+    question = query + $scope.nameFilter;
+    AuthService.getAllEvents(question)
     .then(function (response) {
       deleteMarkers();
       if ($scope.userlocation){
@@ -356,7 +368,7 @@ angular.module('myApp').controller('eventsController',
       console.error(error);
     });
   }
-
+  
 }]);
 
 //Controller for add remove or update event
@@ -405,12 +417,12 @@ angular.module('myApp').controller('manipulateEventsController',
 
 
 
-$scope.getPublicProviderDataByUsername = function(a) {      //what to update and the new value.
-  console.log("getPublicProviderDataByUsername Controller")
-  console.log(a)
-  
-  userdata = AuthService.getPublicProviderDataByUsername(a)
-  .then(function(userdata){
+$scope.getPublicProviderDataByUsername = function(a) {			//what to update and the new value.
+	console.log("getPublicProviderDataByUsername Controller")
+	console.log(a)
+	
+	userdata = AuthService.getPublicProviderDataByUsername(a)
+	.then(function(userdata){
     console.log('refresh user data after an update on profileController')
     console.dir(userdata)
     $scope.username = userdata.username;
@@ -420,12 +432,12 @@ $scope.getPublicProviderDataByUsername = function(a) {      //what to update and
     $scope.companyname = userdata.companyname;
     $scope.TaxID = userdata.TaxID;
     $scope.phone = userdata.phone;
-    $scope.description = userdata.description;
+	  $scope.description = userdata.description;
   })
 };
 
 
-  
+	
 $scope.getEventById = function (){
 
   $scope.isProvider = AuthService.isProvider();
@@ -448,7 +460,8 @@ $scope.getEventById = function (){
 
 $scope.getHistory = function(){
   console.log("getting histtory")
-  AuthService.getHistory($routeParams.id)
+  $scope.username = AuthService.getUserName();
+  AuthService.getHistory($scope.username)
   .then(function(response){
     $scope.list = response;
   },function (error){
@@ -458,11 +471,11 @@ $scope.getHistory = function(){
 
 
 $scope.init = function() {
-  console.log("getting single event")
-  AuthService.getSingleEvent($routeParams.id)
-  .then(function (response) {
+ 	console.log("getting single event")
+ 	AuthService.getSingleEvent($routeParams.id)
+ 	.then(function (response) {
      $scope.event = response;
-  $scope.getPublicProviderDataByUsername($scope.event.provider);
+ 	$scope.getPublicProviderDataByUsername($scope.event.provider);
      console.log("i am here")
    }, function (error) {
      console.error(error);
@@ -511,6 +524,7 @@ $scope.buy = function(){
   }else{
     $scope.suf="enough money";
   }*/
+
 }
 
 $scope.changeloc= function(){
@@ -531,7 +545,6 @@ $scope.check = function(){
     alert("DEN EXEI TOSA VRE VRWMIARH");  
     }else{
       AuthService.updateEventandUser(userdata.username,$scope.cost,$scope.notickets,$scope.event.eventname);
-      $location.path('/#/');
     }
   })
   //$scope.test=userdata;
@@ -559,7 +572,7 @@ function ($scope, $route, AuthService,sharedProperties) {
       $scope.companyname = userdata.companyname;
       $scope.TaxID = userdata.TaxID;
       $scope.phone = userdata.phone;
-      $scope.description = userdata.description;
+	    $scope.description = userdata.description;
     }
     else{
       $scope.mobile = userdata.mobile;
@@ -570,19 +583,19 @@ function ($scope, $route, AuthService,sharedProperties) {
 
 
 
-  
-  $scope.updateProvider = function(what, value) {     //what to update and the new value.
-  console.log("updateProvider Controler")
-  console.log(what)
+	
+  $scope.updateProvider = function(what, value) {			//what to update and the new value.
+	console.log("updateProvider Controler")
+	console.log(what)
   console.log(value)
   if (what == "location"){
     value = sharedProperties.getProperty();
   }
-  AuthService.updateProviderData( $scope.username, what, value)   //username is unique so there is no need to find and update by _id
-  //the code below is used to refresh page data in order of an update.same as the above.^
-  
-  userdata = AuthService.getUserData()
-  .then(function(userdata){
+	AuthService.updateProviderData( $scope.username, what, value)		//username is unique so there is no need to find and update by _id
+	//the code below is used to refresh page data in order of an update.same as the above.^
+	
+	userdata = AuthService.getUserData()
+	.then(function(userdata){
     console.log('refresh user data after an update on profileController')
     console.dir(userdata)
     $scope.username = userdata.username;
@@ -594,7 +607,7 @@ function ($scope, $route, AuthService,sharedProperties) {
       $scope.companyname = userdata.companyname;
       $scope.TaxID = userdata.TaxID;
       $scope.phone = userdata.phone;
-    $scope.description = userdata.description;
+	  $scope.description = userdata.description;
     }
     else{
       $scope.mobile = userdata.mobile;
@@ -604,20 +617,20 @@ function ($scope, $route, AuthService,sharedProperties) {
   }
   
   
-  $scope.updateParent = function(what, value) {     //same as the above for parents
-    console.log("updateParent Controller")
-    console.log(what)
+  $scope.updateParent = function(what, value) {			//same as the above for parents
+	  console.log("updateParent Controller")
+	  console.log(what)
     console.log(value)
     if (what == "location"){
       value = sharedProperties.getProperty();
     }
-    AuthService.updateParentData($scope.username, what, value)    //username is unique so there is no need to find and update by _id
+	  AuthService.updateParentData($scope.username, what, value)		//username is unique so there is no need to find and update by _id
     
     
-    //the code below is used to refresh page data in order of an update.same as the above.^
+	  //the code below is used to refresh page data in order of an update.same as the above.^
     
-    userdata = AuthService.getUserData()
-    .then(function(userdata){
+	  userdata = AuthService.getUserData()
+	  .then(function(userdata){
       console.log('refresh user data after an update on profileController')
       console.dir(userdata)
       $scope.username = userdata.username;
@@ -629,7 +642,7 @@ function ($scope, $route, AuthService,sharedProperties) {
         $scope.companyname = userdata.companyname;
         $scope.TaxID = userdata.TaxID;
         $scope.phone = userdata.phone;
-      $scope.description = userdata.description;
+	    $scope.description = userdata.description;
       }
       else{
         $scope.mobile = userdata.mobile;
@@ -980,17 +993,14 @@ angular.module('myApp').controller('adminController',['$scope','$route','AdminSe
 
 
 angular.module('myApp').controller('resetController',
-  ['$scope', '$route','$routeParams','$location' ,'AuthService',
-  function ($scope, $route,$routeParams,$location, AuthService) {
+  ['$scope', '$route','$routeParams' ,'AuthService',
+  function ($scope, $route,$routeParams, AuthService) {
 
     $scope.reset=function(){
       console.log("CTRL:running reset")
       $scope.uID=$routeParams.uID
       $scope.newPass=$scope.resetForm.password
       AuthService.setPassword($scope.uID,$scope.newPass)
-      .then(function(){
-        $location.path('/login')
-      })
     }
     
   }]);
