@@ -12,16 +12,22 @@ var Fuse = require('fuse.js');
 
 //handle user search
 router.get('/findEvents/:qu?',function(req,res){
-   Event.find(function (err, events) {
+
+
+    console.log("Current Date and Time:")
+    var datetime = new Date();
+    console.log(datetime)
+
+   Event.find( { end_time: { $gt: datetime } }, function (err, events) {
       if (err)
         res.send(err);
- 	  
+
+
  	  /*decodeURIComponent(req.params.qu);*/
  	  if (req.params.qu =="undefined" || req.params.qu == null  ) res.json(events);
  	  else
  	  {
  	  	var options = {
-  	caseSensitive: true,
   	shouldSort: true,
   	tokenize: true,
   	matchAllTokens: true,
@@ -46,7 +52,8 @@ router.get('/findEvents/:qu?',function(req,res){
 
 //POST message for event creation, not all necessairy data included yet
 router.post("/createEvent", function(req, res) {  
-    var t = parseInt(req.body.tickets);
+    //var t = parseInt(req.body.tickets);
+    //var t=0;
     console.log(req.body.eventname)
     console.log(req.body.category)
     console.log(req.body.price)
@@ -81,12 +88,25 @@ router.post('/updateTickets', function(req,res){
   var tic = parseInt(req.body.notickets);
   Event.findOne({eventname:req.body.eventname}, function(err,doc){
       doc.tickets = doc.tickets - tic;
+      doc.ticketspur=doc.ticketspur+tic;
+      doc.money= doc.money + parseInt(doc.price)*tic;
       doc.save();
     });
 })
 
 //handle user single event click
 router.get("/singleEvent/:id?", function(req, res) {  
+    Event.findById(req.params.id, function(err, event){
+    if (err){
+      res.send(err);
+    }  
+    event.timesVisited++;
+    event.save();
+    res.json(event);
+  });
+})
+
+router.get("/singleEvents/:id?", function(req, res) {  
     Event.findById(req.params.id, function(err, event){
     if (err)
       res.send(err);

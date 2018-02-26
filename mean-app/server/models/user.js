@@ -15,7 +15,7 @@ var User = new Schema({
   lastname: {type: String, required: true },                  //lastname of parent
   email: {type: mongoose.SchemaTypes.Email, required: true, unique: true },   //unique email address for each parent
   mobile: {type: Number, default: ''},
-  location:{},
+  location:{type: Object, default: {available:false}},
   loc: {                                    //info about location
     Street: {type: String, required: false},
     Num: {type: Number, required: false},
@@ -26,7 +26,8 @@ var User = new Schema({
     index: '2d'           //create the geospatial index
     },
   },              //wallet info about code of wallet and the remaining poi
-  points: { type: Number,default: 0},
+  points: { type: Number, default: 0},
+  pointsSpent: { type: Number, default: 0},
   img: { data: Buffer, contentType: String, default: '' },    //not sure about that...
   events_bought: [{type: String}],
   events_interested: {type: [String]},

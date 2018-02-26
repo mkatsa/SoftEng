@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <div style="width: 100%">
 	<header-nav-directive></header-nav-directive>
 </div>
@@ -15,6 +17,8 @@
       height: 100%;
     }
 </style>
+
+
 <!--https://bootsnipp.com/snippets/featured/portfolio-gallery-with-filtering-category-->
 <div class="container" align="center">
 	<div class="row" align="center">
@@ -25,7 +29,6 @@
                 </div>
             </div>
 			<br/>
-
 
 		
   		
@@ -51,20 +54,47 @@
 			<style>
 				.slidecontainer {
 				width: 400px; /* Width of the outside container */
-			}
+				}
+				/* The slider itself */
+				.slider {
+				    -webkit-appearance: none;  /* Override default CSS styles */
+				    appearance: none;
+				    width: 100%; /* Full-width */
+				    height: 25px; /* Specified height */
+				    background: #d3d3d3; /* Grey background */
+				    outline: none; /* Remove outline */
+				    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+				    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+				    transition: opacity .2s;
+				}
+
+				/* Mouse-over effects */
+				.slider:hover {
+				    opacity: 1; /* Fully shown on mouse-over */
+				}
+
+				/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+				.slider::-webkit-slider-thumb {
+				    -webkit-appearance: none; /* Override default look */
+				    appearance: none;
+				    width: 25px; /* Set a specific slider handle width */
+				    height: 25px; /* Slider handle height */
+				    color: #4CAF50; /* Green background */
+				    cursor: pointer; /* Cursor on hover */
+				}
 			</style>
 			
 
 			<div align="center">
 				<h2>...ή ξεφύλλισε</h2>
-				<button class="btn btn-default filter-button" data-filter="all">Όλα</button>
-				<button class="btn btn-default filter-button" data-filter="sports">Αθλητισμός</button>
-				<button class="btn btn-default filter-button" data-filter="art">Τέχνη</button>
-				<button class="btn btn-default filter-button" data-filter="science">Επιστήμη</button>
-				<button class="btn btn-default filter-button" data-filter="fun">Ψυχαγωγία</button>
+				<button class="btn btn-default filter-button" data-filter="all" ng-click="addFilter('')">Όλα</button>
+				<button class="btn btn-default filter-button" data-filter="sports" ng-click="addFilter('sports')">Αθλητισμός</button>
+				<button class="btn btn-default filter-button" data-filter="art" ng-click="addFilter('art')">Τέχνη</button>
+				<button class="btn btn-default filter-button" data-filter="science" ng-click="addFilter('science')">Επιστήμη</button>
+				<button class="btn btn-default filter-button" data-filter="fun" ng-click="addFilter('fun ')">Ψυχαγωγία</button>
 				<div class="slidecontainer">
-				  <input type="range" min="1" max="50" value="15" step="5" class="slider" id="myRange">
-				  <p>Απόσταση: <span id="demo"></span>  χλμ.</p>
+				  	<input type="range" min="1" max="51" value="51" step="5" class="slider" id="myRange">
+				  	<p>Απόσταση: <span id="demo"></span>  χλμ.</p>
 				</div>
 
                 
@@ -100,3 +130,4 @@
     </div>
 </div>
 </section>
+</html>

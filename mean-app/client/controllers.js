@@ -193,54 +193,37 @@ angular.module('myApp').controller('eventsController',
   function ($scope, $route, $timeout, AuthService, $routeParams) {
 
 
-
- /* $(document).ready(function(){
-  ['$scope', '$route', 'AuthService',
-  function ($scope, $route, AuthService) {
-  $(document).ready(function(){
-      $(".filter-button").click(function(){
-          var value = $(this).attr('data-filter');
-          
-          if(value == "all")
-          {
-              //$('.filter').removeClass('hidden');
-              $('.filter').show('1000');
-          }
-          else
-          {
-  //            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
-  //            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
-              $(".filter").not('.'+value).hide('3000');
-              $('.filter').filter('.'+value).show('3000');
-              
-          }
-      });
-      
-      if ($(".filter-button").removeClass("active")) {
-  $(this).removeClass("active");
-  }
-  $(this).addClass("active");
-  });
-  */
-  
+ userdata = AuthService.getUserData()
+    .then(function(userdata){
+      if (userdata.username == "Default Username" || userdata.location.available == false){
+        $scope.userlocation = null;
+      }
+      else{
+        console.log(userdata.location.available)
+        $scope.userlocation = userdata.location;
+      }
+    })
+    
   var markersArray = [];
   $scope.initMap = function() { 
     $scope.options = {
       zoom: 12,
       center: {lat: 37.987823, lng: 23.731857},
     }
-
+    
     map = new google.maps.Map(document.getElementById('map'),$scope.options);
-    infoWindow = new google.maps.InfoWindow;
-    var center = $scope.userlocation.geometry.location;
-    map.setCenter(center);
-    infoWindow.setContent($scope.userlocation.formatted_address);
-    var marker = new google.maps.Marker({
-      position: center,
-      map: map,
-      icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
-    });
-    infoWindow.open(map, marker);
+    if ($scope.userlocation != null){
+      infoWindow = new google.maps.InfoWindow;
+      var center = $scope.userlocation.geometry.location;
+      map.setCenter(center);
+      infoWindow.setContent($scope.userlocation.formatted_address);
+      var marker = new google.maps.Marker({
+        position: center,
+        map: map,
+        icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+      });
+      infoWindow.open(map, marker);
+    }
   }
 
   createMarker = function(event){
@@ -252,11 +235,17 @@ angular.module('myApp').controller('eventsController',
     });
 
     var contentString = '<div class = "container" id="content">'+
-    '<h2 style="color:blue;" id="firstHeading" class="firstHeading">'+event.eventname+'</h2>'+
-    '<p>'+event.description+'</p>'+
-    '<p>Πάροχος:'+ event.provider +'  ,δείτε περισσότερα <a href = "./#/singleEvent?id='+event._id+'">εδώ!</a>'+
-    '</p>'+
-    '</div>';
+                          '<div class = "form-inline">'+
+                          '<div class="form-group mb-2">'+
+                          '<img src="http://www.femalefirst.co.uk/image-library/partners/rivals/square/500/l/lionel-messi-f012b0-rv.jpg" height="100">'+
+                          '</div>'+
+                          '<div class="form-group mb-2">'+
+                          '<h2 style="color:blue;" id="firstHeading" class="firstHeading">'+event.eventname+'</h2>'+
+                          '<p>Πάροχος:'+ event.provider +'  ,δείτε περισσότερα <a href = "./#/singleEvent?id='+event._id+'">εδώ!</a>'+
+                          '</p>'+
+                          '</div>'+
+                          '</div>'+
+                        '</div>';
 
     var infowindow = new google.maps.InfoWindow({
       content: contentString,
@@ -300,6 +289,7 @@ angular.module('myApp').controller('eventsController',
   
   var slider = document.getElementById("myRange");
   var output = document.getElementById("demo");
+  var searchDistance = 51000;
   output.innerHTML = slider.value; // Display the default slider value
   slider.oninput = function() {
     output.innerHTML = this.value;
@@ -307,22 +297,39 @@ angular.module('myApp').controller('eventsController',
     $scope.getAllEvents();
   } 
 
+  $scope.nameFilter = "";
+  var query = "";
+  $scope.addFilter = function (filter){
+    query = filter;
+    console.log('added filter'+ query)
+    //$scope.nameFilter = query;
+    $scope.getAllEvents();
+  }
   $scope.getAllEvents = function (){
     //$scope.eventsList = {};
-    AuthService.getAllEvents($scope.nameFilter)
+    question = query + $scope.nameFilter;
+    AuthService.getAllEvents(question)
     .then(function (response) {
       deleteMarkers();
-      for (var event in response){
-        AuthService.calculateDistance($scope.userlocation, response[event])
-        .then(function(promisedEvent){
-          if (promisedEvent.distance < searchDistance){
-              //console.log('found event with distance: '+ promisedEvent.distance + promisedEvent.eventname)
-              $scope.eventsList.push(promisedEvent);
-            }
-          })
+      if ($scope.userlocation){
+        console.log('userhaslocation')
+        for (var event in response){
+          AuthService.calculateDistance($scope.userlocation, response[event])
+            .then(function(promisedEvent){
+              if (promisedEvent.distance < searchDistance){
+                //console.log('found event with distance: '+ promisedEvent.distance + promisedEvent.eventname)
+                $scope.eventsList.push(promisedEvent);
+              }
+            })
+        }
+        addMarkers();
+        $scope.eventsList = [];
       }
-      addMarkers();
-      $scope.eventsList = [];
+      else{
+        console.log('userhasNOlocation')
+        $scope.eventsList = response;
+        addMarkers();
+      }
       console.log("i am here")
       console.log("getting events")
     }, function (error) {
@@ -342,7 +349,7 @@ angular.module('myApp').controller('eventsController',
       console.error(error);
     });
   }
-
+  
 }]);
 
 //Controller for add remove or update event
@@ -441,11 +448,48 @@ $scope.getEventById = function (){
 };
 
 $scope.getHistory = function(){
-  console.log("getting histtory")
-  $scope.username = AuthService.getUserName();
-  AuthService.getHistory($scope.username)
+  console.log("getting history")
+  AuthService.getHistory($routeParams.id)
   .then(function(response){
     $scope.list = response;
+    $scope.ticSport=0;;
+    $scope.ticArt=0;
+    $scope.ticScience=0;
+    $scope.ticEnt=0;
+    $scope.list.forEach(function(ev){
+      //console.log(ev.category)
+      //var dateTime = require('node-datetime');
+      var dt = new Date();
+      //var formatted = dt.getDate();
+      //console.log(dt.getDate())
+      //console.log(dt.getMonth())
+      var year = parseInt(ev.start_time.charAt(0))*1000 + parseInt(ev.start_time.charAt(1))*100 + parseInt(ev.start_time.charAt(2))*10 + parseInt(ev.start_time.charAt(3));
+      var month = parseInt(parseInt(ev.start_time.charAt(5))*10 + parseInt(ev.start_time.charAt(6)));
+      //console.log(year)
+      //console.log(month)
+      if(dt.getFullYear()==year && dt.getMonth()+1==month){
+        console.log("douleuei")
+        console.log(ev.category)
+        if(ev.category==="sports"){
+          console.log("sport")
+          console.log(ev.ticketspur)
+          $scope.ticSport= $scope.ticSport + ev.ticketspur;
+        }else if(ev.category==="science"){
+          $scope.ticScience= $scope.ticScience + ev.ticketspur;
+        }else if(ev.category==="art"){
+          //console.log(ev.category)
+          $scope.ticArt= $scope.ticArt + ev.ticketspur;
+        }else{
+          $scope.ticEnt= $scope.ticEnt + ev.ticketspur;
+        }
+      }
+
+    })
+
+    //console.log(ticSport)
+    //console.log(ticArt)
+    //console.log(ticScience)
+    //console.log(ticEnt)
   },function (error){
     console.error(error);
   })
@@ -522,9 +566,10 @@ $scope.check = function(){
   .then(function(userdata){
     //console.dir(userdata)
     if($scope.cost>userdata.points){
-      alert("VALE LEFTA GAMW THN PANAGIA SOU");
+
+    alert("Οι ποντοι σας δεν επαρκουν");
     }else if($scope.event.tickets<$scope.notickets){
-      alert("DEN EXEI TOSA VRE VRWMIARH");  
+    alert("Δεν υπαρχουν διαθεσιμα εισιτηρια");
     }else{
       AuthService.updateEventandUser(userdata.username,$scope.cost,$scope.notickets,$scope.event.eventname);
     }
