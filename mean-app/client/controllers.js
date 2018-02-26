@@ -539,9 +539,9 @@ $scope.check = function(){
   .then(function(userdata){
     //console.dir(userdata)
     if($scope.cost>userdata.points){
-    alert("VALE LEFTA GAMW THN PANAGIA SOU");
+    alert("Οι ποντοι σας δεν επαρκουν");
     }else if($scope.event.tickets<$scope.notickets){
-    alert("DEN EXEI TOSA VRE VRWMIARH");  
+    alert("Δεν υπαρχουν διαθεσιμα εισιτηρια");  
     }else{
       AuthService.updateEventandUser(userdata.username,$scope.cost,$scope.notickets,$scope.event.eventname);
     }

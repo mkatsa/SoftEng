@@ -28,7 +28,6 @@ router.get('/findEvents/:qu?',function(req,res){
  	  else
  	  {
  	  	var options = {
-  	caseSensitive: true,
   	shouldSort: true,
   	tokenize: true,
   	matchAllTokens: true,
