@@ -39,5 +39,5 @@ var Event = new Schema({
 
 });
 
-Event.plugin(passportLocalMongoose);
+//Event.plugin(passportLocalMongoose);
 module.exports = mongoose.model('event', Event);

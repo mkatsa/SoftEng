@@ -247,8 +247,8 @@ function refreshUserLocation(){
         if(data.status){
           //console.log('SERVICE: Success if')
           user = true;
-		  if( data.isProvider === true )
-			  provider = true;
+      if( data.isProvider === true )
+        provider = true;
           deferred.resolve();
 
         } else {
@@ -404,19 +404,19 @@ function getSingleEvent(id) {
 //username is the username of the provider we want to update
 //what is the field we want to cheng and the value has the new value to be put in mongo
 function updateProviderData(username, what, value) {
-	console.log( "I am on updateProviderData service")
-	console.log(username)
-	console.log(what)
-	console.log(value)
-	var deferred = $q.defer(),
-	httpPromise = $http.put('/provider/update_provider',
+  console.log( "I am on updateProviderData service")
+  console.log(username)
+  console.log(what)
+  console.log(value)
+  var deferred = $q.defer(),
+  httpPromise = $http.put('/provider/update_provider',
         {username: username,what: what, value: value})
       // handle success
       .success(function () {
           deferred.resolve();
-	  })
+    })
         
-	  return deferred.promise;
+    return deferred.promise;
 }
 
 
@@ -424,18 +424,18 @@ function updateProviderData(username, what, value) {
 //username is the username of the provider we want to update
 //what is the field we want to cheng and the value has the new value to be put in mongo
 function updateParentData(username, what, value) {
-	console.log( "I am on updateParentData service")
-	console.log(username)
-	console.log(what)
-	console.log(value)
-	var deferred = $q.defer(),
-	httpPromise = $http.put('/user/update_parent',
+  console.log( "I am on updateParentData service")
+  console.log(username)
+  console.log(what)
+  console.log(value)
+  var deferred = $q.defer(),
+  httpPromise = $http.put('/user/update_parent',
         {username: username,what: what, value: value})
       // handle success
       .success(function () {
           deferred.resolve();
-	  })
-	  return deferred.promise;
+    })
+    return deferred.promise;
 }
 
 
@@ -461,8 +461,8 @@ function updateEventandUser(username,cost,notickets,eventname){
 
 
 function getPublicProviderDataByUsername(uname){
-	console.log('Public Provider Data Service')
-	console.log(uname)
+  console.log('Public Provider Data Service')
+  console.log(uname)
     var deferred = $q.defer();
     req=$http.get('/provider/get_all_by_username/'+uname)
     
