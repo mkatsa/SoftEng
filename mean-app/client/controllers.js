@@ -558,6 +558,8 @@ $scope.initMap = function() {
     marker.addListener('click', function() {
       infowindow.open(map, marker);
     });
+
+    
   }, 700);
 }
 
@@ -904,6 +906,7 @@ angular.module('myApp').controller('locationController',
           markersArray[i].setMap(null);
         }
         markersArray = [];
+
       }
       
       $scope.saveLocation = function() {
