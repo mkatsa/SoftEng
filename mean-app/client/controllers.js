@@ -436,7 +436,7 @@ $scope.getEventById = function (){
   $scope.isLoggedIn = AuthService.isLoggedIn();
 
 
-  console.log("GAMW TI PANAGIA")
+  console.log("I am on getEventById")
   console.log("getting single event")
   AuthService.getSingleEvent($routeParams.id)
   .then(function (response) {
@@ -922,8 +922,8 @@ angular.module('myApp').controller('locationController',
     }]);
 
 angular.module('myApp').controller('transferController',
-  ['$scope', 'TransferService',
-  function ($scope, TransferService) {
+  ['$scope', 'TransferService', '$location',
+  function ($scope, TransferService, $location) {
   //$scope.amount="12";
   //console.log("pousth")
   //$scope.disabled = false;
@@ -935,6 +935,7 @@ angular.module('myApp').controller('transferController',
     $scope.cardId="";
     $scope.cardHolder="";
     $scope.CCV="";
+    $location.path('/');
   }
 }
 ]);

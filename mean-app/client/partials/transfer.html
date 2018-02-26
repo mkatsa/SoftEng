@@ -2,7 +2,7 @@
   <header-nav-directive></header-nav-directive>
 </div>
 <div>
-<h1 style="text-align: center; color: chocolate">Μεταφορά χρημάτων στο πορτοφόλι {{username}}</h1>
+<h1 style="text-align: center; color: black">Μεταφορά χρημάτων στο πορτοφόλι {{username}}</h1>
 </div>
 <br>
 <br>
@@ -19,19 +19,19 @@
         <form class="form" name="forma" ng-submit="transfer()" style="margin-bottom: 35%;">
           <div class="form-group">
             <label style="color: aqua">Ποσό</label>
-            <input type="number" class="form-control"  ng-model="amount"  required>
+            <input type="number" class="form-control"  placeholder="money" ng-model="amount" min="0" required>
           </div>
           <div class="form-group">
             <label style="color: aqua">Αριθμός κάρτας</label>
-            <input type="text" class="form-control"  ng-model="cardId" maxlength="16" pattern="\d{16}" required>
+            <input type="text" class="form-control"  ng-model="cardId" placeholder="xxxxxxxxxxxxxxxx" maxlength="16" pattern="\d{16}" required>
           </div>
           <div class="form-group">
             <label style="color: aqua">Κάτοχος κάρτας</label>
-            <input type="text" class="form-control"  ng-model="cardHolder"  required>
+            <input type="text" class="form-control"  placeholder="owner" ng-model="cardHolder"  required>
           </div>  
           <div class="form-group">
             <label style="color: aqua">CVV</label>
-            <input type="text" class="form-control" name="cardHolder" ng-model="CCV" maxlength="3" pattern="\d{3}" required>
+            <input type="text" class="form-control" name="cardHolder" placeholder="CVV" ng-model="CCV" maxlength="3" pattern="\d{3}" required>
           </div>
              
           
