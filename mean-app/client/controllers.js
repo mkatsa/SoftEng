@@ -475,6 +475,7 @@ $scope.getHistory = function(){
     $scope.ticScience=0;
     $scope.ticEnt=0;
     $scope.list.forEach(function(ev){
+      //console.log(ev.category)
       //var dateTime = require('node-datetime');
       var dt = new Date();
       //var formatted = dt.getDate();
@@ -486,11 +487,15 @@ $scope.getHistory = function(){
       //console.log(month)
       if(dt.getFullYear()==year && dt.getMonth()+1==month){
         console.log("douleuei")
+        console.log(ev.category)
         if(ev.category==="sports"){
+          console.log("sport")
+          console.log(ev.ticketspur)
           $scope.ticSport= $scope.ticSport + ev.ticketspur;
         }else if(ev.category==="science"){
           $scope.ticScience= $scope.ticScience + ev.ticketspur;
         }else if(ev.category==="art"){
+          //console.log(ev.category)
           $scope.ticArt= $scope.ticArt + ev.ticketspur;
         }else{
           $scope.ticEnt= $scope.ticEnt + ev.ticketspur;
