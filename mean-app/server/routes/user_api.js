@@ -300,8 +300,9 @@ router.get('/get_all',function(req,res){
     email: req.user.email,
     mobile: req.user.mobile,
     points: req.user.points,
-    pointsSpent: req.user.pointsSpent,
-    location: req.user.location
+    location: req.user.location,
+    picture:" ",
+    pointsSpent: req.user.pointsSpent
     });
   }
   //If not, return this for debugging (this should never be returned)
@@ -311,7 +312,8 @@ router.get('/get_all',function(req,res){
   firstname:"Default Firstname",
   lastname:"Default Lastname",
   email:"Default Email",
-  mobile:"Default mobile"
+  mobile:"Default mobile",
+  picture:" "
   });
   }
 });
