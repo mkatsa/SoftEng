@@ -24,7 +24,7 @@ angular.module('myApp').controller('loginController',
       AuthService.login($scope.loginForm.username, $scope.loginForm.password)
         // handle success, redirect to homepage
         .then(function () {
-          $location.path(RedirectToUrlAfterLogin.url);
+          $location.path('/');
           $scope.disabled = false;
           $scope.loginForm = {};
         })
