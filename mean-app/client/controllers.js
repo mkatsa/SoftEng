@@ -11,6 +11,10 @@ angular.module('myApp').controller('loginController',
         $location.path(RedirectToUrlAfterLogin.url);
       }
     })
+
+    $scope.reset=function(){
+      AuthService.flagForReset($scope.loginForm.username)
+    }
     
     //Define function login in the scope (to be called from html)
     $scope.login = function () {
@@ -492,7 +496,6 @@ $scope.buy = function(){
   }else{
     $scope.suf="enough money";
   }*/
-
 }
 
 $scope.changeloc= function(){
@@ -513,6 +516,7 @@ $scope.check = function(){
     alert("DEN EXEI TOSA VRE VRWMIARH");  
     }else{
       AuthService.updateEventandUser(userdata.username,$scope.cost,$scope.notickets,$scope.event.eventname);
+      $location.path('/#/');
     }
   })
   //$scope.test=userdata;
@@ -961,14 +965,17 @@ angular.module('myApp').controller('adminController',['$scope','$route','AdminSe
 
 
 angular.module('myApp').controller('resetController',
-  ['$scope', '$route','$routeParams' ,'AuthService',
-  function ($scope, $route,$routeParams, AuthService) {
+  ['$scope', '$route','$routeParams','$location' ,'AuthService',
+  function ($scope, $route,$routeParams,$location, AuthService) {
 
     $scope.reset=function(){
       console.log("CTRL:running reset")
       $scope.uID=$routeParams.uID
       $scope.newPass=$scope.resetForm.password
       AuthService.setPassword($scope.uID,$scope.newPass)
+      .then(function(){
+        $location.path('/login')
+      })
     }
     
   }]);

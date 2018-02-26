@@ -25,7 +25,7 @@ function createTicket(eventName, userName, ticketName, notickets){
 	var doc = new PDFDocument;
 	doc.pipe(fs.createWriteStream(ticketName));
 	
-	var txt = "Event:    "+eventName+"\nOwner:    "+userName+"\nNumber of persons: "+notickets+"\nIn order to enter the event you need to show this ticket or a photocopy of it in the entrance of the event.\nYou need to scan the barcode below in order to enter the event"
+	var txt = "This is your electronic ticket\nIn order to enter the event you need to show this ticket or a photocopy of it in the entrance of the event.\nThis is a "+notickets+" person ticket.You need to scan the barcode below in order to enter the event"
 	// Set a title and pass the X and Y coordinates
 	doc.fontSize(15).text('Electronic Ticket', 50, 50);
 	// Set the paragraph width and align direction
@@ -73,6 +73,27 @@ function sendEmail(receiver) {
 			console.log('Registration mail sent: ' + info.response);
 		}
 	});	
+}
+
+
+//about autoemail on registration
+function sendResetPassEmail(receiver) {
+  console.log("Sending registration mail")
+  var mailOptions = {
+    from: "Heapsters Athens <heapsters@hotmail.com>",
+    to: receiver.email,
+    subject: "Αίτημα reset password",
+    html: 'Ακολουθήστε το σύνδεσμο για να θέσετε νέο κωδικό https://localhost:3000/#/reset/'+receiver._id
+    //add attachments too in the end
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Registration mail sent: ' + info.response);
+    }
+  }); 
 }
 
 
@@ -126,6 +147,16 @@ router.post('/register', function(req, res) {
     });
   });
 });
+
+router.post('/reset_pass',function(req,res){
+  User.findOne({'username':req.body.username},function(err,data){
+    if (data){
+      data.reset_password="TRUE";
+      data.save();
+      sendResetPassEmail(data);
+    }
+  })
+})
 
 router.post('/set_pass',function(req,res){
 
