@@ -32,6 +32,9 @@ var Event = new Schema({
 	minage: {type: String, default: '0'},
 	maxage: {type: String, default: '18'},
 	tickets: {type: Number, required: true},
+	ticketspur: {type: Number, default: '0'},
+	money: {type:Number,default: '0'},
+	timesVisited: {type: Number, default: '0'},
 	//users_interested: {type:[String]},
   	//users_bought: {type:[String]},
   	//users_seen: {type:[String]}

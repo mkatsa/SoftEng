@@ -99,7 +99,7 @@ myApp.config(function ($routeProvider) {
       templateUrl:'partials/providerhistory.html',
       controller:"manipulateEventsController",
       access:{restricted:false, admin:false}
-    })   
+    })  
     .otherwise({
       redirectTo: '/',
       access:{restricted:false, admin:false}

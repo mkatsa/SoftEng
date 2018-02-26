@@ -240,6 +240,7 @@ router.get('/get_all',function(req,res){
     email: req.user.email,
     mobile: req.user.mobile,
     points: req.user.points,
+    pointsSpent: req.user.pointsSpent,
     location: req.user.location
     });
   }
@@ -263,6 +264,7 @@ router.post('/eventbought', function(req,res){
   console.log(req.body.eventname)
   User.findOne({username:req.user.username}, function(err,doc){
       doc.points = doc.points - req.body.cost;
+      doc.pointsSpent= doc.pointsSpent + req.body.cost;
       //doc.eventbought[0] = req.body.eventname;
       //doc.events_bought.push(req.body.eventname);
       doc.save();

@@ -381,6 +381,19 @@ function getSingleEvent(id) {
   return deferred.promise;
 }
 
+function getSingleEvents(id) {
+  var deferred = $q.defer(),
+  httpPromise = $http.get('event/singleEvents/'+id);
+
+  httpPromise.success(function (response) {
+    deferred.resolve(response);
+  })
+  .error(function (error) {
+    console.error(error);
+  }); 
+  return deferred.promise;
+}
+
 
 
 //this service is about updating a provider's data
@@ -510,6 +523,7 @@ function getPublicProviderDataByUsername(uname){
   updateProviderData: updateProviderData,
   updateParentData: updateParentData,
   getSingleEvent: getSingleEvent,
+  getSingleEvents: getSingleEvents,
   getPublicProviderDataByUsername: getPublicProviderDataByUsername,
   updateEventandUser:updateEventandUser,
   getHistory:getHistory
