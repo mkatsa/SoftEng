@@ -240,7 +240,7 @@ angular.module('myApp').controller('eventsController',
     var contentString = '<div class = "container" id="content">'+
                           '<div class = "form-inline">'+
                           '<div class="form-group mb-2">'+
-                          '<img src="http://www.femalefirst.co.uk/image-library/partners/rivals/square/500/l/lionel-messi-f012b0-rv.jpg" height="100">'+
+                          '<img src="'+event.picture+'" height="100">'+
                           '</div>'+
                           '<div class="form-group mb-2">'+
                           '<h2 style="color:blue;" id="firstHeading" class="firstHeading">'+event.eventname+'</h2>'+
@@ -875,10 +875,13 @@ angular.module('myApp').controller('locationController',
           });
       };
 
+      var markersArray = [];
+
       function showPosition() {
         sharedProperties.setProperty($scope.options.extendedLocation);
         var center = $scope.options.extendedLocation.geometry.location;
         map.setCenter(center);
+        deleteMarkers();
         var marker = new google.maps.Marker({
           map: map,
           position: center
@@ -888,14 +891,20 @@ angular.module('myApp').controller('locationController',
 
         var infowindow = new google.maps.InfoWindow({
           content: contentString,
-          //maxWidth: 400                           //we need to see what an infowindow will include
         });
 
         marker.addListener('click', function() {
           infowindow.open(map, marker);
         });
-
+        markersArray.push(marker);
       };
+
+      deleteMarkers = function() {
+        for (var i = 0; i < markersArray.length; i++) {
+          markersArray[i].setMap(null);
+        }
+        markersArray = [];
+      }
       
       $scope.saveLocation = function() {
         //map.setCenter({lat: 12.32, lng:12.33});
