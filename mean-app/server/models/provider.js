@@ -20,7 +20,7 @@ var Provider = new Schema({
   usertype:{type:String,required:true},                						//Constant = "provider". 
   description:{type:String, default:'default description'},
   img: { data: Buffer, contentType: String, default: '' },    //not sure about that...
-  location: {}
+  location:{type: Object, default: {available:false}}
 });
 
 

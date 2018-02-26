@@ -15,7 +15,7 @@ var User = new Schema({
   lastname: {type: String, required: true },                  //lastname of parent
   email: {type: mongoose.SchemaTypes.Email, required: true, unique: true },   //unique email address for each parent
   mobile: {type: Number, default: ''},
-  location:{},
+  location:{type: Object, default: {available:false}},
   loc: {                                    //info about location
     Street: {type: String, required: false},
     Num: {type: Number, required: false},
