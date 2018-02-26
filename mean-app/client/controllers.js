@@ -24,7 +24,7 @@ angular.module('myApp').controller('loginController',
       AuthService.login($scope.loginForm.username, $scope.loginForm.password)
         // handle success, redirect to homepage
         .then(function () {
-          $location.path(RedirectToUrlAfterLogin.url);
+          $location.path('/');
           $scope.disabled = false;
           $scope.loginForm = {};
         })
@@ -54,8 +54,8 @@ angular.module('myApp').controller('homeController',
 
 //Controller paired with home page
 angular.module('myApp').controller('headerController',
-  ['$scope', '$route', 'AuthService',
-  function ($scope, $route, AuthService) {
+  ['$scope', '$route', 'AuthService', '$location',
+  function ($scope, $route, AuthService, $location) {
 
     userdata = AuthService.getUserData()
     .then(function(userdata){
@@ -94,12 +94,12 @@ angular.module('myApp').controller('headerController',
       // call logout from service and then reload the page
       AuthService.logout()
       .then(function () {
-          if($route.current.userLocation === '/#/')     //oti pio bakalistiko exw kanei sti zwi moy #NWLIS
+          if($route.current.userLocation === '/')     //oti pio bakalistiko exw kanei sti zwi moy #NWLIS
               $route.reload();
-          else
-            $location.path('/');
-
-          $route.reload()
+          else{
+              $location.path('/');
+          }
+          $route.reload();
         });
     };
 
@@ -594,7 +594,7 @@ $scope.check = function(){
     alert("Δεν υπαρχουν διαθεσιμα εισιτηρια");
     }else{
       AuthService.updateEventandUser(userdata.username,$scope.cost,$scope.notickets,$scope.event.eventname);
-      $route.reload();
+      $location.path('/');
     }
   })
   //$scope.test=userdata;
