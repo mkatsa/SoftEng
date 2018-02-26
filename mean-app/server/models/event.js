@@ -23,7 +23,7 @@ var Event = new Schema({
 	location: {},
 	category: {type: String, required: true},
 	price: {type: String, required: true, /*min: 0*/},			//we should see how we will store the prices
-	img: {data: Buffer, contentType: String, default: ''},		//not sure about that...
+	picture: {type: String, required: true},		//not sure about that...
 	description: { type: String, default:''},			//we ask for a short description of the event
 	//users_interested: {type:[String]},
 	//date: {type: String, default: Date.now},
@@ -39,5 +39,5 @@ var Event = new Schema({
 
 });
 
-Event.plugin(passportLocalMongoose);
+//Event.plugin(passportLocalMongoose);
 module.exports = mongoose.model('event', Event);

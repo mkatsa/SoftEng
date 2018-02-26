@@ -268,6 +268,7 @@ router.get('/get_all',function(req,res){
     mobile: req.user.mobile,
     points: req.user.points,
     location: req.user.location,
+    picture:" "
     });
   }
   //If not, return this for debugging (this should never be returned)
@@ -277,7 +278,8 @@ router.get('/get_all',function(req,res){
   firstname:"Default Firstname",
   lastname:"Default Lastname",
   email:"Default Email",
-  mobile:"Default mobile"
+  mobile:"Default mobile",
+  picture:" "
   });
   }
 });

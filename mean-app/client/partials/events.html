@@ -82,7 +82,7 @@
 			<div ng-repeat="event in eventsList" align="center">
                 <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter {{event.category}}">
                     <a ng-href="./#/singleEvent?id={{event._id}}">
-                    <img src="http://www.femalefirst.co.uk/image-library/partners/rivals/square/500/l/lionel-messi-f012b0-rv.jpg" class="img-responsive" ng-href="event/single_event/?parameter={{event._id}}" >
+                    <img src="{{event.picture}}"  ng-href="event/single_event/?parameter={{event._id}}" height="360" width="360" >
                     <div class="event-title-overlay">
                     	<h2 style="color: blue">{{event.eventname}}</h2>
                     </div>

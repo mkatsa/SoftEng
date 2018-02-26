@@ -38,8 +38,10 @@
 
 	      	<div ng-if=isLoggedIn>
 	      	<ul class="nav navbar-nav navbar-right">
-	      	
-	      	 <li> MY avatar</li>	
+	      	 
+	      	 <li ng-if="isLoggedIn && isProvider"><img src={{picture}} height="50" width="70"></li>
+	      	 <li ng-if="isLoggedIn && !isProvider"><img src="../assets/default.jpg" height="50" width="70"></li>
+	
 	      	 <li>
 	      		<!--div style="color:#FFFFFF"> Καλώς ήρθατε </div-->
 	      		<!--li><a href="./#/logout">Aποσύνδεση <i class="fa fa-user"></i></a></li-->

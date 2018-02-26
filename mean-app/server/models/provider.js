@@ -19,7 +19,7 @@ var Provider = new Schema({
   events:{type: [String]}, 														//contains the id of each event
   usertype:{type:String,required:true},                						//Constant = "provider". 
   description:{type:String, default:'default description'},
-  img: { data: Buffer, contentType: String, default: '' },    //not sure about that...
+  picture: {type: String},    //not sure about that...
   location: {}
 });
 

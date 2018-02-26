@@ -13,7 +13,7 @@
 
 <style>
     /* Always set the map height explicitly to define the size of the div
-     * element that contains the map. */
+    * element that contains the map. */
     #map {
       height: 400px;
       width: 100%;
@@ -22,25 +22,32 @@
     html, body {
       height: 100%;
     }
-</style>
+  </style>
 
-<body style="width: 100%">
+  <body style="width: 100%">
 
-<div style="width: 100%">
-	<header-nav-directive></header-nav-directive>
-</div>
+    <div style="width: 100%">
+     <header-nav-directive></header-nav-directive>
+   </div>
 
 
-<div class="container-fluid bg">
-  
-  <div class="row" >
+   <div class="container-fluid bg">
 
-    <div class="col-md-4 col-sm-4 col-xs-12"></div>
-    <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="row" >
+
+      <div class="col-md-4 col-sm-4 col-xs-12"></div>
+      <div class="col-md-4 col-sm-4 col-xs-12">
 
         <h1 style="color: black">Δημιουργία Δραστηριότητας</h1>
         <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
         <form class="form" ng-submit="createEvent()" style="margin-bottom: 35%;">
+
+          <div class="form-group">
+           <label><h3 style="color: black"><b>Φωτογραφία Δραστηριότητας:*</h3></b></label>
+            <div class="text-center">
+              <input filepicker type="filepicker" data-fp-services="computer" on-success="onSuccess(event.fpfile)" data-fp-button-class="btn btn-success" />
+          </div>
+
           <div class="form-group">
             <label><h3 style="color: black"><b>Όνομα Δραστηριότητας:*</h3></b></label>
             <input type="text" class="form-control" name="eventname" ng-model="eventForm.eventname" placeholder="π.χ Ποδόσφαιρο" required>
@@ -54,18 +61,18 @@
             <h3 style="color: black"><b>Κατηγορία Δραστηριότητας:*</h3></b>
             <br>  
             <label class="radio-inline" style="font-size: 20px; color: green">    
-                <input type="radio"  name="category" value="sports" ng-model="eventForm.category"> Αθλήματα
+              <input type="radio"  name="category" value="sports" ng-model="eventForm.category"> Αθλήματα
             </label>
             <label class="radio-inline" style="font-size: 20px; color: red">     
-                <input type="radio"  name="category" value="art" ng-model="eventForm.category"> Τέχνη
+              <input type="radio"  name="category" value="art" ng-model="eventForm.category"> Τέχνη
             </label>
             <label class="radio-inline" style="font-size: 20px; color: blue">     
-                <input type="radio"  name="category" value="science" ng-model="eventForm.category"> Επιστήμη
+              <input type="radio"  name="category" value="science" ng-model="eventForm.category"> Επιστήμη
             </label>
             <label class="radio-inline" style="font-size: 20px; color: gold"> 
-                <input type="radio"  name="category" value="fun" ng-model="eventForm.category"> Ψυχαγωγία
+              <input type="radio"  name="category" value="fun" ng-model="eventForm.category"> Ψυχαγωγία
             </label>
-                  
+
           </div>
 
           <div class="form-group">
@@ -80,7 +87,7 @@
             <label><h3 style="color: black"><b>Ημερομηνία και ώρα έναρξης δραστηριότητας:*</h3></b></label>
             <input id="datetime" type="datetime-local" name="start_time" ng-model="eventForm.start_time" style="width: 470px;" required>
           </div>
-            <div class="form-group">
+          <div class="form-group">
             <label><h3 style="color: black"><b>Ημερομηνία και ώρα λήξης δραστηριότητας:*</h3></b></label>
             <input id="datetime" type="datetime-local" name="end_time" ng-model="eventForm.end_time" style="width: 470px;" required>
           </div>
@@ -90,42 +97,42 @@
           </div>
           <div class="form-group">
             <label><h3 style="color: black"><b>Σύντομη περιγραφή δραστηριότητας:*</h3></b></label>
-              <textarea rows="4" class="form-control" name="description" ng-model="eventForm.description" required></textarea>  
+            <textarea rows="4" class="form-control" name="description" ng-model="eventForm.description" required></textarea>  
           </div>
           <div class="row">
 
-          <div class="col-md-4 col-sm-4 col-xs-12"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
 
-          <h3 style="color: black"><b>Τοποθεσία του event:*</h3></b>
-          <div ng-controller="locationController" class = "text-right">
+            <h3 style="color: black"><b>Τοποθεσία του event:*</h3></b>
+            <div ng-controller="locationController" class = "text-right">
               <div class = "input-append text-right">
                 <input type = "text" ng-model = "address" required/>
                 <button class = "btn" type = "button" ng-click="findLocation()" ng-disabled="search.length == 0" tittle = "address" >
-                    &nbsp;<i class="icon-search"></i>Search Location
+                  &nbsp;<i class="icon-search"></i>Search Location
                 </button>
                 <button class = "btn" type = "button" ng-click="captureUserLocation()" ng-disabled="search.length == 0" tittle = "current location" >
-                    &nbsp;<i class="icon-search"></i>My Location
+                  &nbsp;<i class="icon-search"></i>My Location
                 </button>
               </div>
-          </div>
-          
-          <div id="map" align = "center"> </div>
+            </div>
 
-          <br/>
-          <div class="form-group"><label><h3 style="color: black"><b>Τα πεδία με (*) είναι απαραίτητα</h3></b></label></div>
-          <div class="col-md-4 col-sm-4 col-xs-12">
-          <!--div-->
-            <button type="submit" class="btn btn-success" ng-disabled="disabled" id="sub_but">Προσθήκη</button>
-            <!--button type="submit" class="btn btn-success"></button-->
-          <!--/div-->
-          </div>
+            <div id="map" align = "center"> </div>
+
+            <br/>
+            <div class="form-group"><label><h3 style="color: black"><b>Τα πεδία με (*) είναι απαραίτητα</h3></b></label></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <!--div-->
+              <button type="submit" class="btn btn-success" ng-disabled="disabled" id="sub_but">Προσθήκη</button>
+              <!--button type="submit" class="btn btn-success"></button-->
+              <!--/div-->
+            </div>
           </div>
         </form>
       </div>
     </div>
-	</div>
-	
-	
-	</body>
+  </div>
+
+
+</body>
 
 </html>

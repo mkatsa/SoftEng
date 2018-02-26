@@ -48,11 +48,18 @@
         <button id="synopsis_btn" class="btn btn-info btn-lg" onclick="myFunction()" >Στοιχεία του λογαριασμού μου  <i class="fa fa-info-circle"></i></button>		
   	 	
         <div id="synopsis" style="color: aliceblue;display: none" >
-        
-        <h4 style="color: azure">Εικόνα προφίλ</strong></h4>
-    	<br>
-    	<input type='file' onchange="readURL(this);" ng-file-select="onFileSelect($files)"/>
-    	<img id="blah" src="#" alt="your image" />
+      <form class="form" name="formb" ng-submit="updateProvider('picture',imgurl)">
+          <div class="form-group">
+            <label style="color: aqua">Εικόνα Profile</label>
+              <input filepicker type="filepicker" data-fp-services="computer" on-success="onSuccess(event.fpfile)" data-fp-button-class="btn btn-success" />
+          </div>
+        <button type="submit" class="btn btn-primary mb-2">Αποθήκευση αλλαγών!  <i class="fa fa-check" ></i></button>
+    </form>
+
+    <img src = "{{picture}}" height="300" width="300">
+
+
+
     	<br>
         <h4 style="color: azure"> Όνομα χρήστη </h4>
         <input style="width: 100%" type="text"  class="form-control" value={{username}} readonly>
