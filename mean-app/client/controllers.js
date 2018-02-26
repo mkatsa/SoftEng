@@ -58,8 +58,8 @@ angular.module('myApp').controller('homeController',
 
 //Controller paired with home page
 angular.module('myApp').controller('headerController',
-  ['$scope', '$route', 'AuthService',
-  function ($scope, $route, AuthService) {
+  ['$scope', '$route', 'AuthService', '$location',
+  function ($scope, $route, AuthService, $location) {
 
     console.log("ROUTE IS:"+$route)
     console.log($route.current.access)
@@ -92,9 +92,12 @@ angular.module('myApp').controller('headerController',
       // call logout from service and then reload the page
       AuthService.logout()
       .then(function () {
-          //$location.path('/');
-          $route.reload();
-          $location.path('/#/');
+          if($route.current.userLocation === '/#/')     //oti pio bakalistiko exw kanei sti zwi moy #NWLIS
+              $route.reload();
+          else
+            $location.path('/');
+
+          $route.reload()
         });
     };
 
