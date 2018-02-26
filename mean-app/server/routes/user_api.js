@@ -25,7 +25,7 @@ function createTicket(eventName, userName, ticketName, notickets){
 	var doc = new PDFDocument;
 	doc.pipe(fs.createWriteStream(ticketName));
 	
-	var txt = "Event:    "+eventName+"\nOwner:    "+userName+"\nNumber of persons: "+notickets+"\nIn order to enter the event you need to show this ticket or a photocopy of it in the entrance of the event.\nYou need to scan the barcode below in order to enter the event"
+	var txt = "This is your electronic ticket\nIn order to enter the event you need to show this ticket or a photocopy of it in the entrance of the event.\nThis is a "+notickets+" person ticket.You need to scan the barcode below in order to enter the event"
 	// Set a title and pass the X and Y coordinates
 	doc.fontSize(15).text('Electronic Ticket', 50, 50);
 	// Set the paragraph width and align direction

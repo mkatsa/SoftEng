@@ -446,7 +446,7 @@ function updateEventandUser(username,cost,notickets,eventname){
   console.log(eventname)
   var deferred=$q.defer();
     httpPromise = $http.post('/user/eventbought',
-    {username:username,cost:cost,eventname:eventname})
+    {username:username,cost:cost,eventname:eventname, notickets:notickets})
   .success(function(){
     deferred.resolve();
   })

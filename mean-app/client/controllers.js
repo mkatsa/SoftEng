@@ -497,7 +497,6 @@ $scope.buy = function(){
   }else{
     $scope.suf="enough money";
   }*/
-
 }
 
 $scope.changeloc= function(){
@@ -518,6 +517,7 @@ $scope.check = function(){
     alert("DEN EXEI TOSA VRE VRWMIARH");  
     }else{
       AuthService.updateEventandUser(userdata.username,$scope.cost,$scope.notickets,$scope.event.eventname);
+      $location.path('/#/');
     }
   })
   //$scope.test=userdata;

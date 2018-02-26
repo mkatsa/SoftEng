@@ -73,12 +73,12 @@ myApp.config(function ($routeProvider) {
     .when('/addEvent',{
       templateUrl:'partials/addEvent.html',
       controller:'manipulateEventsController',
-      access:{restricted:false,admin:false}
+      access:{restricted:true,admin:false}
     })
     .when('/transfer',{
       templateUrl:'partials/transfer.html',
       controller:'transferController',
-      access:{restricted:false, admin:false}
+      access:{restricted:true, admin:false}
     })
     .when('/singleEvent:id?',{
       templateUrl:'partials/single_event.html',
@@ -93,12 +93,12 @@ myApp.config(function ($routeProvider) {
     .when('/buyticket:id?',{
       templateUrl:'partials/buyticket.html',
       controller:'manipulateEventsController',
-      access:{restricted:false, admin:false}
+      access:{restricted:true, admin:false}
     })
     .when('/providerhistory',{
       templateUrl:'partials/providerhistory.html',
       controller:"manipulateEventsController",
-      access:{restricted:false, admin:false}
+      access:{restricted:true, admin:false}
     })
     .when('/reset/:uID',{
       templateUrl:'partials/reset.html',
