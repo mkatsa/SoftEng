@@ -18,12 +18,14 @@ var User = require('../models/user.js');
 
 
 //about pdf ticket creation. Found on http://pdfkit.org/index.html and http://www.codeblocq.com/2016/05/PDF-Generation-with-Node-JS/
-function createTicket(eventName, userName, ticketName){
+//bug with greek characters. Idk how to fix it...
+
+function createTicket(eventName, userName, ticketName, notickets){
 	console.log("Creating Ticket")
 	var doc = new PDFDocument;
 	doc.pipe(fs.createWriteStream(ticketName));
 	
-	var txt = "This is your ticket for the event. We recommend you to have this ticket in order to enter the event.\nScan the barcode in the entrance!The barcode is unique";
+	var txt = "This is your electronic ticket\nIn order to enter the event you need to show this ticket or a photocopy of it in the entrance of the event.\nThis is a "+notickets+" person ticket.You need to scan the barcode below in order to enter the event"
 	// Set a title and pass the X and Y coordinates
 	doc.fontSize(15).text('Electronic Ticket', 50, 50);
 	// Set the paragraph width and align direction
@@ -32,7 +34,7 @@ function createTicket(eventName, userName, ticketName){
 		align: 'left'
 	});
 
-	doc.image('download.png', 50, 150, {width: 110});
+	doc.image('download.png', 50, 250, {width: 200});
 	doc.end();
 	console.log("Ticket Created Successfully")
 }
@@ -71,6 +73,27 @@ function sendEmail(receiver) {
 			console.log('Registration mail sent: ' + info.response);
 		}
 	});	
+}
+
+
+//about autoemail on registration
+function sendResetPassEmail(receiver) {
+  console.log("Sending registration mail")
+  var mailOptions = {
+    from: "Heapsters Athens <heapsters@hotmail.com>",
+    to: receiver.email,
+    subject: "Αίτημα reset password",
+    html: 'Ακολουθήστε το σύνδεσμο για να θέσετε νέο κωδικό https://localhost:3000/#/reset/'+receiver._id
+    //add attachments too in the end
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Registration mail sent: ' + info.response);
+    }
+  }); 
 }
 
 
@@ -124,6 +147,16 @@ router.post('/register', function(req, res) {
     });
   });
 });
+
+router.post('/reset_pass',function(req,res){
+  User.findOne({'username':req.body.username},function(err,data){
+    if (data){
+      data.reset_password="TRUE";
+      data.save();
+      sendResetPassEmail(data);
+    }
+  })
+})
 
 router.post('/set_pass',function(req,res){
 
@@ -288,6 +321,7 @@ router.post('/eventbought', function(req,res){
   console.log(req.user.username)
   console.log(req.body.cost)
   console.log(req.body.eventname)
+  console.log(req.body.notickets)
   User.findOne({username:req.user.username}, function(err,doc){
       doc.points = doc.points - req.body.cost;
       //doc.eventbought[0] = req.body.eventname;
@@ -302,10 +336,10 @@ router.post('/eventbought', function(req,res){
   
   console.log(req.user.email)
   
-  var ticketname =  'output_'+x+'.pdf';
+  var ticketname =  'ticket_'+x+'.pdf';
   x++;
-  createTicket(req.body.eventname, req.user.username, ticketname);
-  sendTicketviaEmail(req.user.email,req.body.eventname,ticketname); 	  
+  createTicket(req.body.eventname, req.user.username, ticketname, req.body.notickets);
+  sendTicketviaEmail(req.user.email,req.body.eventname,ticketname);
 })
 
 
