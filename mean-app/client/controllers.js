@@ -459,10 +459,48 @@ $scope.getEventById = function (){
 };
 
 $scope.getHistory = function(){
-  console.log("getting histtory")
+  console.log("getting history")
   AuthService.getHistory($routeParams.id)
   .then(function(response){
     $scope.list = response;
+    $scope.ticSport=0;;
+    $scope.ticArt=0;
+    $scope.ticScience=0;
+    $scope.ticEnt=0;
+    $scope.list.forEach(function(ev){
+      //console.log(ev.category)
+      //var dateTime = require('node-datetime');
+      var dt = new Date();
+      //var formatted = dt.getDate();
+      //console.log(dt.getDate())
+      //console.log(dt.getMonth())
+      var year = parseInt(ev.start_time.charAt(0))*1000 + parseInt(ev.start_time.charAt(1))*100 + parseInt(ev.start_time.charAt(2))*10 + parseInt(ev.start_time.charAt(3));
+      var month = parseInt(parseInt(ev.start_time.charAt(5))*10 + parseInt(ev.start_time.charAt(6)));
+      //console.log(year)
+      //console.log(month)
+      if(dt.getFullYear()==year && dt.getMonth()+1==month){
+        console.log("douleuei")
+        console.log(ev.category)
+        if(ev.category==="sports"){
+          console.log("sport")
+          console.log(ev.ticketspur)
+          $scope.ticSport= $scope.ticSport + ev.ticketspur;
+        }else if(ev.category==="science"){
+          $scope.ticScience= $scope.ticScience + ev.ticketspur;
+        }else if(ev.category==="art"){
+          //console.log(ev.category)
+          $scope.ticArt= $scope.ticArt + ev.ticketspur;
+        }else{
+          $scope.ticEnt= $scope.ticEnt + ev.ticketspur;
+        }
+      }
+
+    })
+
+    //console.log(ticSport)
+    //console.log(ticArt)
+    //console.log(ticScience)
+    //console.log(ticEnt)
   },function (error){
     console.error(error);
   })
