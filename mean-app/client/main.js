@@ -104,6 +104,10 @@ myApp.config(function ($routeProvider) {
       templateUrl:'partials/reset.html',
       controller:"resetController",
       access:{restricted:false,admin:false}
+    })
+    .when('/checkemail',{
+      templateUrl:'partials/checkyouremail.html',
+      access:{restricted:false,admin:false}
     })   
     .otherwise({
       redirectTo: '/',

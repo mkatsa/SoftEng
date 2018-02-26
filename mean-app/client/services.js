@@ -544,6 +544,17 @@ function callback(response, status) {
   return deferred.promise;
 }
 
+function flagForReset(username){
+  var deferred=$q.defer();
+  $http.post('/user/reset_pass',{username:username})
+  .success(function(status){
+    deferred.resolve(status);
+  })
+  .error(function(err){
+    deferred.reject(err);
+  })
+  return deferred.promise;
+}
   
  //username=getUserName();
 
@@ -569,7 +580,8 @@ function callback(response, status) {
   updateEventandUser:updateEventandUser,
   getHistory:getHistory,
   calculateDistance: calculateDistance,
-  setPassword:setPassword
+  setPassword:setPassword,
+  flagForReset:flagForReset
 });
 }]);
 

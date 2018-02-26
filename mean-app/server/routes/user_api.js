@@ -77,6 +77,27 @@ function sendEmail(receiver) {
 
 
 //about autoemail on registration
+function sendResetPassEmail(receiver) {
+  console.log("Sending registration mail")
+  var mailOptions = {
+    from: "Heapsters Athens <heapsters@hotmail.com>",
+    to: receiver.email,
+    subject: "Αίτημα reset password",
+    html: 'Ακολουθήστε το σύνδεσμο για να θέσετε νέο κωδικό https://localhost:3000/#/reset/'+receiver._id
+    //add attachments too in the end
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Registration mail sent: ' + info.response);
+    }
+  }); 
+}
+
+
+//about autoemail on registration
 function sendTicketviaEmail(receiver,eventName,attachment) {
 	console.log("Sending ticket!!")
 	console.log(receiver)
@@ -126,6 +147,16 @@ router.post('/register', function(req, res) {
     });
   });
 });
+
+router.post('/reset_pass',function(req,res){
+  User.findOne({'username':req.body.username},function(err,data){
+    if (data){
+      data.reset_password="TRUE";
+      data.save();
+      sendResetPassEmail(data);
+    }
+  })
+})
 
 router.post('/set_pass',function(req,res){
 

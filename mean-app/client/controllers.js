@@ -11,6 +11,10 @@ angular.module('myApp').controller('loginController',
         $location.path(RedirectToUrlAfterLogin.url);
       }
     })
+
+    $scope.reset=function(){
+      AuthService.flagForReset($scope.loginForm.username)
+    }
     
     //Define function login in the scope (to be called from html)
     $scope.login = function () {
@@ -962,14 +966,17 @@ angular.module('myApp').controller('adminController',['$scope','$route','AdminSe
 
 
 angular.module('myApp').controller('resetController',
-  ['$scope', '$route','$routeParams' ,'AuthService',
-  function ($scope, $route,$routeParams, AuthService) {
+  ['$scope', '$route','$routeParams','$location' ,'AuthService',
+  function ($scope, $route,$routeParams,$location, AuthService) {
 
     $scope.reset=function(){
       console.log("CTRL:running reset")
       $scope.uID=$routeParams.uID
       $scope.newPass=$scope.resetForm.password
       AuthService.setPassword($scope.uID,$scope.newPass)
+      .then(function(){
+        $location.path('/login')
+      })
     }
     
   }]);
