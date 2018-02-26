@@ -448,11 +448,55 @@ $scope.getEventById = function (){
   })
 };
 
+$scope.getEventByIds = function (){
+  console.log("getting single event")
+  AuthService.getSingleEvents($routeParams.id)
+  .then(function (response) {
+    console.log("got single event")
+    $scope.event = response;
+    sharedProperties.setProperty($scope.event.location);
+    $scope.initMap();
+    console.log("i am here")
+  }, function (error) {
+    console.error(error);
+  })
+};
+
 $scope.getHistory = function(){
-  console.log("getting histtory")
+  console.log("getting history")
   AuthService.getHistory($routeParams.id)
   .then(function(response){
     $scope.list = response;
+    var ticSport=0,ticArt=0,ticScience=0,ticEnt=0;
+    $scope.list.forEach(function(ev){
+      //var dateTime = require('node-datetime');
+      var dt = new Date();
+      //var formatted = dt.getDate();
+      //console.log(dt.getDate())
+      //console.log(dt.getMonth())
+      var year = parseInt(ev.start_time.charAt(0))*1000 + parseInt(ev.start_time.charAt(1))*100 + parseInt(ev.start_time.charAt(2))*10 + parseInt(ev.start_time.charAt(3));
+      var month = parseInt(parseInt(ev.start_time.charAt(5))*10 + parseInt(ev.start_time.charAt(6)));
+      //console.log(year)
+      //console.log(month)
+      if(dt.getFullYear()==year && dt.getMonth()+1==month){
+        console.log("douleuei")
+        if(ev.category==="sports"){
+          ticSport= ticSport + ev.ticketspur;
+        }else if(ev.category==="science"){
+          ticScience= ticScience + ev.ticketspur;
+        }else if(ev.category==="art"){
+          ticArt= ticArt + ev.ticketspur;
+        }else{
+          ticEnt= ticEnt + ev.ticketspur;
+        }
+      }
+
+    })
+
+    //console.log(ticSport)
+    //console.log(ticArt)
+    //console.log(ticScience)
+    //console.log(ticEnt)
   },function (error){
     console.error(error);
   })
@@ -506,8 +550,24 @@ $scope.initMap = function() {
 $scope.buy = function(){
   console.log($scope.event.price)
   console.log($scope.notickets)
-  $scope.cost=parseInt($scope.event.price)*($scope.notickets);
-  userdata=AuthService.getUserData();
+  userdata=AuthService.getUserData().then(function(userdata){
+      console.log(userdata.pointsSpent)
+      console.log(userdata.points)
+      console.log(userdata.username)
+      if((userdata.pointsSpent/100)  < Math.floor((userdata.pointsSpent+parseInt($scope.event.price)*($scope.notickets))/100)){
+        console.log("mphka")
+        if(parseInt($scope.event.price)*($scope.notickets)>5){
+          $scope.cost=parseInt($scope.event.price)*($scope.notickets)-5;
+        }else{
+          $scope.cost=0;
+        }
+
+      }else{
+        console.log("mphka edw")
+        $scope.cost=parseInt($scope.event.price)*($scope.notickets);
+      }
+    });
+  
   /*if($scope.cost>userdata.points){
     $scope.suf="not enough money";
   }else{
