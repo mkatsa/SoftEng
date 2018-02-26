@@ -131,7 +131,7 @@ router.get('/getHistory/:id?', function(req, res) {
       if (err) res.send(err);
 
       res.json(events);
-    });
+    }).sort({end_time : 1});
 });
 
 

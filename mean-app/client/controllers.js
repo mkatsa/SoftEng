@@ -460,8 +460,7 @@ $scope.getEventById = function (){
 
 $scope.getHistory = function(){
   console.log("getting histtory")
-  $scope.username = AuthService.getUserName();
-  AuthService.getHistory($scope.username)
+  AuthService.getHistory($routeParams.id)
   .then(function(response){
     $scope.list = response;
   },function (error){
