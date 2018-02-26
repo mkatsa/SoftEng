@@ -101,6 +101,8 @@ router.get("/singleEvent/:id?", function(req, res) {
       res.send(err);
     }  
     event.timesVisited++;
+    console.log("times visited")
+    console.log(event.timesVisited)
     event.save();
     res.json(event);
   });

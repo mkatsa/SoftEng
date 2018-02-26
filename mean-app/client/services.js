@@ -391,6 +391,8 @@ function getSingleEvent(id) {
 
   httpPromise.success(function (response) {
     deferred.resolve(response);
+    console.log("Updated time visited")
+    console.log(response.timesVisited)
   })
   .error(function (error) {
     console.error(error);

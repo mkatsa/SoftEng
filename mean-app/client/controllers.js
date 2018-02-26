@@ -94,7 +94,6 @@ angular.module('myApp').controller('headerController',
       // call logout from service and then reload the page
       AuthService.logout()
       .then(function () {
-          //$location.path('/');
           if($route.current.userLocation === '/#/')     //oti pio bakalistiko exw kanei sti zwi moy #NWLIS
               $route.reload();
           else
@@ -451,6 +450,25 @@ $scope.getEventById = function (){
   })
 };
 
+
+
+$scope.getEventByIds = function (){
+  console.log("getting single event")
+  AuthService.getSingleEvents($routeParams.id)
+  .then(function (response) {
+    console.log("got single event")
+    $scope.event = response;
+    sharedProperties.setProperty($scope.event.location);
+    $scope.initMap();
+    console.log("i am here")
+  }, function (error) {
+    console.error(error);
+  })
+};
+
+
+
+
 $scope.getHistory = function(){
   console.log("getting history")
   AuthService.getHistory($routeParams.id)
@@ -572,10 +590,11 @@ $scope.check = function(){
     if($scope.cost>userdata.points){
 
     alert("Οι ποντοι σας δεν επαρκουν");
-    }else if($scope.event.tickets<$scope.notickets){
+      }else if($scope.event.tickets<$scope.notickets){
     alert("Δεν υπαρχουν διαθεσιμα εισιτηρια");
     }else{
       AuthService.updateEventandUser(userdata.username,$scope.cost,$scope.notickets,$scope.event.eventname);
+      $route.reload();
     }
   })
   //$scope.test=userdata;
