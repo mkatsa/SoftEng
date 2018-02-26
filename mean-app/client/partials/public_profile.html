@@ -5,7 +5,7 @@
   <header-nav-directive></header-nav-directive>
 </div>
 <div class="container" style="width: 100%">
-    <h2 style="color: aquamarine; text-align: center" >Καλώς ήρθατε στο προφίλ του παρόχου {{event.provider}}</h2>
+    <h2 style="color: black; text-align: center; color: limegreen" ><strong>Καλώς ήρθατε στο προφίλ του παρόχου {{event.provider}}</strong></h2>
     <p style="height: 15px"></p>
     <div  class="container" style="text-align: center;width: 100%;" ng-init="init()">
     
@@ -14,23 +14,23 @@
    <div class="col-md-6 col-sm-4 col-lg-6 xs-4">
         <table  style="width: 100%" >
             <tr class="info">
-                <td><h4>Όνομα παρόχου  :</h4></td>
+                <td><h4 style="color: aliceblue"><strong>Όνομα παρόχου  :</strong></h4></td>
                 <td><input type="text" class="form-control"  value={{firstname}} readonly></td>
             </tr>
             <tr class="info">
-                <td><h4>Επώνυμο παρόχου  :</h4></td>
+                <td><h4 style="color: aliceblue"><strong>Επώνυμο παρόχου  :</strong></h4></td>
                 <td><input type="text" class="form-control"  value={{lastname}} readonly></td>
             </tr>
             <tr class="info">
-                <td><h4>Όνομα εταιρείας  :</h4></td>
+                <td><h4 style="color: aliceblue"><strong>Όνομα εταιρείας  :</strong></h4></td>
                 <td><input type="text" class="form-control"  value={{companyname}} readonly></td>
             </tr>
             <tr class="info">
-                <td><h4>Ηλεκτρονική διεύθυνση  :</h4></td>
+                <td><h4 style="color: aliceblue"><strong>Ηλεκτρονική διεύθυνση  :</strong></h4></td>
                 <td><input type="email" class="form-control"  value={{email}} readonly></td>
             </tr>
             <tr class="info">
-                <td><h4>Τηλέφωνο επικοινωνίας  :</h4></td>
+                <td><h4 style="color: aliceblue"><strong>Τηλέφωνο επικοινωνίας  :</strong></h4></td>
                 <td><input type="text" class="form-control"  value={{phone}} readonly></td>
             </tr>
             
@@ -44,7 +44,7 @@
       </div>
   </div><!-- /.navbar-collapse -->
    <div style="width: 100%;text-align: center;" class="row">    
-        <h3 ><strong>Λίγα λόγια για τον πάροχο</strong></h3>
+        <h3 style="color:black" ><strong>Λίγα λόγια για τον πάροχο</strong></h3>
         <textarea name="description" class="form-control" cols="60" rows="7" ng-model="description" value={{description}} readonly></textarea>
   </div>
    <div style="width: 100%;text-align: center;" class="row">

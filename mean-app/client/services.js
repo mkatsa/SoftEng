@@ -247,8 +247,8 @@ function refreshUserLocation(){
         if(data.status){
           //console.log('SERVICE: Success if')
           user = true;
-		  if( data.isProvider === true )
-			  provider = true;
+      if( data.isProvider === true )
+        provider = true;
           deferred.resolve();
 
         } else {
@@ -295,6 +295,23 @@ function refreshUserLocation(){
   return deferred.promise;
 }
 
+
+function setPassword(uID,pass){
+  console.log("SRVC: setPassword")
+  console.log("UID:"+uID)
+  var deferred=$q.defer();
+  $http.post('/user/set_pass',{uID:uID,password:pass})
+  .success(function(data,status){
+    if (status==200){
+      console.log("reset pass success")
+      deferred.resolve();
+    }
+    else{
+      deferred.reject();
+    }
+  })
+  return deferred.promise;
+}
 
 function register_provider(username, password, firstname, lastname, email, companyname, TaxID) {
 
@@ -400,19 +417,19 @@ function getSingleEvents(id) {
 //username is the username of the provider we want to update
 //what is the field we want to cheng and the value has the new value to be put in mongo
 function updateProviderData(username, what, value) {
-	console.log( "I am on updateProviderData service")
-	console.log(username)
-	console.log(what)
-	console.log(value)
-	var deferred = $q.defer(),
-	httpPromise = $http.put('/provider/update_provider',
+  console.log( "I am on updateProviderData service")
+  console.log(username)
+  console.log(what)
+  console.log(value)
+  var deferred = $q.defer(),
+  httpPromise = $http.put('/provider/update_provider',
         {username: username,what: what, value: value})
       // handle success
       .success(function () {
           deferred.resolve();
-	  })
+    })
         
-	  return deferred.promise;
+    return deferred.promise;
 }
 
 
@@ -420,18 +437,18 @@ function updateProviderData(username, what, value) {
 //username is the username of the provider we want to update
 //what is the field we want to cheng and the value has the new value to be put in mongo
 function updateParentData(username, what, value) {
-	console.log( "I am on updateParentData service")
-	console.log(username)
-	console.log(what)
-	console.log(value)
-	var deferred = $q.defer(),
-	httpPromise = $http.put('/user/update_parent',
+  console.log( "I am on updateParentData service")
+  console.log(username)
+  console.log(what)
+  console.log(value)
+  var deferred = $q.defer(),
+  httpPromise = $http.put('/user/update_parent',
         {username: username,what: what, value: value})
       // handle success
       .success(function () {
           deferred.resolve();
-	  })
-	  return deferred.promise;
+    })
+    return deferred.promise;
 }
 
 
@@ -442,7 +459,7 @@ function updateEventandUser(username,cost,notickets,eventname){
   console.log(eventname)
   var deferred=$q.defer();
     httpPromise = $http.post('/user/eventbought',
-    {username:username,cost:cost,eventname:eventname})
+    {username:username,cost:cost,eventname:eventname, notickets:notickets})
   .success(function(){
     deferred.resolve();
   })
@@ -457,8 +474,8 @@ function updateEventandUser(username,cost,notickets,eventname){
 
 
 function getPublicProviderDataByUsername(uname){
-	console.log('Public Provider Data Service')
-	console.log(uname)
+  console.log('Public Provider Data Service')
+  console.log(uname)
     var deferred = $q.defer();
     req=$http.get('/provider/get_all_by_username/'+uname)
     
@@ -499,9 +516,58 @@ function getPublicProviderDataByUsername(uname){
   return deferred.promise;
 }
 
-
-
+function calculateDistance(origin,destination) {
   
+  var origin1 = origin.geometry.location;
+  var destinations = [destination.location.geometry.location]
+  var service = new google.maps.DistanceMatrixService();
+  
+  var deferred = $q.defer();
+  var distancePromise = service.getDistanceMatrix(
+    {
+      origins: [origin1],
+      destinations: destinations,
+      travelMode: 'DRIVING',
+      avoidHighways: false,
+      avoidTolls: false,
+    }, callback);
+
+    
+function callback(response, status) {
+    if (status == 'OK') {
+      var origins = response.originAddresses;
+      var destinations = response.destinationAddresses;
+  
+      for (var i = 0; i < origins.length; i++) {
+        var results = response.rows[i].elements;
+        for (var j = 0; j < results.length; j++) {
+          var element = results[j];
+          var distance = element.distance.text;
+          var duration = element.duration.text;
+          var from = origins[i];
+          var to = destinations[j];
+          //console.log('from '+ from +' to '+ to +' distance: '+ element.distance.value)
+          destination.distance = element.distance.value;
+          deferred.resolve(destination);
+          //console.log(destination)
+        }
+      }
+    }    
+  }
+  return deferred.promise;
+}
+
+function flagForReset(username){
+  var deferred=$q.defer();
+  $http.post('/user/reset_pass',{username:username})
+  .success(function(status){
+    deferred.resolve(status);
+  })
+  .error(function(err){
+    deferred.reject(err);
+  })
+  return deferred.promise;
+}
   
  //username=getUserName();
 
@@ -526,7 +592,10 @@ function getPublicProviderDataByUsername(uname){
   getSingleEvents: getSingleEvents,
   getPublicProviderDataByUsername: getPublicProviderDataByUsername,
   updateEventandUser:updateEventandUser,
-  getHistory:getHistory
+  getHistory:getHistory,
+  calculateDistance: calculateDistance,
+  setPassword:setPassword,
+  flagForReset:flagForReset
 });
 }]);
 
@@ -540,7 +609,7 @@ angular.module('myApp').factory('GeolocationService', ['$q', '$window', function
 
   'use strict';
 
-  function getCurrentPosition() {
+function getCurrentPosition() {
     var deferred = $q.defer();
     if (!$window.navigator.geolocation) {
       deferred.reject('Geolocation not supported.');
@@ -555,10 +624,54 @@ angular.module('myApp').factory('GeolocationService', ['$q', '$window', function
     }
 
     return deferred.promise;
+  } 
+
+function calculateDistance(origin,destination) {
+    var deferred = $q.defer();
+    var origin1 = origin.geometry.location;
+    var destinations = [destination.geometry.location]
+    var service = new google.maps.DistanceMatrixService();
+    
+    distancePromise = service.getDistanceMatrix(
+      {
+        origins: [origin1],
+        destinations: destinations,
+        travelMode: 'DRIVING',
+        avoidHighways: false,
+        avoidTolls: false,
+      }, callback);
+      
+  function callback(response, status) {
+      if (status == 'OK') {
+        var origins = response.originAddresses;
+        var destinations = response.destinationAddresses;
+    
+        for (var i = 0; i < origins.length; i++) {
+          var results = response.rows[i].elements;
+          for (var j = 0; j < results.length; j++) {
+            var element = results[j];
+            var distance = element.distance.text;
+            var duration = element.duration.text;
+            var from = origins[i];
+            var to = destinations[j];
+            console.log('from '+ from +' to '+ to +' distance: '+ element.distance.value)
+            return(element.distance.value);
+          }
+        }
+      }    
+    }
+    distancePromise.success(function (response) {
+      deferred.resolve(response);
+    })
+    .error(function (error) {
+      console.error(error);
+    }); 
+    return deferred.promise;
   }
 
   return {
-    getCurrentPosition: getCurrentPosition
+    getCurrentPosition: getCurrentPosition,
+    calculateDistance: calculateDistance
   };
 }]);
 
@@ -660,13 +773,26 @@ angular.module('myApp').factory('AdminService',['$q','$http',
       return deferred.promise;
     }
 
+    function resetPassword(uID){
+      var deferred=$q.defer();
+      $http.post('/admin/resetPassword/'+uID)
+      .success(function(data){
+        deferred.resolve(data);
+      })
+      .error(function(err){
+        deferred.reject(err)
+      });
+      return deferred.promise;
+    }
+
     return{
       isAdmin:isAdmin,
       getMode:getMode,
       deleteUser:deleteUser,
       deleteProvider:deleteProvider,
       getAllUsers:getAllUsers,
-      getAllProviders:getAllProviders
+      getAllProviders:getAllProviders,
+      resetPassword:resetPassword
     };
   }]);
 

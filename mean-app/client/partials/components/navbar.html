@@ -25,13 +25,10 @@
                 
                 
                    
-                    <li ng-if="isLoggedIn" role="separator" class="divider"></li>
-	               <li ng-if="isLoggedIn && !isProvider"><a href="./#/">Οι δραστηριότητές μου</a></li>
-                    
-	               <li ng-if="isLoggedIn && !isProvider"><a href="./#/"> Ιστορικό των δραστηριοτήτων</a></li>
-                   <li ng-if="isLoggedIn && isProvider"><a href="./#/">Δημιουργία δραστηριότητας</a></li>
-                    <li ng-if="isLoggedIn && isProvider"><a href="./#/">Επεξεργασία δραστηριότητας</a></li>
-	               <li ng-if="isLoggedIn && isProvider"><a href="./#/"> Προβολή δραστηριοτήτων</a></li>
+                   <li ng-if="isLoggedIn && isProvider" role="separator" class="divider"></li>
+                   <li ng-if="isLoggedIn && isProvider"><a href="./#/addEvent">Δημιουργία δραστηριότητας</a></li>
+                   <li ng-if="isLoggedIn && isProvider"><a ng-href="./#/providerhistory?id={{username}}"> Οι δραστηριότητές μου</a></li>
+	               
                    
             </ul>
 	        </li>
@@ -42,7 +39,7 @@
 	      	<div ng-if=isLoggedIn>
 	      	<ul class="nav navbar-nav navbar-right">
 	      	
-	      	 <li> MY avatar</li>	
+	      	 <li><img src="./assets/default.jpg" class="img-square" style="z-index: 0;overflow: scroll; "  height="45">  </li>	
 	      	 <li>
 	      		<!--div style="color:#FFFFFF"> Καλώς ήρθατε </div-->
 	      		<!--li><a href="./#/logout">Aποσύνδεση <i class="fa fa-user"></i></a></li-->
@@ -74,4 +71,4 @@
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
-	</nav>
+	</nav>-

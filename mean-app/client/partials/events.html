@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <div style="width: 100%">
 	<header-nav-directive></header-nav-directive>
 </div>
@@ -15,6 +17,8 @@
       height: 100%;
     }
 </style>
+
+
 <!--https://bootsnipp.com/snippets/featured/portfolio-gallery-with-filtering-category-->
 <div class="container" align="center">
 	<div class="row" align="center">
@@ -26,7 +30,10 @@
             </div>
 			<br/>
 
-			<div ng-init="getAllEvents()"> </div>
+		
+  		
+
+			<div ng-init="getAllEventsDelay()"> </div>
 
 			<div class="container-fluid bg" style="align-items: center">
 				<div class="row">
@@ -44,6 +51,13 @@
 					</div>
 				</div>
 			</div>
+			<style>
+				.slidecontainer {
+				width: 400px; /* Width of the outside container */
+			}
+			</style>
+			
+
 			<div align="center">
 				<h2>...ή ξεφύλλισε</h2>
 				<button class="btn btn-default filter-button" data-filter="all">Όλα</button>
@@ -51,6 +65,11 @@
 				<button class="btn btn-default filter-button" data-filter="art">Τέχνη</button>
 				<button class="btn btn-default filter-button" data-filter="science">Επιστήμη</button>
 				<button class="btn btn-default filter-button" data-filter="fun">Ψυχαγωγία</button>
+				<div class="slidecontainer">
+				  <input type="range" min="1" max="51" value="51" step="5" class="slider" id="myRange">
+				  <p>Απόσταση: <span id="demo"></span>  χλμ.</p>
+				</div>
+
                 
 			</div>
             <br/>
@@ -84,3 +103,4 @@
     </div>
 </div>
 </section>
+</html>
