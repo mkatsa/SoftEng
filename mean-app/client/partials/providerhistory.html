@@ -21,27 +21,40 @@
 
 <script type="text/javascript">
 // Load google charts
+setTimeout( function() {
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
 // Draw the chart and set the chart values
 function drawChart() {
+  //var sport = document.getElementById('sport');
+  //var art = document.getElementById('art');
+  //var sc = document.getElementById('sc');
+  //var ent = document.getElementById('ent');
+  //console.log(document.getElementById('sport').value)
+  //console.log(document.getElementById('art').value)
+  //console.log(document.getElementById('sc').value)
+  //console.log(document.getElementById('ent').value)
+  var s=parseInt(document.getElementById('sport').value);
+  var a=parseInt(document.getElementById('art').value)
+  var si=parseInt(document.getElementById('sc').value)
+  var e=parseInt(document.getElementById('ent').value)
   var data = google.visualization.arrayToDataTable([
   ['Task', 'Hours per Day'],
-  ['Work', 8],
-  ['Eat', 2],
-  ['TV', 4],
-  ['Gym', 2],
-  ['Sleep', 8]
+  ['Sports', s],
+  ['Art', a],
+  ['Science', si],
+  ['Entertainment', e]
 ]);
 
   // Optional; add a title and set the width and height of the chart
-  var options = {'title':'My Average Day', 'width':550, 'height':400};
+  var options = {'title':'Last Month Statistics', 'width':550, 'height':400};
 
   // Display the chart inside the <div> element with id="piechart"
   var chart = new google.visualization.PieChart(document.getElementById('piechart'));
   chart.draw(data, options);
 }
+}, 500);
 </script>
 
 <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq6gVXzKjVwYvc0Y6cB9LWJcngquAnsY4&language=el" async defer>
@@ -50,7 +63,10 @@ function drawChart() {
 <!--https://bootsnipp.com/snippets/featured/portfolio-gallery-with-filtering-category-->
 <div class="container" align="center">
 	
-		
+		        <input id="sport" value="{{ticSport}}" hidden>
+            <input id="art" value="{{ticScience}}" hidden>
+            <input id="sc" value="{{ticArt}}" hidden>
+            <input id="ent" value="{{ticEnt}}" hidden>
             <h2 style="color: black"><strong>Οι δραστηριότητες που δημιούγησες :</strong> </h2>
             <p style="height: 30px"></p>
            

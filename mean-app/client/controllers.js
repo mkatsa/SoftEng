@@ -465,7 +465,10 @@ $scope.getHistory = function(){
   AuthService.getHistory($routeParams.id)
   .then(function(response){
     $scope.list = response;
-    var ticSport=0,ticArt=0,ticScience=0,ticEnt=0;
+    $scope.ticSport=0;;
+    $scope.ticArt=0;
+    $scope.ticScience=0;
+    $scope.ticEnt=0;
     $scope.list.forEach(function(ev){
       //var dateTime = require('node-datetime');
       var dt = new Date();
@@ -479,13 +482,13 @@ $scope.getHistory = function(){
       if(dt.getFullYear()==year && dt.getMonth()+1==month){
         console.log("douleuei")
         if(ev.category==="sports"){
-          ticSport= ticSport + ev.ticketspur;
+          $scope.ticSport= $scope.ticSport + ev.ticketspur;
         }else if(ev.category==="science"){
-          ticScience= ticScience + ev.ticketspur;
+          $scope.ticScience= $scope.ticScience + ev.ticketspur;
         }else if(ev.category==="art"){
-          ticArt= ticArt + ev.ticketspur;
+          $scope.ticArt= $scope.ticArt + ev.ticketspur;
         }else{
-          ticEnt= ticEnt + ev.ticketspur;
+          $scope.ticEnt= $scope.ticEnt + ev.ticketspur;
         }
       }
 
