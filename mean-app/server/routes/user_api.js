@@ -337,7 +337,7 @@ router.post('/eventbought', function(req,res){
   
   
   console.log(req.user.email)
-  
+    
   var ticketname =  'ticket_'+x+'.pdf';
   x++;
   createTicket(req.body.eventname, req.user.username, ticketname, req.body.notickets);

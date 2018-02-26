@@ -67,6 +67,7 @@ router.post("/createEvent", function(req, res) {
         eventname: req.body.eventname,
         category: req.body.category,
 		    price: req.body.price,
+        picture:req.body.picture,
 		    description: req.body.description,
 		    minage: req.body.minage,
 		    maxage: req.body.maxage,

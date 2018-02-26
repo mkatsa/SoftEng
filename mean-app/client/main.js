@@ -1,9 +1,11 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute','angular-filepicker']);
 
 
 //Configure client side routing. If restricted = true, only available to logged in users
 //For each route there is a controller in controllers.js
-myApp.config(function ($routeProvider) {
+myApp.config(function ($routeProvider,filepickerProvider) {
+
+  filepickerProvider.setKey('AOVfS0QKLSge5NiH9YD9fz');
   $routeProvider
     .when('/', {
       templateUrl: 'partials/home.html',
@@ -113,6 +115,7 @@ myApp.config(function ($routeProvider) {
       redirectTo: '/',
       access:{restricted:false, admin:false}
     });
+
     
 });
 
