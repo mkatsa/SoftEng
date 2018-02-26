@@ -17,7 +17,8 @@ router.get('/findEvents/:qu?',function(req,res){
       if (err)
         res.send(err);
 
-    
+    console.log("Current Date and Time:")
+    var datetime = new Date();
 
  	  /*decodeURIComponent(req.params.qu);*/
  	  if (req.params.qu =="undefined" || req.params.qu == null  ) res.json(events);
