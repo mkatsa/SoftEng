@@ -9,7 +9,7 @@ var Admin = new Schema({
   username: {type: String, required: true, unique: true },
 });
 
-Admin.plugin(passportLocalMongoose);
+//Admin.plugin(passportLocalMongoose);
 
 
 module.exports = mongoose.model('admins', Admin);
