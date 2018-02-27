@@ -19,6 +19,7 @@
     "greek-utils": "^1.2.1",
     "heapster_watermark": "^1.0.0",
     "html-pdf": "^2.2.0",
+    "image-watermark": "0.0.7",
     "mongoose": "^4.4.5",
     "mongoose-double": "0.0.1",
     "mongoose-type-email": "^1.0.5",

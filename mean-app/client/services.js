@@ -355,6 +355,8 @@ function createEvent(eventname,category, price, minage, maxage, tickets, descrip
   console.log(location)
   console.log(start_time)
   console.log(end_time)
+
+
   $http.post('/event/createEvent',
     {eventname:eventname,category: category, price:price,picture:url, minage:minage, maxage:maxage, description:description,provider:provider,location:location,tickets:tickets,start_time:start_time,end_time:end_time})
   .success(function (status) {
