@@ -301,7 +301,7 @@ angular.module('myApp').controller('eventsController',
   } 
 
   $scope.nameFilter = "";
-  var query = "";
+  var query = "all";
   $scope.addFilter = function (filter){
     query = filter;
     console.log('added filter'+ query)
@@ -310,8 +310,8 @@ angular.module('myApp').controller('eventsController',
   }
   $scope.getAllEvents = function (){
     //$scope.eventsList = {};
-    question = query + $scope.nameFilter;
-    AuthService.getAllEvents(question)
+    tag = query;
+    AuthService.getAllEvents($scope.nameFilter,tag)
     .then(function (response) {
       deleteMarkers();
       if ($scope.userlocation){
@@ -341,7 +341,8 @@ angular.module('myApp').controller('eventsController',
   };
 
   $scope.getAllEventsDelay = function() {
-    AuthService.getAllEvents($scope.nameFilter)
+    tag = query;
+    AuthService.getAllEvents($scope.nameFilter,tag)
     .then(function (response) {
       deleteMarkers();
       $scope.eventsList = response;
@@ -558,6 +559,8 @@ $scope.initMap = function() {
     marker.addListener('click', function() {
       infowindow.open(map, marker);
     });
+
+    
   }, 700);
 }
 
@@ -904,6 +907,7 @@ angular.module('myApp').controller('locationController',
           markersArray[i].setMap(null);
         }
         markersArray = [];
+
       }
       
       $scope.saveLocation = function() {
