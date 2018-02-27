@@ -11,14 +11,16 @@ var Fuse = require('fuse.js');
 
 
 //handle user search
-router.get('/findEvents/:qu?',function(req,res){
+router.get('/findEvents/:tag/:qu?',function(req,res){
 
-
+    console.log(req.params.qu)
+    console.log(req.params.tag)
     console.log("Current Date and Time:")
     var datetime = new Date();
     console.log(datetime)
 
-   Event.find( { end_time: { $gt: datetime } }, function (err, events) {
+if (req.params.tag != 'all'){
+   Event.find( { end_time: { $gt: datetime }, category:{ $eq:req.params.tag } }, function (err, events) {
       if (err)
         res.send(err);
 
@@ -48,6 +50,39 @@ router.get('/findEvents/:qu?',function(req,res){
       res.json(result);
   	  }
     });
+}
+else{
+    Event.find( { end_time: { $gt: datetime }}, function (err, events) {
+        if (err)
+          res.send(err);
+  
+  
+         /*decodeURIComponent(req.params.qu);*/
+         if (req.params.qu =="undefined" || req.params.qu == null  ) res.json(events);
+         else
+         {
+             var options = {
+        shouldSort: true,
+        tokenize: true,
+        matchAllTokens: true,
+        threshold: 0.6,
+        location: 0,
+        distance: 100,
+        maxPatternLength: 32,
+        minMatchCharLength: 5,
+        keys: [
+      "eventname",
+      "description",
+      "location.formatted_address",
+      "category",
+      ]
+      };
+        var fuse = new Fuse(events, options); // "list" is the item array
+        var result = fuse.search(req.params.qu);
+        res.json(result);
+          }
+      });
+}
 })	
 
 //POST message for event creation, not all necessairy data included yet
