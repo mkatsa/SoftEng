@@ -1,11 +1,118 @@
 1st user-admin
 
-{ "_id" : ObjectId("5a9543a8056d98161cec520b"), "salt" : "7b6bc4a6cbc3756619bea65f88f67e1f162ddb7d53ea00516cfa8757603aafe8", "hash" : "bd7fdd290b3f6e26919dd60a6caecec97eda28ed26aa34e9557cd457f515461a00b4d1bd4e7e45a85d97e9282fac2e93ecb1d69bad9349fd70d170d771bab0ff1c6073bdb6c6c68c8c35b40abce3b6372725589ac1d46439e75b043550a927d6614c2ef23f7993e6d74fc0194e4f08e2eabe514955da4699b21251eaeca1737d5f5a4ef927c5c2cfd9bdad160a9c05dafb63be688bc7013923ab3120ecbcf694b79c5111d93d1f0e7bc0770af721259092e986bb95ece266366db1460ba7ba21b80b751c1a4337ddc8b425f2b7165d758f648493627f8207ec2452c3dec07e49c7f7279abdd6d27535104e46986d98c35afae4ecfd6b57f41fd4b4084dec05e11de314ff966a63cba9cf03d7f0d1f7f1cf243b0d6e1f2d99ebc532bf00d0f3effbc4325031b58c340dc5eb58c8a3fe5b5eb547a8dcf1ee3e0d6696bfbdd0b4dcb333ceb5d00091a5b90de6bd7d03b8f8541ac1150042917d3147ce08aa3f65bd054f3ec8bea3c9e30a384885d1001c7ccd0a76654354bbee841ec859a3f059e823f2474d5d51cb215e4a945d0f30900809d2baa07d859aadd1b2294b953e86b147d7c8a38c00ad3be16b9f9de32c4434fb0ffd9b725b4fe4e2c94f4cfd4535e5a6b1e1ddb78558c5233815c61ea00ab7ff2287eb2225e8f7ddecefca416628d4cc3d62a74cc9d4e716d1caac39cdc5b864f14a0431a6e153750206f7148173f4", "usertype" : "user", "username" : "marinostz", "email" : "mtzaniko@gmail.com", "firstname" : "Μαρίνος", "lastname" : "Τζανίκος", "events_interested" : [ ], "events_bought" : [ ], "pointsSpent" : 0, "points" : 0, "location" : { "address_components" : [ { "long_name" : "3", "short_name" : "3", "types" : [ "street_number" ] }, { "long_name" : "Νάξου", "short_name" : "Νάξου", "types" : [ "route" ] }, { "long_name" : "Γλυκά Νερά", "short_name" : "Γλυκά Νερά", "types" : [ "locality", "political" ] }, { "long_name" : "Ανατολική Αττική", "short_name" : "Ανατολική Αττική", "types" : [ "administrative_area_level_3", "political" ] }, { "long_name" : "Ελλάδα", "short_name" : "GR", "types" : [ "country", "political" ] }, { "long_name" : "153 54", "short_name" : "153 54", "types" : [ "postal_code" ] } ], "formatted_address" : "Νάξου 3, Γλυκά Νερά 153 54, Ελλάδα", "geometry" : { "location" : { "lat" : 37.9915183, "lng" : 23.84711100000004 }, "location_type" : "RANGE_INTERPOLATED", "viewport" : { "south" : 37.99016931970849, "west" : 23.845762019708445, "north" : 37.99286728029149, "east" : 23.848459980291523 } }, "place_id" : "EiJOYXhvdSAzLCBHbGlrYSBOZXJhIDE1MyA1NCwgSGVsbGFz", "types" : [ "street_address" ] }, "mobile" : 6984193161, "__v" : 0 }
+{ "_id" : ObjectId("5a9543a8056d98161cec520b"), "salt" : "7b6bc4a6cbc3756619bea65f88f67e1f162ddb7d53ea00516cfa8757603aafe8", "hash" : "bd7fdd290b
+3f6e26919dd60a6caecec97eda28ed26aa34e9557cd457f515461a00b4d1bd4e7e45a85d97e9282fac2e93ecb1d69bad9349fd70d170d771bab0ff1c6073bdb6c6c68c8c35b40abce
+3b6372725589ac1d46439e75b043550a927d6614c2ef23f7993e6d74fc0194e4f08e2eabe514955da4699b21251eaeca1737d5f5a4ef927c5c2cfd9bdad160a9c05dafb63be688bc7
+013923ab3120ecbcf694b79c5111d93d1f0e7bc0770af721259092e986bb95ece266366db1460ba7ba21b80b751c1a4337ddc8b425f2b7165d758f648493627f8207ec2452c3dec07
+e49c7f7279abdd6d27535104e46986d98c35afae4ecfd6b57f41fd4b4084dec05e11de314ff966a63cba9cf03d7f0d1f7f1cf243b0d6e1f2d99ebc532bf00d0f3effbc4325031b58c
+340dc5eb58c8a3fe5b5eb547a8dcf1ee3e0d6696bfbdd0b4dcb333ceb5d00091a5b90de6bd7d03b8f8541ac1150042917d3147ce08aa3f65bd054f3ec8bea3c9e30a384885d1001c7
+ccd0a76654354bbee841ec859a3f059e823f2474d5d51cb215e4a945d0f30900809d2baa07d859aadd1b2294b953e86b147d7c8a38c00ad3be16b9f9de32c4434fb0ffd9b725b4fe4
+e2c94f4cfd4535e5a6b1e1ddb78558c5233815c61ea00ab7ff2287eb2225e8f7ddecefca416628d4cc3d62a74cc9d4e716d1caac39cdc5b864f14a0431a6e153750206f7148173f4"
+, "usertype" : "user", "username" : "marinostz", "email" : "mtzaniko@gmail.com", "firstname" : "Μαρίνος", "lastname" : "Τζανίκος", 
+"events_interested" : [ ], "events_bought" : [ ], "pointsSpent" : 0, "points" : 0, "location" : { "address_components" : [ { "long_name" : "3", 
+"short_name" : "3", "types" : [ "street_number" ] }, { "long_name" : "Νάξου", "short_name" : "Νάξου", "types" : [ "route" ] }, { "long_name" : 
+"Γλυκά Νερά", "short_name" : "Γλυκά Νερά", "types" : [ "locality", "political" ] }, { "long_name" : "Ανατολική Αττική", "short_name" : 
+"Ανατολική Αττική", "types" : [ "administrative_area_level_3", "political" ] }, { "long_name" : "Ελλάδα", "short_name" : "GR", "types" : [ 
+"country", "political" ] }, { "long_name" : "153 54", "short_name" : "153 54", "types" : [ "postal_code" ] } ], "formatted_address" : "Νάξου 3, 
+Γλυκά Νερά 153 54, Ελλάδα", "geometry" : { "location" : { "lat" : 37.9915183, "lng" : 23.84711100000004 }, "location_type" : 
+"RANGE_INTERPOLATED", "viewport" : { "south" : 37.99016931970849, "west" : 23.845762019708445, "north" : 37.99286728029149, "east" : 
+23.848459980291523 } }, "place_id" : "EiJOYXhvdSAzLCBHbGlrYSBOZXJhIDE1MyA1NCwgSGVsbGFz", "types" : [ "street_address" ] }, "mobile" : 
+6984193161, "__v" : 0 }
 
 2nd user
 
-{ "_id" : ObjectId("5a9544e9056d98161cec520c"), "salt" : "21d971becf86ab0557f6a4eace018065ce2c6cf65460b7b683fcc9c40b43984a", "hash" : "d60c4831d5c7f383662e0c34e64b3dd536fc3d257db894a1ebc01e4dfbaf8394e8a49fe586494ea8c1676d16292a68c50d5606e4241e7c5a999144503d029d6acbb38186aad6bb31835734f5eab338cd4331151b725129e85aac08cc082a0347b7806d2196559076fa447ac4f87e4262c43d30a847a0fb5b5a962810bcd8894fbb0596bf840ea2160d413ea06e1409985f0ea34e95f9354ded25116bb42e527c12dd1d0df21587c805cf6bf5595f82c1e2c0aa62936cdc762e99c54e1666806619135a4eb1cab28ffed670bb33320e096d888d6b873fb58380e6cc84806bdbec24429e58425cd00a16b509d1794f8a0b49d23bbb5f264d4e7e02c36e92bd185094f61113147c65ef69a8011ca221ced2f16907bf2acd62adf3636c7c11bd3121c35a6eb5e6ebf972e1931dc6e5ebb002c2cc7c7eea1fceb54c08fabcd94b6b6069229f91f1750da9a839de0a08fc259b29948efe89dcb6891ec2d383eb553d96ad7d9043f345405f5f08c55a6bbfb33d5f858f18e6c988916063f7fe7623a676bbf99a97139ea9bdfdf6d726e5c6a922df6edb99ffe4af36613f1df2b9c8d3f74c2dd10f4002812cfdd2c7301332e323b1f5a7640b67e32a4921e95e2b53e8f521211770c7ee838e79d687b050c6881f3b66b3dda433abfa83e267b8fb454184eaa622d40ec542f5ecea4df27e8321fb923643763fd0b5ad30fd71912458024e", "usertype" : "user", "username" : "panoskar18", "email" : "panoskarabelas7@gmail.com", "firstname" : "Παναγιώτης", "lastname" : "Καράμπελας", "events_interested" : [ ], "events_bought" : [ ], "pointsSpent" : 0, "points" : 0, "location" : { "address_components" : [ { "long_name" : "34", "short_name" : "34", "types" : [ "street_number" ] }, { "long_name" : "Ηπείρου", "short_name" : "Ηπείρου", "types" : [ "route" ] }, { "long_name" : "Γλυκά Νερά", "short_name" : "Γλυκά Νερά", "types" : [ "locality", "political" ] }, { "long_name" : "Ανατολική Αττική", "short_name" : "Ανατολική Αττική", "types" : [ "administrative_area_level_3", "political" ] }, { "long_name" : "Ελλάδα", "short_name" : "GR", "types" : [ "country", "political" ] }, { "long_name" : "153 54", "short_name" : "153 54", "types" : [ "postal_code" ] } ], "formatted_address" : "Ηπείρου 34, Γλυκά Νερά 153 54, Ελλάδα", "geometry" : { "location" : { "lat" : 37.9811196, "lng" : 23.84717969999997 }, "location_type" : "RANGE_INTERPOLATED", "viewport" : { "south" : 37.9797706197085, "west" : 23.845830719708488, "north" : 37.9824685802915, "east" : 23.848528680291565 } }, "partial_match" : true, "place_id" : "EjvOl8-AzrXOr8-Bzr_PhSAzNCwgzpPOu8-FzrrOrCDOnc61z4HOrCAxNTMgNTQsIM6VzrvOu86szrTOsQ", "types" : [ "street_address" ] }, "mobile" : 6983750224, "__v" : 0 }
+
+{ "_id" : ObjectId("5a9544e9056d98161cec520c"), "salt" : "21d971becf86ab0557f6a4eace018065ce2c6cf65460b7b683fcc9c40b43984a", "hash" : "d60c4831d5
+c7f383662e0c34e64b3dd536fc3d257db894a1ebc01e4dfbaf8394e8a49fe586494ea8c1676d16292a68c50d5606e4241e7c5a999144503d029d6acbb38186aad6bb31835734f5eab
+338cd4331151b725129e85aac08cc082a0347b7806d2196559076fa447ac4f87e4262c43d30a847a0fb5b5a962810bcd8894fbb0596bf840ea2160d413ea06e1409985f0ea34e95f9
+354ded25116bb42e527c12dd1d0df21587c805cf6bf5595f82c1e2c0aa62936cdc762e99c54e1666806619135a4eb1cab28ffed670bb33320e096d888d6b873fb58380e6cc84806bd
+bec24429e58425cd00a16b509d1794f8a0b49d23bbb5f264d4e7e02c36e92bd185094f61113147c65ef69a8011ca221ced2f16907bf2acd62adf3636c7c11bd3121c35a6eb5e6ebf9
+72e1931dc6e5ebb002c2cc7c7eea1fceb54c08fabcd94b6b6069229f91f1750da9a839de0a08fc259b29948efe89dcb6891ec2d383eb553d96ad7d9043f345405f5f08c55a6bbfb33
+d5f858f18e6c988916063f7fe7623a676bbf99a97139ea9bdfdf6d726e5c6a922df6edb99ffe4af36613f1df2b9c8d3f74c2dd10f4002812cfdd2c7301332e323b1f5a7640b67e32a
+4921e95e2b53e8f521211770c7ee838e79d687b050c6881f3b66b3dda433abfa83e267b8fb454184eaa622d40ec542f5ecea4df27e8321fb923643763fd0b5ad30fd71912458024e"
+, "usertype" : "user", "username" : "panoskar18", "email" : "panoskarabelas7@gmail.com", "firstname" : "Παναγιώτης", "lastname" : "Καράμπελας", 
+"events_interested" : [ ], "events_bought" : [ ], "pointsSpent" : 0, "points" : 0, "location" : { "address_components" : [ { "long_name" : "34", 
+"short_name" : "34", "types" : [ "street_number" ] }, { "long_name" : "Ηπείρου", "short_name" : "Ηπείρου", "types" : [ "route" ] }, { 
+"long_name" : "Γλυκά Νερά", "short_name" : "Γλυκά Νερά", "types" : [ "locality", "political" ] }, { "long_name" : "Ανατολική Αττική", 
+"short_name" : "Ανατολική Αττική", "types" : [ "administrative_area_level_3", "political" ] }, { "long_name" : "Ελλάδα", "short_name" : "GR", 
+"types" : [ "country", "political" ] }, { "long_name" : "153 54", "short_name" : "153 54", "types" : [ "postal_code" ] } ], "formatted_address" 
+: "Ηπείρου 34, Γλυκά Νερά 153 54, Ελλάδα", "geometry" : { "location" : { "lat" : 37.9811196, "lng" : 23.84717969999997 }, "location_type" : 
+"RANGE_INTERPOLATED", "viewport" : { "south" : 37.9797706197085, "west" : 23.845830719708488, "north" : 37.9824685802915, "east" : 
+23.848528680291565 } }, "partial_match" : true, "place_id" : 
+"EjvOl8-AzrXOr8-Bzr_PhSAzNCwgzpPOu8-FzrrOrCDOnc61z4HOrCAxNTMgNTQsIM6VzrvOu86szrTOsQ", "types" : [ "street_address" ] }, "mobile" : 6983750224, 
+"__v" : 0 }
 
 3nd user
 
-{ "_id" : ObjectId("5a954693056d98161cec520d"), "salt" : "89718b27c4485fb94303a6e08ac102ff3519db67bf7092a7d17359cb3f7754b2", "hash" : "4cfd9f6b77a86856d7e3ac2c8b61cfb8629ab40d0ce6125af048229565faff193b7305fb9e59be5fcdda17fba50f332db0933b2c95e529957c235454553c9f3ff76c592693350935c16a4c8f6f565bb6331c0d0bf8544962f187f57f264afbe7c1da6250f5fbf8e13de5aa3d5a50b5da7b5b78e2e86500b8494c8015fa79d04b9c79cea5f3e278b4fe1c6d4e1fb5de64f000642dfad440d14d29bc3024cabcdc746e0243dd1d7adcf85afc00aa5120d27cff1cd0db187dd70af497873a89e70c7929c085fd1e88b5ffc2ecf35d46aa7b62f2c32061b91cfae5a3c5f172ee10af1c1d85ddd976ff2ce81a27344f39b90918ecd1dbf15e0ecfa4b8d34c934622bc6e41b97e6ac1bed665f481966030b22022ec387b83e0b991a14a8a2e567b3fc8fd9562eb50f6bf7ce8f78e90f87e67fb0f503f3e59dddfb4c7da9f1939de108d629ac5e5f31cc21b28bba0741cc150661e1fb63fa62683118a3536658c3347aee9387242fd81f187661823a43ca53f59fbd49cc987e4807693b691aaf6c8135280da497a920858bf2c95629372fdcb942874bc730301ea90649a944e0050ca3893bffeac800045839c96393f5cf5589da76fdc0899628b98bdbaf46647a9ad142828ea9c37ae02281a32387f8ba7743444e5d57c55603def7ff207098e23f247d69f018521f80bd4e1d6bb1250048018ab8616378e45bad3512e24a95020092d", "usertype" : "user", "username" : "Taliban4", "email" : "nanomail4@gmail.com", "firstname" : "Λεωνίδας", "lastname" : "Νάνος", "events_interested" : [ ], "events_bought" : [ ], "pointsSpent" : 0, "points" : 20, "location" : { "available" : false }, "mobile" : 6981747759, "__v" : 0 }
+{ "_id" : ObjectId("5a954693056d98161cec520d"), "salt" : "89718b27c4485fb94303a6e08ac102ff3519db67bf7092a7d17359cb3f7754b2", "hash" : "4cfd9f6b77
+a86856d7e3ac2c8b61cfb8629ab40d0ce6125af048229565faff193b7305fb9e59be5fcdda17fba50f332db0933b2c95e529957c235454553c9f3ff76c592693350935c16a4c8f6f5
+65bb6331c0d0bf8544962f187f57f264afbe7c1da6250f5fbf8e13de5aa3d5a50b5da7b5b78e2e86500b8494c8015fa79d04b9c79cea5f3e278b4fe1c6d4e1fb5de64f000642dfad4
+40d14d29bc3024cabcdc746e0243dd1d7adcf85afc00aa5120d27cff1cd0db187dd70af497873a89e70c7929c085fd1e88b5ffc2ecf35d46aa7b62f2c32061b91cfae5a3c5f172ee1
+0af1c1d85ddd976ff2ce81a27344f39b90918ecd1dbf15e0ecfa4b8d34c934622bc6e41b97e6ac1bed665f481966030b22022ec387b83e0b991a14a8a2e567b3fc8fd9562eb50f6bf
+7ce8f78e90f87e67fb0f503f3e59dddfb4c7da9f1939de108d629ac5e5f31cc21b28bba0741cc150661e1fb63fa62683118a3536658c3347aee9387242fd81f187661823a43ca53f5
+9fbd49cc987e4807693b691aaf6c8135280da497a920858bf2c95629372fdcb942874bc730301ea90649a944e0050ca3893bffeac800045839c96393f5cf5589da76fdc0899628b98
+bdbaf46647a9ad142828ea9c37ae02281a32387f8ba7743444e5d57c55603def7ff207098e23f247d69f018521f80bd4e1d6bb1250048018ab8616378e45bad3512e24a95020092d"
+, "usertype" : "user", "username" : "Taliban4", "email" : "nanomail4@gmail.com", "firstname" : "Λεωνίδας", "lastname" : "Νάνος", 
+"events_interested" : [ ], "events_bought" : [ ], "pointsSpent" : 0, "points" : 20, "location" : { "available" : false }, "mobile" : 6981747759, 
+"__v" : 0 }
+
+{ "_id" : ObjectId("5a9544e9056d98161cec520c"), "salt" : "21d971becf86ab0557f6a4eace018065ce2c6cf65460b7b683fcc9c40b43984a", "hash" : "d60c4831d5
+c7f383662e0c34e64b3dd536fc3d257db894a1ebc01e4dfbaf8394e8a49fe586494ea8c1676d16292a68c50d5606e4241e7c5a999144503d029d6acbb38186aad6bb31835734f5eab
+338cd4331151b725129e85aac08cc082a0347b7806d2196559076fa447ac4f87e4262c43d30a847a0fb5b5a962810bcd8894fbb0596bf840ea2160d413ea06e1409985f0ea34e95f9
+354ded25116bb42e527c12dd1d0df21587c805cf6bf5595f82c1e2c0aa62936cdc762e99c54e1666806619135a4eb1cab28ffed670bb33320e096d888d6b873fb58380e6cc84806bd
+bec24429e58425cd00a16b509d1794f8a0b49d23bbb5f264d4e7e02c36e92bd185094f61113147c65ef69a8011ca221ced2f16907bf2acd62adf3636c7c11bd3121c35a6eb5e6ebf9
+72e1931dc6e5ebb002c2cc7c7eea1fceb54c08fabcd94b6b6069229f91f1750da9a839de0a08fc259b29948efe89dcb6891ec2d383eb553d96ad7d9043f345405f5f08c55a6bbfb33
+d5f858f18e6c988916063f7fe7623a676bbf99a97139ea9bdfdf6d726e5c6a922df6edb99ffe4af36613f1df2b9c8d3f74c2dd10f4002812cfdd2c7301332e323b1f5a7640b67e32a
+4921e95e2b53e8f521211770c7ee838e79d687b050c6881f3b66b3dda433abfa83e267b8fb454184eaa622d40ec542f5ecea4df27e8321fb923643763fd0b5ad30fd71912458024e"
+, "usertype" : "user", "username" : "panoskar18", "email" : "panoskarabelas7@gmail.com", "firstname" : "Παναγιώτης", "lastname" : "Καράμπελας", 
+"events_interested" : [ ], "events_bought" : [ ], "pointsSpent" : 0, "points" : 0, "location" : { "address_components" : [ { "long_name" : "34", 
+"short_name" : "34", "types" : [ "street_number" ] }, { "long_name" : "Ηπείρου", "short_name" : "Ηπείρου", "types" : [ "route" ] }, { 
+"long_name" : "Γλυκά Νερά", "short_name" : "Γλυκά Νερά", "types" : [ "locality", "political" ] }, { "long_name" : "Ανατολική Αττική", 
+"short_name" : "Ανατολική Αττική", "types" : [ "administrative_area_level_3", "political" ] }, { "long_name" : "Ελλάδα", "short_name" : "GR", 
+"types" : [ "country", "political" ] }, { "long_name" : "153 54", "short_name" : "153 54", "types" : [ "postal_code" ] } ], "formatted_address" 
+: "Ηπείρου 34, Γλυκά Νερά 153 54, Ελλάδα", "geometry" : { "location" : { "lat" : 37.9811196, "lng" : 23.84717969999997 }, "location_type" : 
+"RANGE_INTERPOLATED", "viewport" : { "south" : 37.9797706197085, "west" : 23.845830719708488, "north" : 37.9824685802915, "east" : 
+23.848528680291565 } }, "partial_match" : true, "place_id" : 
+"EjvOl8-AzrXOr8-Bzr_PhSAzNCwgzpPOu8-FzrrOrCDOnc61z4HOrCAxNTMgNTQsIM6VzrvOu86szrTOsQ", "types" : [ "street_address" ] }, "mobile" : 6983750224, 
+"__v" : 0 }
+
+
+{ "_id" : ObjectId("5a9544e9056d98161cec520c"), "salt" : "21d971becf86ab0557f6a4eace018065ce2c6cf65460b7b683fcc9c40b43984a", "hash" : "d60c4831d5
+c7f383662e0c34e64b3dd536fc3d257db894a1ebc01e4dfbaf8394e8a49fe586494ea8c1676d16292a68c50d5606e4241e7c5a999144503d029d6acbb38186aad6bb31835734f5eab
+338cd4331151b725129e85aac08cc082a0347b7806d2196559076fa447ac4f87e4262c43d30a847a0fb5b5a962810bcd8894fbb0596bf840ea2160d413ea06e1409985f0ea34e95f9
+354ded25116bb42e527c12dd1d0df21587c805cf6bf5595f82c1e2c0aa62936cdc762e99c54e1666806619135a4eb1cab28ffed670bb33320e096d888d6b873fb58380e6cc84806bd
+bec24429e58425cd00a16b509d1794f8a0b49d23bbb5f264d4e7e02c36e92bd185094f61113147c65ef69a8011ca221ced2f16907bf2acd62adf3636c7c11bd3121c35a6eb5e6ebf9
+72e1931dc6e5ebb002c2cc7c7eea1fceb54c08fabcd94b6b6069229f91f1750da9a839de0a08fc259b29948efe89dcb6891ec2d383eb553d96ad7d9043f345405f5f08c55a6bbfb33
+d5f858f18e6c988916063f7fe7623a676bbf99a97139ea9bdfdf6d726e5c6a922df6edb99ffe4af36613f1df2b9c8d3f74c2dd10f4002812cfdd2c7301332e323b1f5a7640b67e32a
+4921e95e2b53e8f521211770c7ee838e79d687b050c6881f3b66b3dda433abfa83e267b8fb454184eaa622d40ec542f5ecea4df27e8321fb923643763fd0b5ad30fd71912458024e"
+, "usertype" : "user", "username" : "panoskar18", "email" : "panoskarabelas7@gmail.com", "firstname" : "Παναγιώτης", "lastname" : "Καράμπελας", 
+"events_interested" : [ ], "events_bought" : [ ], "pointsSpent" : 0, "points" : 0, "location" : { "address_components" : [ { "long_name" : "34", 
+"short_name" : "34", "types" : [ "street_number" ] }, { "long_name" : "Ηπείρου", "short_name" : "Ηπείρου", "types" : [ "route" ] }, { 
+"long_name" : "Γλυκά Νερά", "short_name" : "Γλυκά Νερά", "types" : [ "locality", "political" ] }, { "long_name" : "Ανατολική Αττική", 
+"short_name" : "Ανατολική Αττική", "types" : [ "administrative_area_level_3", "political" ] }, { "long_name" : "Ελλάδα", "short_name" : "GR", 
+"types" : [ "country", "political" ] }, { "long_name" : "153 54", "short_name" : "153 54", "types" : [ "postal_code" ] } ], "formatted_address" 
+: "Ηπείρου 34, Γλυκά Νερά 153 54, Ελλάδα", "geometry" : { "location" : { "lat" : 37.9811196, "lng" : 23.84717969999997 }, "location_type" : 
+"RANGE_INTERPOLATED", "viewport" : { "south" : 37.9797706197085, "west" : 23.845830719708488, "north" : 37.9824685802915, "east" : 
+23.848528680291565 } }, "partial_match" : true, "place_id" : 
+"EjvOl8-AzrXOr8-Bzr_PhSAzNCwgzpPOu8-FzrrOrCDOnc61z4HOrCAxNTMgNTQsIM6VzrvOu86szrTOsQ", "types" : [ "street_address" ] }, "mobile" : 6983750224, 
+"__v" : 0 }
+
+{ "_id" : ObjectId("5a9544e9056d98161cec520c"), "salt" : "21d971becf86ab0557f6a4eace018065ce2c6cf65460b7b683fcc9c40b43984a", "hash" : "d60c4831d5
+c7f383662e0c34e64b3dd536fc3d257db894a1ebc01e4dfbaf8394e8a49fe586494ea8c1676d16292a68c50d5606e4241e7c5a999144503d029d6acbb38186aad6bb31835734f5eab
+338cd4331151b725129e85aac08cc082a0347b7806d2196559076fa447ac4f87e4262c43d30a847a0fb5b5a962810bcd8894fbb0596bf840ea2160d413ea06e1409985f0ea34e95f9
+354ded25116bb42e527c12dd1d0df21587c805cf6bf5595f82c1e2c0aa62936cdc762e99c54e1666806619135a4eb1cab28ffed670bb33320e096d888d6b873fb58380e6cc84806bd
+bec24429e58425cd00a16b509d1794f8a0b49d23bbb5f264d4e7e02c36e92bd185094f61113147c65ef69a8011ca221ced2f16907bf2acd62adf3636c7c11bd3121c35a6eb5e6ebf9
+72e1931dc6e5ebb002c2cc7c7eea1fceb54c08fabcd94b6b6069229f91f1750da9a839de0a08fc259b29948efe89dcb6891ec2d383eb553d96ad7d9043f345405f5f08c55a6bbfb33
+d5f858f18e6c988916063f7fe7623a676bbf99a97139ea9bdfdf6d726e5c6a922df6edb99ffe4af36613f1df2b9c8d3f74c2dd10f4002812cfdd2c7301332e323b1f5a7640b67e32a
+4921e95e2b53e8f521211770c7ee838e79d687b050c6881f3b66b3dda433abfa83e267b8fb454184eaa622d40ec542f5ecea4df27e8321fb923643763fd0b5ad30fd71912458024e"
+, "usertype" : "user", "username" : "panoskar18", "email" : "panoskarabelas7@gmail.com", "firstname" : "Παναγιώτης", "lastname" : "Καράμπελας", 
+"events_interested" : [ ], "events_bought" : [ ], "pointsSpent" : 0, "points" : 0, "location" : { "address_components" : [ { "long_name" : "34", 
+"short_name" : "34", "types" : [ "street_number" ] }, { "long_name" : "Ηπείρου", "short_name" : "Ηπείρου", "types" : [ "route" ] }, { 
+"long_name" : "Γλυκά Νερά", "short_name" : "Γλυκά Νερά", "types" : [ "locality", "political" ] }, { "long_name" : "Ανατολική Αττική", 
+"short_name" : "Ανατολική Αττική", "types" : [ "administrative_area_level_3", "political" ] }, { "long_name" : "Ελλάδα", "short_name" : "GR", 
+"types" : [ "country", "political" ] }, { "long_name" : "153 54", "short_name" : "153 54", "types" : [ "postal_code" ] } ], "formatted_address" 
+: "Ηπείρου 34, Γλυκά Νερά 153 54, Ελλάδα", "geometry" : { "location" : { "lat" : 37.9811196, "lng" : 23.84717969999997 }, "location_type" : 
+"RANGE_INTERPOLATED", "viewport" : { "south" : 37.9797706197085, "west" : 23.845830719708488, "north" : 37.9824685802915, "east" : 
+23.848528680291565 } }, "partial_match" : true, "place_id" : 
+"EjvOl8-AzrXOr8-Bzr_PhSAzNCwgzpPOu8-FzrrOrCDOnc61z4HOrCAxNTMgNTQsIM6VzrvOu86szrTOsQ", "types" : [ "street_address" ] }, "mobile" : 6983750224, 
+"__v" : 0 }
