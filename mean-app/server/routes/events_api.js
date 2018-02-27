@@ -63,6 +63,9 @@ router.post("/createEvent", function(req, res) {
     console.log(req.body.provider)
     console.log(req.body.start_time)
     console.log(req.body.end_time)
+
+
+
     var ev = new Event({
         eventname: req.body.eventname,
         category: req.body.category,
