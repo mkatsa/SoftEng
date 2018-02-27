@@ -426,6 +426,7 @@ $scope.getPublicProviderDataByUsername = function(a) {			//what to update and th
     $scope.TaxID = userdata.TaxID;
     $scope.phone = userdata.phone;
     $scope.description = userdata.description;
+    $scope.picture = userdata.picture;
   })
 };
 
